@@ -1,9 +1,9 @@
-## SynthGarden
+## `SynthGarden`
 
-###Background and Overview
+### `Background + Overview`
 
-###Functionality + MVP
+### `Functionality + MVP`
 
-###Technologies + Technical Challenges
+### `Technologies + Technical Challenges`
 
-###Group Members + Work Breakdown
+### `Group Members + Work Breakdown`
