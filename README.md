@@ -12,5 +12,6 @@
 - Rooms
 
 ### `Technologies + Technical Challenges`
+- Tone.js, Web Audio
 
 ### `Group Members + Work Breakdown`
