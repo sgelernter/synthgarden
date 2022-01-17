@@ -9,6 +9,8 @@ const res = require('express/lib/response');
 
 router.get('/test', (req, res) => res.json({ msg: 'USERS ROUTE TEST SUCCESS'}));
 
+
+// REGISTER NEW USER
 router.post('/register', (req, res) => {
 
     User.findOne({ email: req.body.email })
@@ -52,6 +54,7 @@ router.post('/register', (req, res) => {
 });
 
 
+// CHECK LOGIN CREDENTIALS w/BCRYPT
 const checkPassword = (password, passwordInput, user) => {
     
     bcrypt.compare(password, passwordInput)
@@ -71,6 +74,7 @@ const checkPassword = (password, passwordInput, user) => {
         });
 }
 
+// LOGIN USER
 router.post('/login', (req, res) => {
 
     // NOT SURE WHAT THIS WILL BE CALLED ON THE WAY IN FROM THE FRONT-END FORM
@@ -93,6 +97,16 @@ router.post('/login', (req, res) => {
             }
         });
 });
+
+// USER PASSPORT AUTHENTICATION ROUTE
+router.get('/current', passport.authenticate('jwt', {session: false}), (req, res) => {
+    res.json({
+        id: req.user.id,
+        username: req.user.username,
+        email: req.user.email
+    })
+    }
+);
 
 
 
