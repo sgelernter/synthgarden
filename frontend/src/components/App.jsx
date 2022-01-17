@@ -2,9 +2,9 @@ import React from "react";
 // import NavbarContainer from "./navbar/navbar_container";
 // import LoginFormContainer from "./session_form/login_form_container";
 // import SignupFormContainer from "../components/session_form/signup_form_container";
-// import Splash from './splash/splash';
+import Splash from './splash/splash';
 // import { Route, Switch } from 'react-router-dom';
-// import { Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 
 const App = () => (
   <div>
@@ -12,8 +12,7 @@ const App = () => (
       <Route path="/login" component={LoginFormContainer} /> */}
       
       {/* <Switch> */}
-          SynthGarden test
-        {/* <Route exact path="/" component={Splash} /> */}
+        <Route exact path="/" component={Splash} />
       {/* </Switch> */}
 
     
