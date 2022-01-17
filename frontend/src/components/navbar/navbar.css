@@ -1,0 +1,49 @@
+.logged-in-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    /* top: 0; */
+    /* width: 100vw; */
+    margin: 10px;
+}
+
+.logged-out-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 10px;
+}
+
+.home-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 20px;
+    color:rgb(94, 255, 180);
+}
+
+.home-link:hover {
+    cursor: default;
+}
+
+.session-buttons {
+    display: flex;
+}
+
+.session-btn {
+    display: flex;
+    background: rgb(94, 255, 180);
+    padding: 10px 12px;
+    flex-direction: row;
+    text-align: center;
+    border-radius: 50px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.session-btn:hover {
+    cursor: default;
+}

@@ -9,7 +9,7 @@ export default function Synthstrument() {
     return (
         <div className="synthstrument-container">
             <div className="synthstrument">
-                Synthstrument here
+                ✨ QT Synthstrument Here ✨
             </div>
         </div>
     )

@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 100%;
 }
 
 .synthstrument {
@@ -13,4 +13,5 @@
     text-align: center;
     width: 60vw;
     height: 60vh;
+    margin-top: 150px;
 }
