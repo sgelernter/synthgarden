@@ -1,0 +1,16 @@
+.synthstrument-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.synthstrument {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px dashed hotpink;
+    text-align: center;
+    width: 60vw;
+    height: 60vh;
+}

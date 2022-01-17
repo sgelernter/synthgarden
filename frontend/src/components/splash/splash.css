@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
 * {
     background-color: #000;
+    color: rgb(197, 197, 197);
+    font-family: 'Space Mono';
+    /* display: flex; */
 }
