@@ -1,10 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const keys = require('../../config/keys');
+const Validator = require('validator');
 const User = require('../../models/User');
+const res = require('express/lib/response');
 
 router.get('/test', (req, res) => res.json({ msg: 'USERS ROUTE TEST SUCCESS'}));
-
 
 router.post('/register', (req, res) => {
 
@@ -38,6 +41,70 @@ router.post('/register', (req, res) => {
             }
         });
 });
+
+
+const checkPassword = (password, passwordInput, user) => {
+
+    let idStringType;
+    let idStringValue;
+    if (user.email) [idStringType, idStringValue] = ['email', user.email];
+    if (user.username) [idStringType, idStringValue] = ['username', user.username];
+    
+    bcrypt.compare(password, passwordInput)
+        .then(isMatch => {
+            if (isMatch) {
+                const payload = {id: user.id, [idStringType]: idStringValue};
+
+                jwt.sign(payload, keys.secretOrKey, {expiresIn: 3600}, (err, token) => {
+                    res.json({
+                        success: true,
+                        token: 'Bearer ' + token
+                    });
+                });
+            } else {
+                return res.status(400).json({password: 'Incorrect password'});
+            }
+        });
+}
+
+router.post('/login', (req, res) => {
+
+    // NOT SURE WHAT THIS WILL BE CALLED ON THE WAY IN FROM THE FRONT-END FORM
+    const idString = req.body.idString;
+    const password = req.body.password;
+
+    User.findOne({email: idString})
+        .then(user => {
+            if (!user) {
+                User.findOne({username: idString})
+                    .then(user => {
+                        if (!user) {
+                            return res.status(404).json({id: 'Invalid email/username'})
+                        } else {
+                            bcrypt.compare(password, user.password)
+                                .then(isMatch => {
+                                    if (isMatch) {
+                                        res.json({msg: 'Success'});
+                                    } else {
+                                        return res.status(400).json({password: 'Incorrect password'});
+                                    }
+                                });
+                        }
+                    });
+            } else {
+                bcrypt.compare(password, user.password)
+                .then(isMatch => {
+                    if (isMatch) {
+                        res.json({msg: 'Success'});
+                    } else {
+                        return res.status(400).json({password: 'Incorrect password'});
+                    }
+                });
+            }
+        });
+});
+
+
 
 
 
