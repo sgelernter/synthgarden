@@ -4,7 +4,7 @@
 
 ### `Functionality + MVP`
 - Splash / Auth
-- Synth Player
+- Synth (Browser) Instrument
 - CRUD Synth Patches
 - CRUD Samples
 - Like / Download
