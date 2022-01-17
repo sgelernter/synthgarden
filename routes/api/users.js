@@ -32,7 +32,16 @@ router.post('/register', (req, res) => {
                                     if (err) throw err;
                                     newUser.password = hash;
                                     newUser.save()
-                                        .then(user => res.json(user))
+                                        .then(user => {
+                                            const payload = { id: user.id, email: user.email, username: user.username };
+
+                                            jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
+                                                res.json({
+                                                    success: true,
+                                                    token: 'Bearer ' + token
+                                                });
+                                            });
+                                        })
                                         .catch(err => console.log(err));
                                 });
                             });
@@ -44,16 +53,11 @@ router.post('/register', (req, res) => {
 
 
 const checkPassword = (password, passwordInput, user) => {
-
-    let idStringType;
-    let idStringValue;
-    if (user.email) [idStringType, idStringValue] = ['email', user.email];
-    if (user.username) [idStringType, idStringValue] = ['username', user.username];
     
     bcrypt.compare(password, passwordInput)
         .then(isMatch => {
             if (isMatch) {
-                const payload = {id: user.id, [idStringType]: idStringValue};
+                const payload = {id: user.id, email: user.email, username: user.username};
 
                 jwt.sign(payload, keys.secretOrKey, {expiresIn: 3600}, (err, token) => {
                     res.json({
@@ -81,25 +85,11 @@ router.post('/login', (req, res) => {
                         if (!user) {
                             return res.status(404).json({id: 'Invalid email/username'})
                         } else {
-                            bcrypt.compare(password, user.password)
-                                .then(isMatch => {
-                                    if (isMatch) {
-                                        res.json({msg: 'Success'});
-                                    } else {
-                                        return res.status(400).json({password: 'Incorrect password'});
-                                    }
-                                });
+                            checkPassword(password, user.password, user);
                         }
                     });
             } else {
-                bcrypt.compare(password, user.password)
-                .then(isMatch => {
-                    if (isMatch) {
-                        res.json({msg: 'Success'});
-                    } else {
-                        return res.status(400).json({password: 'Incorrect password'});
-                    }
-                });
+                checkPassword(password, user.password, user);
             }
         });
 });
