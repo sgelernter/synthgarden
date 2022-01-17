@@ -1,17 +1,35 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import './App.css';
+import React from 'react'
+import ReactDOM from "react-dom";
+import Root from "./components/root";
+import configureStore from "./store/store";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+document.addEventListener("DOMContentLoaded", () => {
+  let store;
+  store = configureStore();
+  // if (window.currentUser) {
+  //   const preloadedState = {
+  //     entities: {
+  //       users: { [window.currentUser.id]: window.currentUser }
+  //     },
+  //     session: { id: window.currentUser.id }
+  //   };
+  //   store = configureStore(preloadedState);
+  //   delete window.currentUser;
+  // } else {
+  //   store = configureStore();
+  // }
+  
+  // TESTING START - REMOVE LATER
+  // window.store = store;
+  // window.getState = store.getState;
+  // window.dispatch = store.dispatch;
+  // window.signup = signup;
+  // window.login = login;
+  // window.logout = logout;
+  // TESTING END
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+  const root = document.getElementById("root");
+  ReactDOM.render(<Root store={store} />, root);
+
+});
