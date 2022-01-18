@@ -10,7 +10,10 @@ const SampleSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'users'
     },
-    timestamps: true
+    date: {
+        type: Date,
+        default: Date.now
+    }
 })
 
 module.exports = Sample = mongoose.model('Sample', SampleSchema);
