@@ -4,6 +4,7 @@
 import * as Tone from 'tone';
 import Oscillator1 from './osc_1';
 // import Oscillator2 from './osc_2';
+import FXBank from './fx_bank';
 import React from 'react'
 import '../../assets/stylesheets/synthstrument.scss';
 
@@ -11,15 +12,18 @@ class Synthstrument extends React.Component{
 
     constructor(props){
         super(props);
-        this.oscillator1 = new Tone.OmniOscillator();
+        this.simpleSynth = new Tone.Synth().toDestination();
+        this.simpleSynth.volume.value = -20;
+        this.oscillator1 = this.simpleSynth.oscillator;
+        this.oscillator1.type = 'pwm';
         // this.oscillator2 = new Tone.OmniOscillator();
-        this.envelope = new Tone.AmplitudeEnvelope();
+        this.envelope = this.simpleSynth.envelope;
         this.envelope.attackCurve = "linear";
         this.envelope.attack = .2;
-        this.oscillator1.connect(this.envelope);
+        // this.oscillator1.connect(this.envelope);
         // this.oscillator2.connect(this.envelope);
-        this.vol = new Tone.Volume(-30).toDestination();
-        this.envelope.connect(this.vol);
+        // this.vol = new Tone.Volume(-30).toDestination();
+        // this.envelope.connect(this.vol);
         this.pitches = {
             z: 'C4',
             x: 'D4',
@@ -30,7 +34,8 @@ class Synthstrument extends React.Component{
         }
         this.state = {
             contextStarted: 'false',
-            envelope: this.envelope
+            envelope: this.envelope,
+            synth1: this.simpleSynth
         }
         // debugger
         this.instantiateAudioContext = this.instantiateAudioContext.bind(this);
@@ -42,7 +47,7 @@ class Synthstrument extends React.Component{
     }
 
     setVolume(e){
-        this.vol.volume.value = parseInt(e.target.value);
+        this.simpleSynth.volume.value = parseInt(e.target.value);
     }
 
     instantiateAudioContext(e){
@@ -82,11 +87,19 @@ class Synthstrument extends React.Component{
 
     updateSlider(type){
         return e => {
-            const updateEnv = this.state.envelope;
-            updateEnv[type] = e.target.value;
-            this.setState({
-                envelope: updateEnv
-            })
+            if (type !== 'portamento') {
+                const updateEnv = this.state.envelope;
+                updateEnv[type] = e.target.value;
+                this.setState({
+                    envelope: updateEnv
+                })
+            } else {
+                this.state.synth1.portamento = e.target.value;
+                // debugger
+                this.setState({
+                    synth1: this.state.synth1
+                })
+            }
         }
     }
 
@@ -112,14 +125,18 @@ class Synthstrument extends React.Component{
                                     Decay
                                     <input type="range" value={this.state.envelope.decay} max="2" step=".1" onChange={this.updateSlider('decay')}/>
                                 </label> */}
-                                {/* <label>
+                                <label>
                                     Sustain
-                                    <input type="range" value={this.state.envelope} />
-                                </label> */}
+                                    <input type="range" value={this.state.envelope.sustainbbz} max="1" step=".1" onChange={this.updateSlider('sustain')}/>
+                                </label>
                                 <label>
                                     Release
                                     <input type="range" value={this.state.envelope.release} max="5" step=".1" onChange={this.updateSlider('release')}/>
                                 </label>
+                                {/* <label>
+                                    Glide
+                                    <input type="range" value={this.state.synth1.portamento} max="3" step=".1" onChange={this.updateSlider('portamento')}/>
+                                </label> */}
                             </div>
                         </div>
                         <div className="osc-box 2">
@@ -152,7 +169,7 @@ class Synthstrument extends React.Component{
                                 </label>
                                 <label>
                                     med
-                                    <input type="radio" value="-20" name="volume"/>
+                                    <input type="radio" value="-20" name="volume" defaultChecked/>
                                 </label>
                                 <label>
                                     high
