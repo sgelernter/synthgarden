@@ -5,6 +5,7 @@ import ReactDOM from "react-dom";
 import Root from "./components/root";
 import configureStore from "./store/store";
 
+
 document.addEventListener("DOMContentLoaded", () => {
   let store;
   store = configureStore();
@@ -28,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // window.signup = signup;
   // window.login = login;
   // window.logout = logout;
+  // window.Synth = Tone.Synth;
   // TESTING END
 
   const root = document.getElementById("root");

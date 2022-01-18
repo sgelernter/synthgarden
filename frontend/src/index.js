@@ -4,6 +4,9 @@ import ReactDOM from "react-dom";
 import Root from "./components/root";
 import configureStore from "./store/store";
 
+// TONE.JS WINDOW TESTING:
+// import * as Tone from 'tone';
+
 document.addEventListener("DOMContentLoaded", () => {
   let store;
   store = configureStore();
@@ -27,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // window.signup = signup;
   // window.login = login;
   // window.logout = logout;
+  // window.Tone = Tone;
   // TESTING END
 
   const root = document.getElementById("root");

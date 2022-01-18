@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 const Validator = require('validator');
 const User = require('../../models/User');
-const res = require('express/lib/response');
+const passport = require('passport');
 
 router.get('/test', (req, res) => res.json({ msg: 'USERS ROUTE TEST SUCCESS'}));
 
