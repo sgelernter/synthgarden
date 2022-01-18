@@ -15,20 +15,41 @@
     width: 60vw;
     height: 60vh;
     margin-top: 7rem;
-}
-
-.synthstrument ol {
-    list-style: none;
-    display: flex;
-    height: 50px
-}
-
-.synthstrument li {
-    border: 1px solid orange;
-    width: 50px;
-}
-
-.synthstrument li.active {
-    background-color: paleturquoise;
-    transition: background-color .1s;
+    .oscillators-bar{
+        border: 1px solid aqua;
+        width: 80%;
+        height: 150px;
+        display: flex;
+        flex-direction: column;
+        .oscillator{
+            border: 1px solid thistle;
+            height: 50%;
+        }
+    }
+    .keys-bar{
+        width: 80%;
+        border: 1px solid blueviolet;
+        display: flex;        
+        .post-FX{
+            width: 20%;
+            border: 1px solid yellow;
+        }
+        ol{
+            border: 1px solid lime;
+            padding: 5px;
+            list-style: none;
+            display: flex;
+            justify-content: space-evenly;
+            width: 80%;
+            height: 50px;
+            li {
+                border: 1px solid orange;
+                width: 50px;
+                &.active{
+                    background-color: paleturquoise;
+                    transition: background-color .1s;
+                }
+            }
+        }
+    }
 }

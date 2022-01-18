@@ -2,7 +2,8 @@
 ♡ BROWSER SYNTH INSTRUMENT ♡
 */
 import * as Tone from 'tone';
-
+import Oscillator1 from './osc_1';
+import Oscillator2 from './osc_2';
 import React from 'react'
 import '../../assets/stylesheets/synthstrument.scss';
 
@@ -15,7 +16,7 @@ class Synthstrument extends React.Component{
         this.envelope.attackCurve = "linear";
         this.envelope.attack = 1;
         this.oscillator.connect(this.envelope);
-        const vol = new Tone.Volume(-6).toDestination();
+        const vol = new Tone.Volume(-30).toDestination();
         this.envelope.connect(vol);
         this.pitches = {
             z: 'C4',
@@ -69,21 +70,32 @@ class Synthstrument extends React.Component{
         return (
             <div className="synthstrument-container" onClick={this.instantiateAudioContext}>
                 <div className="synthstrument">
-                    ✨ QT Synthstrument Here ✨
-                    <ol className="keyboard" onClick={this.clickKey}>
-                        <li className="key" id="C4">
-                        </li>
-                        <li className="key" id="D4">
-                        </li>
-                        <li className="key" id="E4">
-                        </li>
-                        <li className="key" id="F4">
-                        </li>
-                        <li className="key" id="G4">
-                        </li>
-                        <li className="key" id="C5">
-                        </li>
-                    </ol>
+                    <div className="label">
+                        ✨ QT Synthstrument Here ✨
+                    </div>
+                    <div className="oscillators-bar">
+                        < Oscillator1 />
+                        < Oscillator2 />
+                    </div>
+                    <div className="keys-bar">
+                        <div className="post-FX">
+
+                        </div>
+                        <ol className="keyboard" onClick={this.clickKey}>
+                            <li className="key" id="C4">
+                            </li>
+                            <li className="key" id="D4">
+                            </li>
+                            <li className="key" id="E4">
+                            </li>
+                            <li className="key" id="F4">
+                            </li>
+                            <li className="key" id="G4">
+                            </li>
+                            <li className="key" id="C5">
+                            </li>
+                        </ol>
+                    </div>
                 </div>
             </div>
         )
