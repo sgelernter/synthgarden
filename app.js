@@ -5,6 +5,8 @@ const db = require('./config/keys').mongoURI;
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const users = require('./routes/api/users');
+const samples = require('./routes/api/samples');
+const patches = require('./routes/api/patches');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -18,13 +20,13 @@ mongoose
 
 const port = process.env.PORT || 5000;
 
-
-
-
 app.get('/', (req, res) => {
     res.send('SynthGarden');
 });
 
 app.use('/api/users/', users);
+app.use('/api/samples', samples);
+app.use('/api/patches', patches);
+
 
 app.listen(port, () => {console.log(`listening on port ${port}`)});  
