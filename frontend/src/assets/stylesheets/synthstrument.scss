@@ -1,0 +1,65 @@
+.synthstrument-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.synthstrument {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 3px dashed hotpink;
+    text-align: center;
+    width: 60vw;
+    height: 60vh;
+    margin-top: 7rem;
+    .power-button.on {
+        color: rgb(120, 247, 57);
+        text-shadow: 1px white;
+        margin-left: 50px;
+    }
+    .oscillators-bar{
+        border: 1px solid aqua;
+        width: 80%;
+        height: 150px;
+        display: flex;
+        flex-direction: column;
+        .oscillator{
+            border: 1px solid thistle;
+            height: 50%;
+        }
+    }
+    .keys-bar{
+        width: 80%;
+        border: 1px solid blueviolet;
+        display: flex;        
+        .post-FX{
+            width: 20%;
+            border: 1px solid yellow;
+        }
+        ol{
+            border: 1px solid lime;
+            padding: 5px;
+            list-style: none;
+            display: flex;
+            justify-content: space-evenly;
+            width: 80%;
+            height: 50px;
+            li {
+                border: 1px solid orange;
+                width: 50px;
+                &.active{
+                    background-color: paleturquoise;
+                    transition: background-color .1s;
+                }
+            }
+        }
+        .volume{
+            display: flex;
+            flex-direction: column;
+            font-size: 10px;
+        }
+    }
+}

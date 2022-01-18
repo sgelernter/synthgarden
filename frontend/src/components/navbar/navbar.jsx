@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './navbar.css';
+import '../../assets/stylesheets/navbar.scss';
 
 const Navbar = ({ loggedIn, logout, openModal }) => {
   const display = loggedIn ? (
