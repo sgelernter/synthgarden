@@ -4,7 +4,7 @@
 import * as Tone from 'tone';
 
 import React from 'react'
-import './synthstrument.css'
+import '../../assets/stylesheets/synthstrument.scss';
 
 class Synthstrument extends React.Component{
 
@@ -12,8 +12,11 @@ class Synthstrument extends React.Component{
         super(props);
         this.oscillator = new Tone.OmniOscillator();
         this.envelope = new Tone.AmplitudeEnvelope();
+        this.envelope.attackCurve = "linear";
+        this.envelope.attack = 1;
         this.oscillator.connect(this.envelope);
-        this.envelope.toDestination();
+        const vol = new Tone.Volume(-6).toDestination();
+        this.envelope.connect(vol);
         this.pitches = {
             z: 'C4',
             x: 'D4',
@@ -48,7 +51,7 @@ class Synthstrument extends React.Component{
 
     clickKey(e){
         this.oscillator.frequency.value = e.target.id;
-        this.envelope.triggerAttackRelease("8t");
+        this.envelope.triggerAttackRelease("2t");
     }
 
     pressKey(e){

@@ -5,7 +5,7 @@ SIDEBAR?
 */
 
 import React from 'react';
-import './controls.css';
+import '../../assets/stylesheets/controls.scss';
 
 export default function Controls() {
     return (
