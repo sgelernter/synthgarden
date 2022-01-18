@@ -5,12 +5,20 @@
 import React from 'react'
 import './synthstrument.css'
 
-export default function Synthstrument() {
-    return (
-        <div className="synthstrument-container">
-            <div className="synthstrument">
-                ✨ QT Synthstrument Here ✨
+class Synthstrument extends React.Component{
+    constructor(props){
+        super(props);
+    }
+
+    render(){
+        return (
+            <div className="synthstrument-container">
+                <div className="synthstrument">
+                    ✨ QT Synthstrument Here ✨
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
+
+export default Synthstrument;
