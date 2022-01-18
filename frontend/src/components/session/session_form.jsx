@@ -10,7 +10,7 @@ class SessionForm extends React.Component {
       password: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-    console.log(this.props)
+    // console.log(this.props)
   }
 
   update(field) {
@@ -22,7 +22,10 @@ class SessionForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const user = Object.assign({}, this.state);
+    // console.log(user)
+    // debugger
     this.props.processForm(user).then(this.props.closeModal);
+    // console.log(this.props);
   }
 
   // renderErrors() {
