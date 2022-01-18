@@ -55,19 +55,23 @@ router.post('/register', (req, res) => {
 
 
 // CHECK LOGIN CREDENTIALS w/BCRYPT
-const checkPassword = (password, passwordInput, user) => {
-    
+const checkPassword = (password, passwordInput, user, res) => {
+    // console.log('password checking')
     bcrypt.compare(password, passwordInput)
         .then(isMatch => {
             if (isMatch) {
                 const payload = {id: user.id, email: user.email, username: user.username};
-
+                // console.log(payload)
+                // debugger
                 jwt.sign(payload, keys.secretOrKey, {expiresIn: 3600}, (err, token) => {
+                    // debugger
                     res.json({
                         success: true,
                         token: 'Bearer ' + token
                     });
+                    console.log(token)
                 });
+                
             } else {
                 return res.status(400).json({password: 'Incorrect password'});
             }
@@ -78,8 +82,10 @@ const checkPassword = (password, passwordInput, user) => {
 router.post('/login', (req, res) => {
 
     // NOT SURE WHAT THIS WILL BE CALLED ON THE WAY IN FROM THE FRONT-END FORM
-    const idString = req.body.idString;
+    // console.log(res)
+    const idString = req.body.email;
     const password = req.body.password;
+    // console.log(idString)
 
     User.findOne({email: idString})
         .then(user => {
@@ -89,11 +95,11 @@ router.post('/login', (req, res) => {
                         if (!user) {
                             return res.status(404).json({id: 'Invalid email/username'})
                         } else {
-                            checkPassword(password, user.password, user);
+                            checkPassword(password, user.password, user, res);
                         }
                     });
             } else {
-                checkPassword(password, user.password, user);
+                checkPassword(password, user.password, user, res);
             }
         });
 });

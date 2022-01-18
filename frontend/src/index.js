@@ -9,6 +9,7 @@ import { logout } from './actions/session_actions';
 
 // TESTING
 import { signup, login } from "./actions/session_actions";
+// import {axios} from 'axios'
 
 document.addEventListener('DOMContentLoaded', () => {
 
