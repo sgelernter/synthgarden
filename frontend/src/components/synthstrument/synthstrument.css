@@ -7,6 +7,7 @@
 
 .synthstrument {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     border: 3px dashed hotpink;
@@ -15,3 +16,20 @@
     height: 60vh;
     margin-top: 150px;
 }
+
+.synthstrument ol {
+    list-style: none;
+    display: flex;
+    height: 50px
+}
+
+.synthstrument li {
+    border: 1px solid orange;
+    width: 50px;
+}
+
+.synthstrument li.active {
+    background-color: paleturquoise;
+    transition: background-color .1s;
+}
+
