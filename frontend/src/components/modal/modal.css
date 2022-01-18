@@ -29,4 +29,5 @@
 
 .close-x:hover {
   cursor: default;
+  color: rgb(0, 225, 255);
 }

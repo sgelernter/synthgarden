@@ -1,17 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Neonderthaw&display=swap');
+
 .logged-in-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: fixed;
-    /* top: 0; */
-    /* width: 100vw; */
     margin: 10px;
 }
 
 .logged-out-nav {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     margin: 10px;
 }
 
@@ -19,10 +18,10 @@
     display: flex;
     align-items: center;
     text-decoration: none;
-    font-size: 20px;
-    color:rgb(94, 255, 180);
-    font-style: italic;
+    font-size: 40px;
+    color:rgb(0, 225, 255);
     animation: flicker 3s infinite alternate;   
+    font-family: 'Neonderthaw', cursive;
 }
 
 .home-link:hover {
@@ -32,16 +31,16 @@
 @keyframes flicker {
     0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
         text-shadow:
-            -0.2rem -0.2rem 1rem rgb(255, 0, 191),
-            0.2rem 0.2rem 1rem rgb(255, 0, 191),
-            0 0 2rem rgb(255, 0, 191),
-            0 0 4rem rgb(255, 0, 191),
-            0 0 6rem rgb(255, 0, 191),
-            0 0 8rem rgb(255, 0, 191),
-            0 0 10rem rgb(255, 0, 191);
+            -0.2rem -0.2rem 1rem rgb(247, 0, 255),
+            0.2rem 0.2rem 1rem rgb(247, 0, 255),
+            0 0 2rem rgb(247, 0, 255),
+            0 0 4rem rgb(247, 0, 255),
+            0 0 6rem rgb(247, 0, 255),
+            0 0 8rem rgb(247, 0, 255),
+            0 0 10rem rgb(247, 0, 255);
         box-shadow:
-            0 0 .5rem rgb(255, 0, 191),
-            inset 0 0 .5rem rgb(255, 0, 191),
+            0 0 .5rem rgb(247, 0, 255),
+            inset 0 0 .5rem rgb(247, 0, 255),
     }
     20%, 24%, 55% {        
         text-shadow: none;
@@ -55,8 +54,8 @@
 
 .session-btn {
     display: flex;
-    background: rgb(94, 255, 180);
-    padding: 10px 12px;
+    background: rgb(0, 225, 255);
+    padding: 9px 12px;
     flex-direction: row;
     text-align: center;
     border-radius: 50px;
@@ -70,4 +69,5 @@
 
 .session-btn:hover {
     cursor: default;
+    background: rgba(87, 235, 255, 0.884)
 }
