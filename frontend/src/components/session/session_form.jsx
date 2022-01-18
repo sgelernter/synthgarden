@@ -10,7 +10,7 @@ class SessionForm extends React.Component {
       password: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-    // console.log(this.props)
+    // console.log(this.props.errors)
   }
 
   update(field) {
@@ -22,7 +22,11 @@ class SessionForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const user = Object.assign({}, this.state);
-    this.props.processForm(user).then(this.props.closeModal);
+    this.props.processForm(user).then(res => console.log(res))
+  }
+
+  componentWillUnmount() {
+    this.props.removeSessionErrors();
   }
 
   // renderErrors() {
@@ -38,6 +42,12 @@ class SessionForm extends React.Component {
   // }
 
   render() {
+    // console.log(Object.values(this.props.errors))
+    if (Object.values(this.props.errors).length > 0) {
+            this.errors = Object.values(this.props.errors).map((err, idx) => (
+                <p key={idx}>{err}</p>
+            ))
+    }
 
     return (
       <div className="login-form-container">
@@ -71,6 +81,8 @@ class SessionForm extends React.Component {
                 className="login-input"
               />
             </label>
+            <br/>
+            <div className="errors">{this.errors}</div>
             <br/>
             <input className="session-submit" type="submit" value={this.props.formType} />
           </div>

@@ -3,7 +3,7 @@ import jwt_decode from 'jwt-decode';
 
 export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
 export const RECEIVE_SESSION_ERRORS = 'RECEIVE_SESSION_ERRORS';
-// export const REMOVE_SESSION_ERRORS = 'REMOVE_SESSION_ERRORS';
+export const REMOVE_SESSION_ERRORS = 'REMOVE_SESSION_ERRORS';
 export const RECEIVE_USER_LOGOUT = 'RECEIVE_USER_LOGOUT';
 export const RECEIVE_USER_SIGN_IN = 'RECEIVE_USER_SIGN_IN';
 
@@ -29,9 +29,9 @@ export const logoutUser = () => ({
     type: RECEIVE_USER_LOGOUT
 });
 
-// export const removeSessionErrors = () => ({
-//     type: REMOVE_SESSION_ERRORS
-// })
+export const removeSessionErrors = () => ({
+    type: REMOVE_SESSION_ERRORS
+})
 
 export const signup = user => dispatch => (
     APIUtil.signup(user).then(() => (
