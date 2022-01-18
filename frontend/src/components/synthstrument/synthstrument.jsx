@@ -16,8 +16,8 @@ class Synthstrument extends React.Component{
         this.envelope.attackCurve = "linear";
         this.envelope.attack = 1;
         this.oscillator.connect(this.envelope);
-        const vol = new Tone.Volume(-30).toDestination();
-        this.envelope.connect(vol);
+        this.vol = new Tone.Volume(-30).toDestination();
+        this.envelope.connect(this.vol);
         this.pitches = {
             z: 'C4',
             x: 'D4',
@@ -33,9 +33,16 @@ class Synthstrument extends React.Component{
         this.clickKey = this.clickKey.bind(this);
         this.pressKey = this.pressKey.bind(this);
         this.releaseKey = this.releaseKey.bind(this);
+        this.setVolume = this.setVolume.bind(this);
     }
 
-    instantiateAudioContext(){
+    setVolume(e){
+        // debugger
+        this.vol.volume.value = parseInt(e.target.value);
+        // console.log(this.vol);
+    }
+
+    instantiateAudioContext(e){
         if (this.state.contextStarted === 'false') {
             Tone.start().then(() => {
                 console.log('Audio context has started');
@@ -47,6 +54,7 @@ class Synthstrument extends React.Component{
             this.setState({
                 contextStarted: 'true'
             })
+            e.target.className = 'power-button on';
         }
     }
 
@@ -68,10 +76,13 @@ class Synthstrument extends React.Component{
 
     render(){
         return (
-            <div className="synthstrument-container" onClick={this.instantiateAudioContext}>
+            <div className="synthstrument-container">
                 <div className="synthstrument">
                     <div className="label">
                         ✨ QT Synthstrument Here ✨
+                        <button className="power-button off" onClick={this.instantiateAudioContext}>
+                            POWER
+                        </button>
                     </div>
                     <div className="oscillators-bar">
                         < Oscillator1 />
@@ -95,6 +106,22 @@ class Synthstrument extends React.Component{
                             <li className="key" id="C5">
                             </li>
                         </ol>
+                        <label>Volume
+                            <div className="volume" onClick={this.setVolume}>
+                                <label>
+                                    low
+                                    <input type="radio" value="-30" name="volume"/>
+                                </label>
+                                <label>
+                                    med
+                                    <input type="radio" value="-20" name="volume"/>
+                                </label>
+                                <label>
+                                    high
+                                    <input type="radio" value="-6" name="volume"/>
+                                </label>
+                            </div>
+                        </label>
                     </div>
                 </div>
             </div>

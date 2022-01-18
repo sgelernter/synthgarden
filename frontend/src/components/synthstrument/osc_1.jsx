@@ -1,11 +1,18 @@
 import React from "react";
 
-const Oscillator1 = props => {
-    return (
-        <div className="oscillator">
+class Oscillator1 extends React.Component{
+    constructor(props){
+        super(props);
+        
+    }
 
-        </div>
-    )
+    render(){
+        return (
+            <div className="oscillator">
+
+            </div>
+        )
+    }
 }
 
 export default Oscillator1;
