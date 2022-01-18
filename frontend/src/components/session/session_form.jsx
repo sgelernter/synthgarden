@@ -10,6 +10,7 @@ class SessionForm extends React.Component {
       password: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    console.log(this.props)
   }
 
   update(field) {
@@ -24,19 +25,20 @@ class SessionForm extends React.Component {
     this.props.processForm(user).then(this.props.closeModal);
   }
 
-  renderErrors() {
-    return(
-      <ul>
-        {this.props.errors.map((error, i) => (
-          <li key={`error-${i}`}>
-            {error}
-          </li>
-        ))}
-      </ul>
-    );
-  }
+  // renderErrors() {
+  //   return(
+  //     <ul>
+  //       {this.props.errors.map((error, i) => (
+  //         <li key={`error-${i}`}>
+  //           {error}
+  //         </li>
+  //       ))}
+  //     </ul>
+  //   );
+  // }
 
   render() {
+
     return (
       <div className="login-form-container">
         <form onSubmit={this.handleSubmit} className="login-form-box">
@@ -44,7 +46,7 @@ class SessionForm extends React.Component {
           <br/>
           {this.props.formType} or {this.props.otherForm}
           <div onClick={this.props.closeModal} className="close-x">x</div>
-          {this.renderErrors()}
+          {/* {this.renderErrors()} */}
           <div className="login-form">
             <br/>
             <label>Username:

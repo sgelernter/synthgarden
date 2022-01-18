@@ -30,10 +30,12 @@ export const logoutUser = () => ({
 //     type: REMOVE_SESSION_ERRORS
 // })
 
-export const signup = formUser => dispatch => (
-    APIUtil.signup(formUser)
-        .then(() => dispatch(receiveUserSignIn()),
-        errors => dispatch(receiveErrors(errors.response.data)))
+export const signup = user => dispatch => (
+    APIUtil.signup(user).then(() => (
+        dispatch(receiveUserSignIn())
+    ), err => (
+        dispatch(receiveErrors(err.response.data))
+    ))
 );
 
 
