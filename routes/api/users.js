@@ -69,7 +69,7 @@ const checkPassword = (password, passwordInput, user, res) => {
                         success: true,
                         token: 'Bearer ' + token
                     });
-                    console.log(token)
+                    // console.log(token)
                 });
                 
             } else {
