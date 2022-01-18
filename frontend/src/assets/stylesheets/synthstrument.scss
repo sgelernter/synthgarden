@@ -26,9 +26,20 @@
         height: 150px;
         display: flex;
         flex-direction: column;
-        .oscillator{
+        .osc-box{
             border: 1px solid thistle;
             height: 50%;
+            display: flex;
+            .oscillator{
+                display: flex;
+                justify-content: space-evenly;
+            }
+            .env-controls{
+                font-size: small;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-evenly;
+            }
         }
     }
     .keys-bar{
