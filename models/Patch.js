@@ -10,7 +10,10 @@ const PatchSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'users'
     },
-    timestamps: true
+    date: {
+        type: Date,
+        default: Date.now
+    }
 })
 
 module.exports = Patch = mongoose.model('Patch', PatchSchema);
