@@ -32,16 +32,16 @@
 @keyframes flicker {
     0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
         text-shadow:
-            -0.2rem -0.2rem 1rem rgb(255, 203, 242),
-            0.2rem 0.2rem 1rem rgb(255, 203, 242),
-            0 0 2rem rgb(255, 203, 242),
-            0 0 4rem rgb(255, 203, 242),
-            0 0 6rem rgb(255, 203, 242),
-            0 0 8rem rgb(255, 203, 242),
-            0 0 10rem rgb(255, 203, 242);
+            -0.2rem -0.2rem 1rem rgb(255, 0, 191),
+            0.2rem 0.2rem 1rem rgb(255, 0, 191),
+            0 0 2rem rgb(255, 0, 191),
+            0 0 4rem rgb(255, 0, 191),
+            0 0 6rem rgb(255, 0, 191),
+            0 0 8rem rgb(255, 0, 191),
+            0 0 10rem rgb(255, 0, 191);
         box-shadow:
-            0 0 .5rem rgb(255, 203, 242),
-            inset 0 0 .5rem rgb(255, 203, 242),
+            0 0 .5rem rgb(255, 0, 191),
+            inset 0 0 .5rem rgb(255, 0, 191),
     }
     20%, 24%, 55% {        
         text-shadow: none;
