@@ -5,12 +5,18 @@ import Splash from './splash/splash';
 // import { Route, Switch } from 'react-router-dom';
 // import { Route } from "react-router-dom";
 
+
 const App = () => (
   <div>
     <Modal />  
     {/* <Route exact path="/" component={Splash} /> */}
     <Splash />
   </div>
+  
 );
 
 export default App;
+
+
+
+

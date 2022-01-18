@@ -14,7 +14,7 @@
     text-align: center;
     width: 60vw;
     height: 60vh;
-    margin-top: 150px;
+    margin-top: 7rem;
 }
 
 .synthstrument ol {
@@ -32,4 +32,3 @@
     background-color: paleturquoise;
     transition: background-color .1s;
 }
-

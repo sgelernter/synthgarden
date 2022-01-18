@@ -38,7 +38,8 @@ export const signup = formUser => dispatch => (
 
 
 export const login = formUser => dispatch => (
-    APIUtil.login(formUser).then(res => {
+    APIUtil.login(formUser)
+    .then(res => {
         const { token } = res.data;
         localStorage.setItem('jwtToken', token);
         APIUtil.setAuthToken(token);
