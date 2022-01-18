@@ -78,8 +78,10 @@ const checkPassword = (password, passwordInput, user) => {
 router.post('/login', (req, res) => {
 
     // NOT SURE WHAT THIS WILL BE CALLED ON THE WAY IN FROM THE FRONT-END FORM
-    const idString = req.body.idString;
+    // console.log(res)
+    const idString = req.body.email;
     const password = req.body.password;
+    console.log(idString)
 
     User.findOne({email: idString})
         .then(user => {
