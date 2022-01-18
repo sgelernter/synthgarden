@@ -24,19 +24,19 @@ router.post('/',
             .then(sample => res.json(sample))
 })
 
-//showing all the sampples
+//showing all the samples
 router.get('/', (req, res) => {
     Sample.find()
         .then(samples => res.json(samples))
-        .catch(err => res.status(404).json({ nosamplesfound: '' }));
+        .catch(err => res.status(404).json({ nosamplesfound: 'There are no samples, start jamming now!' }));
 });
 
 //showing all the samples under a specific user
-router.get('/user/:user_id', (req, res) => {
-    Sample.find({user: req.params.user_id})
+router.get('/user/:userId', (req, res) => {
+    Sample.find({user: req.params.userId})
         .then(samples => res.json(samples))
         .catch(err =>
-            res.status(404).json({ nosamplesfound: 'No samples found from that user' }
+            res.status(404).json({ nosamplesfound: 'No samples found from this user' }
         )
     );
 });
