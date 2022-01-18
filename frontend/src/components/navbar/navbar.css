@@ -58,7 +58,7 @@
     padding: 9px 12px;
     flex-direction: row;
     text-align: center;
-    border-radius: 50px;
+    border-radius: 5px;     /* per neon signs */
     text-decoration: none;
     color: black;
     font-weight: bold;
