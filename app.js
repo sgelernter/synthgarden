@@ -25,8 +25,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/users/', users);
-app.use('/api/samples', samples);
-app.use('/api/patches', patches);
+app.use('/api/samples/', samples);
+app.use('/api/patches/', patches);
 
 
 app.listen(port, () => {console.log(`listening on port ${port}`)});  

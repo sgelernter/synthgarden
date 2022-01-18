@@ -36,7 +36,7 @@ router.get('/user/:userId', (req, res) => {
     Sample.find({user: req.params.userId})
         .then(samples => res.json(samples))
         .catch(err =>
-            res.status(404).json({ nosamplesfound: 'No samples found from that user' }
+            res.status(404).json({ nosamplesfound: 'No samples found from this user' }
         )
     );
 });

@@ -36,7 +36,7 @@ router.get('/user/:userId', (req, res) => {
     Patch.find({user: req.params.userId})
         .then(patches => res.json(patches))
         .catch(err =>
-            res.status(404).json({ nopatchesfound: 'No patches found from that user' }
+            res.status(404).json({ nopatchesfound: 'No patches found from this user' }
         )
     );
 });
