@@ -71,7 +71,6 @@ class Synthstrument extends React.Component{
     instantiateAudioContext(e){
         if (this.state.contextStarted === 'false') {
             Tone.start().then(() => {
-                console.log('Audio context has started');
                 this.state.oscillator1.start();
             }).then(() => {
                 document.addEventListener("keydown", this.pressKey);
@@ -81,6 +80,12 @@ class Synthstrument extends React.Component{
                 contextStarted: 'true'
             })
             e.target.className = 'power-button on';
+        } else {
+            this.state.oscillator1.stop();
+            e.target.className = 'power-button off';
+            this.setState({
+                contextStarted: 'false'
+            })
         }
     }
 
@@ -218,15 +223,17 @@ class Synthstrument extends React.Component{
         const letters = ['z', 'x', 'c', 'v', 'b', 'n'];
         const newPitches = {};
         const origPitches = Object.values(this.state.pitches);
-        origPitches.forEach ((pitch, idx) => {
-            const pitchLetter = pitch.slice(0, -1);
-            const newOct = parseInt(pitch.slice(-1)) + octMod;
-            newPitches[letters[idx]] = pitchLetter + newOct;
-        });
-        this.setState({
-            pitches: newPitches,
-            octave: (this.state.octave + octMod)
-        })
+        if (this.state.octave + octMod <= 3 && this.state.octave + octMod >= -3) {
+            origPitches.forEach ((pitch, idx) => {
+                const pitchLetter = pitch.slice(0, -1);
+                const newOct = parseInt(pitch.slice(-1)) + octMod;
+                newPitches[letters[idx]] = pitchLetter + newOct;
+            });
+            this.setState({
+                pitches: newPitches,
+                octave: (this.state.octave + octMod)
+            })
+        }
     }
 
     connectFX(effectNode){
@@ -256,7 +263,6 @@ class Synthstrument extends React.Component{
     }
 
     render(){
-        console.log(this.state.octave);
         return (
             <div className="synthstrument-container">
                 <div className="synthstrument">
