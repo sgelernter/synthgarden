@@ -59,7 +59,10 @@ class Synthstrument extends React.Component{
     }
 
     setVolume(e){
-        this.state.synth1.volume.value = parseInt(e.target.value);
+        this.state.synth1.volume.value = e.target.value;
+        this.setState({
+            synth1: this.state.synth1
+        })
     }
 
     instantiateAudioContext(e){
@@ -210,31 +213,28 @@ class Synthstrument extends React.Component{
     }
 
     connectFX(effectNode){
-        console.log(this.signalChain);
         const destination = Tone.getDestination();
         let prevLastNode;
         this.signalChain.length === 0 ? prevLastNode = this.state.eq3 : prevLastNode = this.signalChain.slice(-1)[0];
         prevLastNode.disconnect(destination);
         prevLastNode.chain(effectNode, destination);
         this.signalChain.push(effectNode);
-        console.log(this.signalChain);
     }
 
     disconnectFX(effectNode){
-        console.log(this.signalChain);
         const destination = Tone.getDestination();
         if (this.signalChain.length === 1) {
             effectNode.disconnect(destination);
             this.signalChain = [];
             this.state.eq3.connect(destination);
-            console.log(this.signalChain);
+
         } else {
             this.signalChain.forEach (node => node.disconnect());
             const idx = this.signalChain.indexOf(effectNode);
             const newChain = this.signalChain.slice(0, idx).concat(this.signalChain.slice(idx + 1));
             this.state.eq3.chain(...newChain, destination);
             this.signalChain = newChain;
-            console.log(this.signalChain);
+
         }
     }
 
@@ -329,7 +329,7 @@ class Synthstrument extends React.Component{
                         </ol>
                         <label>Volume
                             <div className="volume" onClick={this.setVolume}>
-                                <label>
+                                {/* <label>
                                     low
                                     <input type="radio" value="-30" name="volume"/>
                                 </label>
@@ -340,7 +340,8 @@ class Synthstrument extends React.Component{
                                 <label>
                                     high
                                     <input type="radio" value="-6" name="volume"/>
-                                </label>
+                                </label> */}
+                                <input type="range" value={this.state.synth1.volume.value} onChange={this.setVolume} min="-45" max="0" step="1" />
                             </div>
                         </label>
                     </div>

@@ -16,7 +16,7 @@ class Mods extends React.Component {
             e.target.className = 'switch on';
             this.state.chorus.start();
             this.state.trem.start();
-            this.props.connectFX(this.state.chorus);
+            // this.props.connectFX(this.state.chorus);
             this.props.connectFX(this.state.trem);
             document.getElementById('mods').className = 'mods on';
         } else {
@@ -24,7 +24,7 @@ class Mods extends React.Component {
             this.state.chorus.stop();
             this.state.trem.stop();
             this.props.disconnectFX(this.state.trem);
-            this.props.disconnectFX(this.state.chorus);
+            // this.props.disconnectFX(this.state.chorus);
             document.getElementById('mods').className = 'mods off';
         }
     }
@@ -51,7 +51,7 @@ class Mods extends React.Component {
                     <label>
                         Delay
                         <input type="range" value={this.state.chorus.delayTime.value} 
-                            min="2" 
+                            min="0" 
                             max="20" 
                             step="2" 
                             onChange={this.props.updatePatch('chorus')} 
@@ -71,7 +71,7 @@ class Mods extends React.Component {
                     <h4>Tremolo:</h4>
                     <label>
                             Freq
-                            <input type="range" value={this.state.trem.frequency.value} 
+                            <input type="range" value={this.state.trem.frequency} 
                                 min="0" 
                                 max="1" 
                                 step=".1" 
