@@ -81,7 +81,10 @@ class Record extends React.Component {
       let download;
       this.state.url ?
       (
-        download = <Link to={this.state.url} className="download-link">Download</Link>
+        download = <Link to={`/${this.state.url}`} className="download-link" target="_blank">Download</Link>
+        // blob:http://localhost:3000/0ac0faca-0700-4267-bf8a-8b8cc5c70d61
+        // fix
+        
       ) : (
         download = null
       )
