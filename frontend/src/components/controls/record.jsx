@@ -5,14 +5,16 @@ class Record extends React.Component {
   constructor(props) {
     super(props)
     const synth = new Tone.Synth();
+    const recorder = new Tone.Recorder()
     this.state = {
-      recorder: new Tone.Recorder()
+      recorder,
+      recording: false
     }
-    // const recorder = new Tone.Recorder();
-    const actx = Tone.context;
-    console.log(actx);
-    
+    // const actx = Tone.context;
+    // console.log(actx);
     synth.toDestination();
+    this.startRecording = this.startRecording.bind(this);
+    this.stopRecording = this.stopRecording.bind(this);
 
     const notes = 'CDEFGAB'.split('').map(n => `${n}4`);
     let note = 0;
@@ -35,22 +37,41 @@ class Record extends React.Component {
   }
 
   startRecording() {
-    this.state.recorder.start();
+    // this.state.recorder.start();
+    this.setState({ recording: true })
   }
 
   stopRecording() {
-    this.state.recorder.stop();
+    // this.state.recorder.stop();
+    this.setState({ recording: false })
   }
 
   render() {
     // SWITCH RECORDING BUTTON - START / STOP
+    let recordingButton;
+    this.state.recording ?
+      (
+        recordingButton = <button
+                            className="record-btn"
+                            onClick={this.stopRecording}
+                          >
+                            STOP RECORDING
+                          </button>
+      ) : (
+        recordingButton = <button
+                            className="record-btn"
+                            onClick={this.startRecording}
+                          >
+                            START RECORDING
+                          </button>
+      )
+
 
 
     return (
       <>
         <audio controls></audio>
-        <button onClick={this.startRecording}>START</button>
-        <button onClick={this.stopRecording}>STOP</button>
+        {recordingButton}
       </>
     )
   }
