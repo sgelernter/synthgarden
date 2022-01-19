@@ -78,8 +78,12 @@ const PatchSchema = new Schema({
         type: Boolean,
         required: true
     },
+    selectedHarmonics: {
+        type: String,
+        required: true
+    },
     distortion: {
-        amount: {
+        amt: {
             type: Number
         }
     },
@@ -93,6 +97,10 @@ const PatchSchema = new Schema({
     },
     delay: {
         type: Boolean,
+        required: true
+    },
+    selectedDelay: {
+        type: String,
         required: true
     },
     feedback: {

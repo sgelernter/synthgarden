@@ -133,6 +133,11 @@ class Synthstrument extends React.Component{
         const modsOn = document.getElementById('mods').className === 'mods on';
         const harmonicsOn = document.getElementById('distortion').className === 'harmonics on';
         const delaysOn = document.getElementById('delay').className === 'delays on';
+        let selectedDelay;
+        let selectedHarmonics;
+        document.getElementById('distortion-controls').className === 'distortion visible' ? selectedHarmonics = 'distortion' : selectedHarmonics = 'bitCrusher';
+        document.getElementById('feedback-controls').className === 'feedback-delay visible' ? selectedDelay = 'feedback' : selectedDelay = 'pong';
+
         const patchData = {
             name: this.state.patchName,
             user: this.props.currentUserId,
@@ -144,41 +149,43 @@ class Synthstrument extends React.Component{
             },
             octave: this.state.octave,
             eq: {
-                high: this.state.eq3.high,
-                mid: this.state.eq3.mid,
-                low: this.state.eq3.low
+                high: this.state.eq3.high.value,
+                mid: this.state.eq3.mid.value,
+                low: this.state.eq3.low.value
             },
             mods: modsOn,
             chorus: {
-                LFO: this.state.chorus.frequency,
+                LFO: this.state.chorus.frequency.value,
                 delay: this.state.chorus.delayTime,
                 depth: this.state.chorus.depth
             },
             tremolo: {
-                frequency: this.state.tremolo.frequency,
-                depth: this.state.tremolo.depth
+                frequency: this.state.tremolo.frequency.value,
+                depth: this.state.tremolo.depth.value
             },
             harmonics: harmonicsOn,
+            selectedHarmonics,
             distortion: {
-                amount: this.state.distortion.wet
+                amt: this.state.distortion.wet.value
             },
             bitCrusher: {
-                bitDepth: this.state.bitCrush.bits,
-                amount: this.state.bitCrush.wet
+                bitDepth: this.state.bitCrush.bits.value,
+                amount: this.state.bitCrush.wet.value
             },
             delay: delaysOn,
+            selectedDelay,
             feedback: {
-                time: this.state.feedDelay.delayTime,
-                fb: this.state.feedDelay.feedback,
-                amt: this.state.feedDelay.wet
+                time: this.state.feedDelay.delayTime.value,
+                fb: this.state.feedDelay.feedback.value,
+                amt: this.state.feedDelay.wet.value
             },
             pingPong: {
-                time: this.state.pongDelay.delayTime,
-                fb: this.state.pongDelay.feedback,
-                amt: this.state.wet
+                time: this.state.pongDelay.delayTime.value,
+                fb: this.state.pongDelay.feedback.value,
+                amt: this.state.pongDelay.wet.value
             }
         }
-        debugger
+        this.props.savePatch(patchData);
     }
 
     updatePatch(type){
