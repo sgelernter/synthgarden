@@ -10,9 +10,7 @@ router.post('/',
     (req, res) => {
         const { isValid, errors } = validateSampleInput(req.body);
 
-        if(!isValid) {
-            return res.status(400).json(errors);
-        }
+        if(!isValid) return res.status(400).json(errors);
 
         const newSample = new Sample({
             user: req.user.id,
@@ -22,22 +20,22 @@ router.post('/',
         newSample
             .save()
             .then(sample => res.json(sample))
-})
+    }
+)
 
 //showing all the samples
 router.get('/', (req, res) => {
     Sample.find()
-        .then(samples => res.json(samples))
-        .catch(err => res.status(404).json({ nosamplesfound: 'There are no samples, start jamming now!' }));
-});
+          .then(samples => res.json(samples))
+          .catch(err => res.status(404).json({ nosamplesfound: 'There are no samples, start jamming now!' }));
+    }
+);
 
 //showing all the samples under a specific user
 router.get('/user/:userId', (req, res) => {
     Sample.find({user: req.params.userId})
         .then(samples => res.json(samples))
-        .catch(err =>
-            res.status(404).json({ nosamplesfound: 'No samples found from this user' }
-        )
+        .catch(err => res.status(404).json({ nosamplesfound: 'No samples found from this user' })
     );
 });
 
@@ -45,9 +43,17 @@ router.get('/user/:userId', (req, res) => {
 router.get('/:id', (req, res) => {
     Sample.findById(req.params.id)
         .then(sample => res.json(sample))
-        .catch(err =>
-            res.status(404).json({ nosamplefound: 'No sample found with that ID' })
-        );
+        .catch(err => res.status(404).json({ nosamplefound: 'No sample found with that ID' })
+    );
 });
+
+//delete specific patch
+router.delete('/:id',
+    passport.authenticate("jwt", { session: false}),
+    (req, res) => {
+        Sample.deleteOne(req.params.id)
+              .catch(err => res.status(404).json(err))
+    }
+);
 
 module.exports = router;
