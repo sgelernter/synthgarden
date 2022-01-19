@@ -10,7 +10,8 @@ const FXBank = props => {
                     chorusNode={props.chorusNode}
                     tremoloNode={props.tremoloNode}/>
                 < Harmonics connectFX={props.connectFX} disconnectFX={props.disconnectFX} updatePatch={props.updatePatch}
-                    distortNode={props.distortNode}/>
+                    distortNode={props.distortNode}
+                    crushNode={props.crushNode}/>
                 < Delays connectFX={props.connectFX} disconnectFX={props.disconnectFX} updatePatch={props.updatePatch}
                     feedDelayNode={props.feedDelayNode}
                     pongDelayNode={props.pongDelayNode}/>

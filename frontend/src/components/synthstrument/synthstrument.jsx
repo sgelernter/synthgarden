@@ -19,6 +19,7 @@ class Synthstrument extends React.Component{
         const chorus = new Tone.Chorus();
         const tremolo = new Tone.Tremolo();
         const distortion = new Tone.Distortion();
+        const bitCrush = new Tone.BitCrusher();
         const feedDelay = new Tone.FeedbackDelay();
         const pongDelay = new Tone.PingPongDelay();
         simpleSynth.volume.value = -20;
@@ -44,6 +45,7 @@ class Synthstrument extends React.Component{
             chorus,
             tremolo,
             distortion,
+            bitCrush,
             feedDelay,
             pongDelay
         }
@@ -160,6 +162,17 @@ class Synthstrument extends React.Component{
                     this.state.distortion.distortion = e.target.value;
                     this.setState({
                         distortion: this.state.distortion
+                    })
+                    break;
+                case 'bitcrush':
+                    // debugger
+                    if (e.target.className === 'crusher-wet') {
+                        this.state.bitCrush.wet.value = e.target.value;
+                    } else {
+                        this.state.bitCrush.bits.value = e.target.value;
+                    }
+                    this.setState({
+                        bitCrush: this.state.bitCrush
                     })
                     break;
                 case 'feedback-delay':
@@ -310,6 +323,7 @@ class Synthstrument extends React.Component{
                                     chorusNode={this.state.chorus}
                                     tremoloNode={this.state.tremolo}
                                     distortNode={this.state.distortion}
+                                    crushNode={this.state.bitCrush}
                                     feedDelayNode={this.state.feedDelay}
                                     pongDelayNode={this.state.pongDelay}/>
                         </div>
