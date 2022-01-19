@@ -12,7 +12,7 @@ router.post('/',
         const { isValid, errors } = validatePatchInput(req.body);
 
         if(!isValid) return res.status(400).json(errors);
-
+        debugger
         const newPatch = new Patch({
             user: req.user.id,
             name: req.body.name,

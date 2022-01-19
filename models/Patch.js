@@ -28,7 +28,11 @@ const PatchSchema = new Schema({
             required: true
         }
     },
-    equalizer: {
+    octave: {
+        type: Number,
+        required: true
+    },
+    eq: {
         low: {
             type: Number,
             required: true
@@ -47,10 +51,32 @@ const PatchSchema = new Schema({
         required: true    
     },
     chorus: {
-        type: Number
+        LFO: {
+            type: Number,
+            required: true
+        },
+        delay: {
+            type: Number,
+            required: true 
+        },
+        depth: {
+            type: Number, 
+            required: true
+        }
     },
-    tremelo: {
-        type: Number
+    tremolo: {
+        frequency: {
+            type: Number,
+            required: true 
+        },
+        depth: {
+            type: Number, 
+            required: true
+        }
+    },
+    harmonics: {
+        type: Boolean,
+        required: true
     },
     distortion: {
         amount: {
