@@ -142,6 +142,7 @@ class Synthstrument extends React.Component{
                     })
                     break;
                 case 'tremolo':
+                    console.log(this.state.tremolo);
                     switch (e.target.className) {
                         case 'frequency':
                             this.state.tremolo.frequency.value = e.target.value;
@@ -150,6 +151,7 @@ class Synthstrument extends React.Component{
                             this.state.tremolo.depth.value = e.target.value;
                             break;
                     }
+                    console.log(this.state.tremolo);      
                     this.setState({
                         tremolo: this.state.tremolo
                     })
@@ -327,23 +329,11 @@ class Synthstrument extends React.Component{
                             <li className="key" id="C5">
                             </li>
                         </ol>
-                        <label>Volume
-                            <div className="volume" onClick={this.setVolume}>
-                                {/* <label>
-                                    low
-                                    <input type="radio" value="-30" name="volume"/>
-                                </label>
-                                <label>
-                                    med
-                                    <input type="radio" value="-20" name="volume" defaultChecked/>
-                                </label>
-                                <label>
-                                    high
-                                    <input type="radio" value="-6" name="volume"/>
-                                </label> */}
+                        <div className="volume" onClick={this.setVolume}>
+                            <label>Volume
                                 <input type="range" value={this.state.synth1.volume.value} onChange={this.setVolume} min="-45" max="0" step="1" />
-                            </div>
-                        </label>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
