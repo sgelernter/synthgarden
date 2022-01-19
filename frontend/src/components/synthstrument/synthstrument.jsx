@@ -37,9 +37,10 @@ class Synthstrument extends React.Component{
         this.signalChain = [];
         this.state = {
             contextStarted: 'false',
-            envelope,
             synth1: simpleSynth,
             pitches,
+            octave: 0,
+            envelope,
             eq3,
             oscillator1,
             chorus,
@@ -223,7 +224,8 @@ class Synthstrument extends React.Component{
             newPitches[letters[idx]] = pitchLetter + newOct;
         });
         this.setState({
-            pitches: newPitches
+            pitches: newPitches,
+            octave: (this.state.octave + octMod)
         })
     }
 
@@ -254,6 +256,7 @@ class Synthstrument extends React.Component{
     }
 
     render(){
+        console.log(this.state.octave);
         return (
             <div className="synthstrument-container">
                 <div className="synthstrument">
