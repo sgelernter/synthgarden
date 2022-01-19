@@ -25,14 +25,14 @@ router.post('/',
 );
 
 //edit patch name
-router.put('/:id',
-    passport.authenticate("jwt", { session: false }),
-    (req, res) => {
-        Patch.findById(req.params.id)
-             .then(patch => patch.name = req.body.name)
-             .catch(err => res.status(404).json(err))
-    }
-)
+// router.put('/:id',
+//     passport.authenticate("jwt", { session: false }),
+//     (req, res) => {
+//         Patch.findOneAndUpdate(req.params.id)
+//              .then(patch => patch.name = req.body.name)
+//              .catch(err => res.status(404).json(err))
+//     }
+// )
 
 //showing all the patches
 router.get('/', (req, res) => {
