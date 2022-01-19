@@ -51,7 +51,9 @@ router.get('/:id', (req, res) => {
 router.delete('/:id',
     passport.authenticate("jwt", { session: false}),
     (req, res) => {
-        Sample.deleteOne(req.params.id)
+        Sample.findByIdAndDelete(req.params.id)
+            //   .then(sample => res.json(sample))
+              .then(() => res.json({ msg: "This sample has been deleted" }))
               .catch(err => res.status(404).json(err))
     }
 );

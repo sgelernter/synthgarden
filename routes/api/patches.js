@@ -62,8 +62,10 @@ router.get('/:id', (req, res) => {
 router.delete('/:id',
     passport.authenticate("jwt", { session: false}),
     (req, res) => {
-        Patch.deleteOne(req.params.id)
-             .catch(err => res.status(404).json(err))
+        Patch.findByIdAndDelete(req.params.id)
+            //   .then(patch => res.json(patch))
+              .then(() => res.json({ msg: "This patch has been deleted" }))
+              .catch(err => res.status(404).json(err))
     }
 );
 
