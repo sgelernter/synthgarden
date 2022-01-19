@@ -13,12 +13,32 @@ class SessionForm extends React.Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.noErrors = this.noErrors.bind(this);
+    this.handleDemoUser = this.handleDemoUser.bind(this)
+    this.submitDemoUser = this.submitDemoUser.bind(this)
   }
 
   update(field) {
     return e => this.setState({
       [field]: e.currentTarget.value
     });
+  }
+
+  handleDemoUser(e) {
+      this.setState({
+          username: "demouser",
+          email: "demo@demo.com",
+          password: "password"
+      })
+      setTimeout(() => {
+          this.submitDemoUser(e)
+          this.props.closeModal()
+      }, 1000)
+  }
+
+  submitDemoUser(e) {
+      e.preventDefault();
+      const demouser = Object.assign({}, this.state)
+      this.props.processForm(demouser)
   }
 
   noErrors() {
@@ -33,7 +53,7 @@ class SessionForm extends React.Component {
     // const noErrors = (Object.values(this.props.errors).length < 1)
     this.props.processForm(user)
       // .then(() => this.noErrors() ? this.closeModal() : console.log('IT WORKS'))
-      .then(() => this.noErrors() ? closeModal() : e.stopPropagation())
+      .then(() => this.noErrors() ? this.props.closeModal() : e.stopPropagation())
     // const response = async (user) => this.props.processForm(user)
   }
 
@@ -43,9 +63,14 @@ class SessionForm extends React.Component {
   
   render() {
     if (Object.values(this.props.errors).length > 0) {
-            this.errors = Object.values(this.props.errors).map((err, idx) => (
-                <p key={idx}>{err}</p>
-            ))
+      this.errors = Object.values(this.props.errors).map((err, idx) => (
+          <p key={idx}>{err}</p>
+      ))
+    }
+
+    let demoUserButton;
+    if (this.props.formType === 'login') {
+        demoUserButton = <button className="demo-user-btn" onClick={this.handleDemoUser}>login as a guest</button>
     }
 
     return (
@@ -83,6 +108,8 @@ class SessionForm extends React.Component {
             <div className="errors">{this.errors}</div>
             <br/>
             <input className="session-submit" type="submit" value={this.props.formType} />
+            <br/>
+            {demoUserButton}
           </div>
         </form>
       </div>
