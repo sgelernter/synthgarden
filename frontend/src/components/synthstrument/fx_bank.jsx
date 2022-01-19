@@ -1,14 +1,21 @@
 import React from "react";
-// import * as Tone from 'tone';
+import Mods from "./mods";
+import Harmonics from "./harmonics";
+import Delays from "./delays";
 
-class FXBank extends React.Component {
-    constructor(props) {
-
-    }
-
-    render() {
-        return null
-    }
+const FXBank = props => {
+        return (
+            <div className="fx-bank">
+                < Mods connectFX={props.connectFX} disconnectFX={props.disconnectFX} updatePatch={props.updatePatch}
+                    chorusNode={props.chorusNode}
+                    tremoloNode={props.tremoloNode}/>
+                < Harmonics connectFX={props.connectFX} disconnectFX={props.disconnectFX} updatePatch={props.updatePatch}
+                    distortNode={props.distortNode}/>
+                < Delays connectFX={props.connectFX} disconnectFX={props.disconnectFX} updatePatch={props.updatePatch}
+                    feedDelayNode={props.feedDelayNode}
+                    pongDelayNode={props.pongDelayNode}/>
+            </div>
+        )
 }
 
 export default FXBank;
