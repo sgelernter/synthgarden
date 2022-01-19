@@ -1,6 +1,5 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { closeModal } from '../../actions/modal_actions';
 import '../../assets/stylesheets/session_form.scss';
 
 class SessionForm extends React.Component {
