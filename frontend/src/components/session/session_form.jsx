@@ -12,7 +12,7 @@ class SessionForm extends React.Component {
       password: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleErrors = this.handleErrors.bind(this);
+    this.noErrors = this.noErrors.bind(this);
   }
 
   update(field) {
@@ -21,43 +21,27 @@ class SessionForm extends React.Component {
     });
   }
 
-  handleErrors() {
+  noErrors() {
     // console.log(Object.values(this.props.errors).length)
     return Object.values(this.props.errors).length === 0
   }
 
   handleSubmit(e) {
-    this.props.removeSessionErrors();
     e.preventDefault();
+    this.props.removeSessionErrors();
     const user = Object.assign({}, this.state);
     // const noErrors = (Object.values(this.props.errors).length < 1)
     this.props.processForm(user)
-      // .then(() => this.handleErrors() ? this.closeModal() : console.log('IT WORKS'))
-      .then(() => this.handleErrors() ? closeModal() : e.stopPropagation())
-
-      // now the issue is on re-trying, errors persist
-
+      // .then(() => this.noErrors() ? this.closeModal() : console.log('IT WORKS'))
+      .then(() => this.noErrors() ? closeModal() : e.stopPropagation())
     // const response = async (user) => this.props.processForm(user)
   }
 
   componentWillUnmount() {
     this.props.removeSessionErrors();
   }
-
-  // renderErrors() {
-  //   return(
-  //     <ul>
-  //       {this.props.errors.map((error, i) => (
-  //         <li key={`error-${i}`}>
-  //           {error}
-  //         </li>
-  //       ))}
-  //     </ul>
-  //   );
-  // }
-
+  
   render() {
-    // console.log(Object.values(this.props.errors))
     if (Object.values(this.props.errors).length > 0) {
             this.errors = Object.values(this.props.errors).map((err, idx) => (
                 <p key={idx}>{err}</p>
