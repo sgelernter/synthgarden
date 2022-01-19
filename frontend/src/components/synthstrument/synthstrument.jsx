@@ -27,12 +27,19 @@ class Synthstrument extends React.Component{
         envelope.attackCurve = "linear";
         envelope.attack = .2;
         const pitches = {
-            z: 'C4',
-            x: 'D4',
-            c: 'E4',
-            v: 'F4',
-            b: 'G4',
-            n: 'C5'
+            a: 'C4',
+            w: 'C#4',
+            s: 'D4',
+            e: 'D#4',
+            d: 'E4',
+            f: 'F4',
+            t: 'F#4',
+            g: 'G4',
+            y: 'G#4',
+            h: 'A4',
+            u: 'A#4',
+            j: 'B4',
+            k: 'C5'
         }
         this.signalChain = [];
         this.state = {
@@ -103,6 +110,14 @@ class Synthstrument extends React.Component{
     releaseKey(e){
         this.state.envelope.triggerRelease();
         document.getElementById(this.state.pitches[e.key]).className = 'key';
+    }
+
+    loadPatch(patchName){
+
+    }
+
+    savePatch(patchName){
+
     }
 
     updatePatch(type){
@@ -220,7 +235,7 @@ class Synthstrument extends React.Component{
     changeOctave(e){
         let octMod;
         e.target.className === 'oct-up' ? octMod = 1 : octMod = -1;
-        const letters = ['z', 'x', 'c', 'v', 'b', 'n'];
+        const letters = Object.keys(this.state.pitches);
         const newPitches = {};
         const origPitches = Object.values(this.state.pitches);
         if (this.state.octave + octMod <= 3 && this.state.octave + octMod >= -3) {
@@ -278,7 +293,7 @@ class Synthstrument extends React.Component{
                             <div className="env-controls">
                                 <label>
                                     Attack
-                                    <input type="range" value={this.state.envelope.attack} max="2" step=".1" onChange={this.updatePatch('attack')}/>
+                                    <input type="range" value={this.state.envelope.attack} max="2" step=".05" onChange={this.updatePatch('attack')}/>
                                 </label>
                                 <label>
                                     Sustain
@@ -286,7 +301,7 @@ class Synthstrument extends React.Component{
                                 </label>
                                 <label>
                                     Release
-                                    <input type="range" value={this.state.envelope.release} max="5" step=".1" onChange={this.updatePatch('release')}/>
+                                    <input type="range" value={this.state.envelope.release} max="5" step=".05" onChange={this.updatePatch('release')}/>
                                 </label>
                             </div>
                             <div className="octave-shift" onClick={this.changeOctave}>
@@ -339,18 +354,14 @@ class Synthstrument extends React.Component{
                     </div>
                     <div className="keys-bar">
                         <ol className="keyboard" onClick={this.clickKey}>
-                            <li className="key" id="C4">
-                            </li>
-                            <li className="key" id="D4">
-                            </li>
-                            <li className="key" id="E4">
-                            </li>
-                            <li className="key" id="F4">
-                            </li>
-                            <li className="key" id="G4">
-                            </li>
-                            <li className="key" id="C5">
-                            </li>
+                            {Object.values(this.state.pitches).map ((note, idx) => (
+                                <li className="key" key={idx} id={note}>
+                                    {Object.keys(this.state.pitches)[idx]}
+                                    <p>
+                                    {note}
+                                    </p>
+                                </li>
+                            ))}
                         </ol>
                         <div className="volume" onClick={this.setVolume}>
                             <label>Volume
