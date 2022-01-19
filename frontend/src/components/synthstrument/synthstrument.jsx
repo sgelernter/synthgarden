@@ -27,19 +27,27 @@ class Synthstrument extends React.Component{
         envelope.attackCurve = "linear";
         envelope.attack = .2;
         const pitches = {
-            z: 'C4',
-            x: 'D4',
-            c: 'E4',
-            v: 'F4',
-            b: 'G4',
-            n: 'C5'
+            a: 'C4',
+            w: 'C#4',
+            s: 'D4',
+            e: 'D#4',
+            d: 'E4',
+            f: 'F4',
+            t: 'F#4',
+            g: 'G4',
+            y: 'G#4',
+            h: 'A4',
+            u: 'A#4',
+            j: 'B4',
+            k: 'C5'
         }
         this.signalChain = [];
         this.state = {
             contextStarted: 'false',
-            envelope,
             synth1: simpleSynth,
             pitches,
+            octave: 0,
+            envelope,
             eq3,
             oscillator1,
             chorus,
@@ -47,9 +55,12 @@ class Synthstrument extends React.Component{
             distortion,
             bitCrush,
             feedDelay,
-            pongDelay
+            pongDelay,
+            patchName: 'untitled patch'
         }
         this.instantiateAudioContext = this.instantiateAudioContext.bind(this);
+        this.clearPatchName = this.clearPatchName.bind(this);
+        this.updatePatchName = this.updatePatchName.bind(this);
         this.clickKey = this.clickKey.bind(this);
         this.pressKey = this.pressKey.bind(this);
         this.releaseKey = this.releaseKey.bind(this);
@@ -58,6 +69,7 @@ class Synthstrument extends React.Component{
         this.changeOctave = this.changeOctave.bind(this);
         this.connectFX = this.connectFX.bind(this);
         this.disconnectFX = this.disconnectFX.bind(this);
+        this.savePatch = this.savePatch.bind(this);
     }
 
     setVolume(e){
@@ -70,7 +82,6 @@ class Synthstrument extends React.Component{
     instantiateAudioContext(e){
         if (this.state.contextStarted === 'false') {
             Tone.start().then(() => {
-                console.log('Audio context has started');
                 this.state.oscillator1.start();
             }).then(() => {
                 document.addEventListener("keydown", this.pressKey);
@@ -80,6 +91,12 @@ class Synthstrument extends React.Component{
                 contextStarted: 'true'
             })
             e.target.className = 'power-button on';
+        } else {
+            this.state.oscillator1.stop();
+            e.target.className = 'power-button off';
+            this.setState({
+                contextStarted: 'false'
+            })
         }
     }
 
@@ -97,6 +114,78 @@ class Synthstrument extends React.Component{
     releaseKey(e){
         this.state.envelope.triggerRelease();
         document.getElementById(this.state.pitches[e.key]).className = 'key';
+    }
+
+    updatePatchName(e){
+        this.setState({
+            patchName: e.target.value
+        })
+    }
+
+    clearPatchName(e){
+        if (this.state.patchName === 'untitled patch') this.setState({patchName: ''});
+    }
+
+    loadPatch(patchName){
+    }
+
+    savePatch(){
+        const modsOn = document.getElementById('mods').className === 'mods on';
+        const harmonicsOn = document.getElementById('distortion').className === 'harmonics on';
+        const delaysOn = document.getElementById('delay').className === 'delays on';
+        let selectedDelay;
+        let selectedHarmonics;
+        document.getElementById('distortion-controls').className === 'distortion visible' ? selectedHarmonics = 'distortion' : selectedHarmonics = 'bitCrusher';
+        document.getElementById('feedback-controls').className === 'feedback-delay visible' ? selectedDelay = 'feedback' : selectedDelay = 'pong';
+
+        const patchData = {
+            name: this.state.patchName,
+            user: this.props.currentUserId,
+            oscillator: {
+                osctype: this.state.oscillator1.type,
+                attack: this.state.envelope['attack'],
+                sustain: this.state.envelope['sustain'],
+                release: this.state.envelope['release'],
+            },
+            octave: this.state.octave,
+            eq: {
+                high: this.state.eq3.high.value,
+                mid: this.state.eq3.mid.value,
+                low: this.state.eq3.low.value
+            },
+            mods: modsOn,
+            chorus: {
+                LFO: this.state.chorus.frequency.value,
+                delay: this.state.chorus.delayTime,
+                depth: this.state.chorus.depth
+            },
+            tremolo: {
+                frequency: this.state.tremolo.frequency.value,
+                depth: this.state.tremolo.depth.value
+            },
+            harmonics: harmonicsOn,
+            selectedHarmonics,
+            distortion: {
+                amt: this.state.distortion.wet.value
+            },
+            bitCrusher: {
+                bitDepth: this.state.bitCrush.bits.value,
+                amount: this.state.bitCrush.wet.value
+            },
+            delay: delaysOn,
+            selectedDelay,
+            feedback: {
+                time: this.state.feedDelay.delayTime.value,
+                fb: this.state.feedDelay.feedback.value,
+                amt: this.state.feedDelay.wet.value
+            },
+            pingPong: {
+                time: this.state.pongDelay.delayTime.value,
+                fb: this.state.pongDelay.feedback.value,
+                amt: this.state.pongDelay.wet.value
+            }
+        }
+        this.props.savePatch(patchData);
     }
 
     updatePatch(type){
@@ -142,7 +231,6 @@ class Synthstrument extends React.Component{
                     this.setState({
                         chorus: this.state.chorus
                     })
-                    break;
                 case 'tremolo':
                     console.log(this.state.tremolo);
                     switch (e.target.className) {
@@ -214,17 +302,20 @@ class Synthstrument extends React.Component{
     changeOctave(e){
         let octMod;
         e.target.className === 'oct-up' ? octMod = 1 : octMod = -1;
-        const letters = ['z', 'x', 'c', 'v', 'b', 'n'];
+        const letters = Object.keys(this.state.pitches);
         const newPitches = {};
         const origPitches = Object.values(this.state.pitches);
-        origPitches.forEach ((pitch, idx) => {
-            const pitchLetter = pitch.slice(0, -1);
-            const newOct = parseInt(pitch.slice(-1)) + octMod;
-            newPitches[letters[idx]] = pitchLetter + newOct;
-        });
-        this.setState({
-            pitches: newPitches
-        })
+        if (this.state.octave + octMod <= 3 && this.state.octave + octMod >= -3) {
+            origPitches.forEach ((pitch, idx) => {
+                const pitchLetter = pitch.slice(0, -1);
+                const newOct = parseInt(pitch.slice(-1)) + octMod;
+                newPitches[letters[idx]] = pitchLetter + newOct;
+            });
+            this.setState({
+                pitches: newPitches,
+                octave: (this.state.octave + octMod)
+            })
+        }
     }
 
     connectFX(effectNode){
@@ -249,13 +340,18 @@ class Synthstrument extends React.Component{
             const newChain = this.signalChain.slice(0, idx).concat(this.signalChain.slice(idx + 1));
             this.state.eq3.chain(...newChain, destination);
             this.signalChain = newChain;
-
         }
     }
 
     render(){
         return (
             <div className="synthstrument-container">
+                <div className="patch-interface">
+                    <input type="text" value={this.state.patchName} onClick={this.clearPatchName} onChange={this.updatePatchName} />
+                    <button onClick={this.savePatch}>
+                        save patch settings
+                    </button>
+                </div>
                 <div className="synthstrument">
                     <div className="label">
                         ✨ QT Synthstrument Here ✨
@@ -269,7 +365,7 @@ class Synthstrument extends React.Component{
                             <div className="env-controls">
                                 <label>
                                     Attack
-                                    <input type="range" value={this.state.envelope.attack} max="2" step=".1" onChange={this.updatePatch('attack')}/>
+                                    <input type="range" value={this.state.envelope.attack} max="2" step=".05" onChange={this.updatePatch('attack')}/>
                                 </label>
                                 <label>
                                     Sustain
@@ -277,7 +373,7 @@ class Synthstrument extends React.Component{
                                 </label>
                                 <label>
                                     Release
-                                    <input type="range" value={this.state.envelope.release} max="5" step=".1" onChange={this.updatePatch('release')}/>
+                                    <input type="range" value={this.state.envelope.release} max="5" step=".05" onChange={this.updatePatch('release')}/>
                                 </label>
                             </div>
                             <div className="octave-shift" onClick={this.changeOctave}>
@@ -330,18 +426,14 @@ class Synthstrument extends React.Component{
                     </div>
                     <div className="keys-bar">
                         <ol className="keyboard" onClick={this.clickKey}>
-                            <li className="key" id="C4">
-                            </li>
-                            <li className="key" id="D4">
-                            </li>
-                            <li className="key" id="E4">
-                            </li>
-                            <li className="key" id="F4">
-                            </li>
-                            <li className="key" id="G4">
-                            </li>
-                            <li className="key" id="C5">
-                            </li>
+                            {Object.values(this.state.pitches).map ((note, idx) => (
+                                <li className="key" key={idx} id={note}>
+                                    {Object.keys(this.state.pitches)[idx]}
+                                    <p>
+                                    {note}
+                                    </p>
+                                </li>
+                            ))}
                         </ol>
                         <div className="volume" onClick={this.setVolume}>
                             <label>Volume
