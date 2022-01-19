@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import * as Tone from 'tone';
 
 class Record extends React.Component {
@@ -9,7 +10,8 @@ class Record extends React.Component {
     this.state = {
       recorder,
       recording: false,
-      url: ''
+      url: '',
+      synth
     }
     synth.toDestination();
     this.startRecording = this.startRecording.bind(this);
@@ -18,22 +20,46 @@ class Record extends React.Component {
   }
 
   startRecording() {
+    // TEST NOIZE
+    this.state.synth.triggerAttackRelease("C3", 0.5);
+    this.state.synth.triggerAttackRelease("C4", 0.5, "+1");
+    this.state.synth.triggerAttackRelease("C5", 0.5, "+2");
+    // DELETE ABOVE
+
     this.state.recorder.start();
-    this.setState({ recording: true })
+    this.setState({
+      recording: true
+    })
   }
 
   stopRecording() {
     // this.state.recorder.stop();
-    const recording = this.state.recorder.stop();
-    const url = URL.createObjectURL(recording)
-    this.setState({
-      url,
-      recording: false
-    });
+    // debugger
+    // const recording = this.state.recorder.stop();
+    // debugger
+    // const url = URL.createObjectURL(recording)
+    // debugger
+    // // console.log(url)
+    // this.setState({
+    //   url,
+    //   recording: false
+    // });
+    let clip, clipUrl;
+    setTimeout(async () => {
+      clip = await this.state.recorder.stop();
+      clipUrl = URL.createObjectURL(clip);
+
+      // console.log(clipUrl)
+
+      this.setState({
+        url: clipUrl,
+        recording: false
+      })
+    }, 1000)
+    
   }
 
   render() {
-    // SWITCH RECORDING BUTTON - START / STOP
     let recordingButton;
     this.state.recording ?
       (
@@ -52,10 +78,19 @@ class Record extends React.Component {
                           </button>
       )
 
+      let download;
+      this.state.url ?
+      (
+        download = <Link to={this.state.url} className="download-link">Download</Link>
+      ) : (
+        download = null
+      )
+
     return (
       <>
-        <audio src={this.state.url} controls></audio>
         {recordingButton}
+        <audio src={this.state.url} controls></audio>
+        {download}
       </>
     )
   }
