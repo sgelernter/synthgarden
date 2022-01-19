@@ -12,19 +12,52 @@ router.post('/',
         const { isValid, errors } = validatePatchInput(req.body);
 
         if(!isValid) return res.status(400).json(errors);
-
         const newPatch = new Patch({
-            user: req.user.id,
-            name: req.body.name,
-            osctype: req.body.oscillator.osctype,
-            attack: req.body.oscillator.attack,
-            sustain: req.body.oscillator.sustain,
-            release: req.body.oscillator.release,
-            low: req.body.equalizer.low,
-            mid: req.body.equalizer.mid,
-            high: req.body.equalizer.high,
-            mods: req.body.mods,
-            delay: req.body.delay
+          name: req.body.name,
+          user: req.body.user,
+          oscillator: {
+              osctype: req.body.oscillator.osctype,
+              attack: req.body.oscillator.attack,
+              sustain: req.body.oscillator.sustain,
+              release: req.body.oscillator.release
+          },
+          octave: req.body.octave,
+          eq: {
+              low: req.body.eq.low,
+              mid: req.body.eq.mid,
+              high: req.body.eq.high
+          },
+          mods: req.body.mods,
+          chorus: {
+              LFO: req.body.chorus.LFO,
+              delay: req.body.chorus.delay,
+              depth: req.body.chorus.depth
+          },
+          tremolo: {
+              frequency: req.body.tremolo.frequency,
+              depth: req.body.tremolo.depth
+          },
+          harmonics: req.body.harmonics,
+          selectedHarmonics: req.body.selectedHarmonics,
+          distortion: {
+              amt: req.body.distortion.amt
+          },
+          bitCrusher: {
+              bitDepth: req.body.bitCrusher.bitDepth,
+              amount: req.body.bitCrusher.amount
+          },
+          delay: req.body.delay,
+          selectedDelay: req.body.selectedDelay,
+          feedback: {
+              time: req.body.feedback.time,
+              fb: req.body.feedback.fb,
+              amt: req.body.feedback.amt
+          },
+          pingPong: {
+            time: req.body.pingPong.time,
+            fb: req.body.pingPong.fb,
+            amt: req.body.pingPong.amt
+          }
         })
 
         newPatch
@@ -32,7 +65,7 @@ router.post('/',
             .then(patch => res.json(patch))
     }
 );
-
+ 
 //edit patch name
 // router.put('/:id',
 //     passport.authenticate("jwt", { session: false }),

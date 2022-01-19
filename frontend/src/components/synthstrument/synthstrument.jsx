@@ -55,9 +55,12 @@ class Synthstrument extends React.Component{
             distortion,
             bitCrush,
             feedDelay,
-            pongDelay
+            pongDelay,
+            patchName: 'untitled patch'
         }
         this.instantiateAudioContext = this.instantiateAudioContext.bind(this);
+        this.clearPatchName = this.clearPatchName.bind(this);
+        this.updatePatchName = this.updatePatchName.bind(this);
         this.clickKey = this.clickKey.bind(this);
         this.pressKey = this.pressKey.bind(this);
         this.releaseKey = this.releaseKey.bind(this);
@@ -66,6 +69,7 @@ class Synthstrument extends React.Component{
         this.changeOctave = this.changeOctave.bind(this);
         this.connectFX = this.connectFX.bind(this);
         this.disconnectFX = this.disconnectFX.bind(this);
+        this.savePatch = this.savePatch.bind(this);
     }
 
     setVolume(e){
@@ -112,12 +116,76 @@ class Synthstrument extends React.Component{
         document.getElementById(this.state.pitches[e.key]).className = 'key';
     }
 
-    loadPatch(patchName){
-
+    updatePatchName(e){
+        this.setState({
+            patchName: e.target.value
+        })
     }
 
-    savePatch(patchName){
+    clearPatchName(e){
+        if (this.state.patchName === 'untitled patch') this.setState({patchName: ''});
+    }
 
+    loadPatch(patchName){
+    }
+
+    savePatch(){
+        const modsOn = document.getElementById('mods').className === 'mods on';
+        const harmonicsOn = document.getElementById('distortion').className === 'harmonics on';
+        const delaysOn = document.getElementById('delay').className === 'delays on';
+        let selectedDelay;
+        let selectedHarmonics;
+        document.getElementById('distortion-controls').className === 'distortion visible' ? selectedHarmonics = 'distortion' : selectedHarmonics = 'bitCrusher';
+        document.getElementById('feedback-controls').className === 'feedback-delay visible' ? selectedDelay = 'feedback' : selectedDelay = 'pong';
+
+        const patchData = {
+            name: this.state.patchName,
+            user: this.props.currentUserId,
+            oscillator: {
+                osctype: this.state.oscillator1.type,
+                attack: this.state.envelope['attack'],
+                sustain: this.state.envelope['sustain'],
+                release: this.state.envelope['release'],
+            },
+            octave: this.state.octave,
+            eq: {
+                high: this.state.eq3.high.value,
+                mid: this.state.eq3.mid.value,
+                low: this.state.eq3.low.value
+            },
+            mods: modsOn,
+            chorus: {
+                LFO: this.state.chorus.frequency.value,
+                delay: this.state.chorus.delayTime,
+                depth: this.state.chorus.depth
+            },
+            tremolo: {
+                frequency: this.state.tremolo.frequency.value,
+                depth: this.state.tremolo.depth.value
+            },
+            harmonics: harmonicsOn,
+            selectedHarmonics,
+            distortion: {
+                amt: this.state.distortion.wet.value
+            },
+            bitCrusher: {
+                bitDepth: this.state.bitCrush.bits.value,
+                amount: this.state.bitCrush.wet.value
+            },
+            delay: delaysOn,
+            selectedDelay,
+            feedback: {
+                time: this.state.feedDelay.delayTime.value,
+                fb: this.state.feedDelay.feedback.value,
+                amt: this.state.feedDelay.wet.value
+            },
+            pingPong: {
+                time: this.state.pongDelay.delayTime.value,
+                fb: this.state.pongDelay.feedback.value,
+                amt: this.state.pongDelay.wet.value
+            }
+        }
+        this.props.savePatch(patchData);
     }
 
     updatePatch(type){
@@ -163,7 +231,6 @@ class Synthstrument extends React.Component{
                     this.setState({
                         chorus: this.state.chorus
                     })
-                    break;
                 case 'tremolo':
                     console.log(this.state.tremolo);
                     switch (e.target.className) {
@@ -273,13 +340,18 @@ class Synthstrument extends React.Component{
             const newChain = this.signalChain.slice(0, idx).concat(this.signalChain.slice(idx + 1));
             this.state.eq3.chain(...newChain, destination);
             this.signalChain = newChain;
-
         }
     }
 
     render(){
         return (
             <div className="synthstrument-container">
+                <div className="patch-interface">
+                    <input type="text" value={this.state.patchName} onClick={this.clearPatchName} onChange={this.updatePatchName} />
+                    <button onClick={this.savePatch}>
+                        save patch settings
+                    </button>
+                </div>
                 <div className="synthstrument">
                     <div className="label">
                         ✨ QT Synthstrument Here ✨
