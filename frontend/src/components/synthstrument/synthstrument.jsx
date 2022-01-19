@@ -14,10 +14,15 @@ class Synthstrument extends React.Component{
         super(props);
         const eq3 = new Tone.EQ3().toDestination();
         const simpleSynth = new Tone.Synth().connect(eq3);
-        simpleSynth.volume.value = -20;
         const oscillator1 = simpleSynth.oscillator;
-        oscillator1.type = 'pwm';
         const envelope = simpleSynth.envelope;
+        const chorus = new Tone.Chorus();
+        const tremolo = new Tone.Tremolo();
+        const distortion = new Tone.Distortion();
+        const feedDelay = new Tone.FeedbackDelay();
+        const pongDelay = new Tone.PingPongDelay();
+        simpleSynth.volume.value = -20;
+        oscillator1.type = 'pwm';
         envelope.attackCurve = "linear";
         envelope.attack = .2;
         const pitches = {
@@ -28,6 +33,7 @@ class Synthstrument extends React.Component{
             b: 'G4',
             n: 'C5'
         }
+        this.signalChain = [];
         this.state = {
             contextStarted: 'false',
             envelope,
@@ -35,14 +41,18 @@ class Synthstrument extends React.Component{
             pitches,
             eq3,
             oscillator1,
-            signalChain: []
+            chorus,
+            tremolo,
+            distortion,
+            feedDelay,
+            pongDelay
         }
         this.instantiateAudioContext = this.instantiateAudioContext.bind(this);
         this.clickKey = this.clickKey.bind(this);
         this.pressKey = this.pressKey.bind(this);
         this.releaseKey = this.releaseKey.bind(this);
         this.setVolume = this.setVolume.bind(this);
-        this.updateSlider = this.updateSlider.bind(this);
+        this.updatePatch = this.updatePatch.bind(this);
         this.changeOctave = this.changeOctave.bind(this);
         this.connectFX = this.connectFX.bind(this);
         this.disconnectFX = this.disconnectFX.bind(this);
@@ -56,9 +66,7 @@ class Synthstrument extends React.Component{
         if (this.state.contextStarted === 'false') {
             Tone.start().then(() => {
                 console.log('Audio context has started');
-                // debugger
                 this.state.oscillator1.start();
-                // this.oscillator2.start();
             }).then(() => {
                 document.addEventListener("keydown", this.pressKey);
                 document.addEventListener("keyup", this.releaseKey);
@@ -72,13 +80,11 @@ class Synthstrument extends React.Component{
 
     clickKey(e){
         this.state.oscillator1.frequency.value = e.target.id;
-        // this.oscillator2.frequency.value = e.target.id;
         this.state.envelope.triggerAttackRelease("2t");
     }
 
     pressKey(e){
         this.state.oscillator1.frequency.value = this.state.pitches[e.key];
-        // this.oscillator2.frequency.value = this.pitches[e.key];
         this.state.envelope.triggerAttack();
         document.getElementById(this.state.pitches[e.key]).className = 'active';
     }
@@ -88,34 +94,101 @@ class Synthstrument extends React.Component{
         document.getElementById(this.state.pitches[e.key]).className = 'key';
     }
 
-    updateSlider(type){
+    updatePatch(type){
         return e => {
-            if (['attack', 'sustain', 'release'].includes(type)) {
-                const updateEnv = this.state.envelope;
-                updateEnv[type] = e.target.value;
-                this.setState({
-                    envelope: updateEnv
-                })
-            } else if (type === 'portamento') {
-                this.state.synth1.portamento = e.target.value;
-                this.setState({
-                    synth1: this.state.synth1
-                })
-            } else if (type === 'eq') {
-                switch (e.target.className) {
-                    case 'low':
-                        this.state.eq3.low.value = e.target.value;
-                        break;
-                    case 'mid':
-                        this.state.eq3.mid.value = e.target.value;
-                        break;
-                    case 'high':
-                        this.state.eq3.high.value = e.target.value;
-                        break;
-                }
-                this.setState({
-                    eq3: this.state.eq3
-                })
+            switch (type) {
+                case 'attack':
+                case 'sustain':
+                case 'release':
+                    const updateEnv = this.state.envelope;
+                    updateEnv[type] = e.target.value;
+                    this.setState({
+                        envelope: updateEnv
+                    })
+                    break;
+                case 'eq':
+                    switch (e.target.className) {
+                        case 'low':
+                            this.state.eq3.low.value = e.target.value;
+                            break;
+                        case 'mid':
+                            this.state.eq3.mid.value = e.target.value;
+                            break;
+                        case 'high':
+                            this.state.eq3.high.value = e.target.value;
+                            break;
+                    }
+                    this.setState({
+                        eq3: this.state.eq3
+                    })
+                    break;   
+                case 'chorus':
+                    switch (e.target.className) {
+                        case 'LFO':
+                            this.state.chorus.frequency.value = e.target.value;
+                            break;
+                        case 'delay':
+                            this.state.chorus.delayTime = e.target.value;
+                            break;
+                        case 'chorus-depth':
+                            this.state.chorus.depth = e.target.value;
+                            break;
+                    }
+                    this.setState({
+                        chorus: this.state.chorus
+                    })
+                    break;
+                case 'tremolo':
+                    switch (e.target.className) {
+                        case 'frequency':
+                            this.state.tremolo.frequency.value = e.target.value;
+                            break;
+                        case 'trem-depth':
+                            this.state.tremolo.depth.value = e.target.value;
+                            break;
+                    }
+                    this.setState({
+                        tremolo: this.state.tremolo
+                    })
+                    break;
+                case 'distortion':
+                    this.state.distortion.distortion = e.target.value;
+                    this.setState({
+                        distortion: this.state.distortion
+                    })
+                    break;
+                case 'feedback-delay':
+                    switch (e.target.className) {
+                        case 'delay-time':
+                            this.state.feedDelay.delayTime.value = e.target.value;
+                            break;
+                        case 'feedback':
+                            this.state.feedDelay.feedback.value = e.target.value;
+                            break;
+                        case 'wet-dry':
+                            this.state.feedDelay.wet.value = e.target.value;
+                            break;
+                    }
+                    this.setState({
+                        feedDelay: this.state.feedDelay
+                    })
+                    break;
+                case 'pong-delay':
+                    switch (e.target.className) {
+                        case 'delay-time':
+                            this.state.pongDelay.delayTime.value = e.target.value;
+                            break;
+                        case 'feedback':
+                            this.state.pongDelay.feedback.value = e.target.value;
+                            break;
+                        case 'wet-dry':
+                            this.state.pongDelay.wet.value = e.target.value;
+                            break;
+                    }
+                    this.setState({
+                        pongDelay: this.state.pongDelay
+                    })
+                    break;
             }
         }
     }
@@ -137,25 +210,32 @@ class Synthstrument extends React.Component{
     }
 
     connectFX(effectNode){
+        console.log(this.signalChain);
         const destination = Tone.getDestination();
         let prevLastNode;
-        this.state.signalChain.length === 0 ? prevLastNode = this.state.eq3 : prevLastNode = this.state.signalChain.slice(-1)[0];
-        destination.disconnect(prevLastNode);
+        this.signalChain.length === 0 ? prevLastNode = this.state.eq3 : prevLastNode = this.signalChain.slice(-1)[0];
+        prevLastNode.disconnect(destination);
         prevLastNode.chain(effectNode, destination);
-        this.setState({
-            signalChain: this.state.signalChain.push(effectNode)
-        });
+        this.signalChain.push(effectNode);
+        console.log(this.signalChain);
     }
 
     disconnectFX(effectNode){
+        console.log(this.signalChain);
         const destination = Tone.getDestination();
-        let newLastNode;
-        this.state.signalChain.length === 1 ? newLastNode = this.state.eq3 : newLastNode = this.state.signalChain[0];
-        destination.disconnect(effectNode);
-        newLastNode.connect(destination);
-        this.setState({
-            signalChain: this.state.signalChain.slice(0, -1)
-        });
+        if (this.signalChain.length === 1) {
+            effectNode.disconnect(destination);
+            this.signalChain = [];
+            this.state.eq3.connect(destination);
+            console.log(this.signalChain);
+        } else {
+            this.signalChain.forEach (node => node.disconnect());
+            const idx = this.signalChain.indexOf(effectNode);
+            const newChain = this.signalChain.slice(0, idx).concat(this.signalChain.slice(idx + 1));
+            this.state.eq3.chain(...newChain, destination);
+            this.signalChain = newChain;
+            console.log(this.signalChain);
+        }
     }
 
     render(){
@@ -174,19 +254,15 @@ class Synthstrument extends React.Component{
                             <div className="env-controls">
                                 <label>
                                     Attack
-                                    <input type="range" value={this.state.envelope.attack} max="2" step=".1" onChange={this.updateSlider('attack')}/>
+                                    <input type="range" value={this.state.envelope.attack} max="2" step=".1" onChange={this.updatePatch('attack')}/>
                                 </label>
-                                {/* <label>
-                                    Decay
-                                    <input type="range" value={this.state.envelope.decay} max="2" step=".1" onChange={this.updateSlider('decay')}/>
-                                </label> */}
                                 <label>
                                     Sustain
-                                    <input type="range" value={this.state.envelope.sustain} max="1" step=".1" onChange={this.updateSlider('sustain')}/>
+                                    <input type="range" value={this.state.envelope.sustain} max="1" step=".1" onChange={this.updatePatch('sustain')}/>
                                 </label>
                                 <label>
                                     Release
-                                    <input type="range" value={this.state.envelope.release} max="5" step=".1" onChange={this.updateSlider('release')}/>
+                                    <input type="range" value={this.state.envelope.release} max="5" step=".1" onChange={this.updatePatch('release')}/>
                                 </label>
                             </div>
                             <div className="octave-shift" onClick={this.changeOctave}>
@@ -198,9 +274,6 @@ class Synthstrument extends React.Component{
                                 </button>
                             </div>
                         </div>
-                        {/* <div className="osc-box 2"> */}
-                            {/* < Oscillator2 oscillator={this.oscillator2}/> */}
-                        {/* </div> */}
                         <div className="post-FX">
                                 <div className="eq3">
                                     <label>
@@ -209,7 +282,7 @@ class Synthstrument extends React.Component{
                                             min="-12" 
                                             max="12" 
                                             step=".5" 
-                                            onChange={this.updateSlider('eq')} 
+                                            onChange={this.updatePatch('eq')} 
                                             className="low" />
                                     </label>
                                     <label>
@@ -218,7 +291,7 @@ class Synthstrument extends React.Component{
                                             min="-12" 
                                             max="12" 
                                             step=".5" 
-                                            onChange={this.updateSlider('eq')} 
+                                            onChange={this.updatePatch('eq')} 
                                             className="mid" />
                                     </label>
                                     <label>
@@ -227,11 +300,16 @@ class Synthstrument extends React.Component{
                                             min="-12" 
                                             max="12" 
                                             step=".5" 
-                                            onChange={this.updateSlider('eq')} 
+                                            onChange={this.updatePatch('eq')} 
                                             className="high" />
                                     </label>
                                 </div>
-                                < FXBank />
+                                < FXBank connectFX={this.connectFX} disconnectFX={this.disconnectFX} updatePatch={this.updatePatch}
+                                    chorusNode={this.state.chorus}
+                                    tremoloNode={this.state.tremolo}
+                                    distortNode={this.state.distortion}
+                                    feedDelayNode={this.state.feedDelay}
+                                    pongDelayNode={this.state.pongDelay}/>
                         </div>
                     </div>
                     <div className="keys-bar">
