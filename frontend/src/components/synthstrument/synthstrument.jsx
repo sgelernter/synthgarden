@@ -19,6 +19,7 @@ class Synthstrument extends React.Component{
         const chorus = new Tone.Chorus();
         const tremolo = new Tone.Tremolo();
         const distortion = new Tone.Distortion();
+        const bitCrush = new Tone.BitCrusher();
         const feedDelay = new Tone.FeedbackDelay();
         const pongDelay = new Tone.PingPongDelay();
         simpleSynth.volume.value = -20;
@@ -44,6 +45,7 @@ class Synthstrument extends React.Component{
             chorus,
             tremolo,
             distortion,
+            bitCrush,
             feedDelay,
             pongDelay
         }
@@ -59,7 +61,10 @@ class Synthstrument extends React.Component{
     }
 
     setVolume(e){
-        this.state.synth1.volume.value = parseInt(e.target.value);
+        this.state.synth1.volume.value = e.target.value;
+        this.setState({
+            synth1: this.state.synth1
+        })
     }
 
     instantiateAudioContext(e){
@@ -139,6 +144,7 @@ class Synthstrument extends React.Component{
                     })
                     break;
                 case 'tremolo':
+                    console.log(this.state.tremolo);
                     switch (e.target.className) {
                         case 'frequency':
                             this.state.tremolo.frequency.value = e.target.value;
@@ -147,6 +153,7 @@ class Synthstrument extends React.Component{
                             this.state.tremolo.depth.value = e.target.value;
                             break;
                     }
+                    console.log(this.state.tremolo);      
                     this.setState({
                         tremolo: this.state.tremolo
                     })
@@ -155,6 +162,17 @@ class Synthstrument extends React.Component{
                     this.state.distortion.distortion = e.target.value;
                     this.setState({
                         distortion: this.state.distortion
+                    })
+                    break;
+                case 'bitcrush':
+                    // debugger
+                    if (e.target.className === 'crusher-wet') {
+                        this.state.bitCrush.wet.value = e.target.value;
+                    } else {
+                        this.state.bitCrush.bits.value = e.target.value;
+                    }
+                    this.setState({
+                        bitCrush: this.state.bitCrush
                     })
                     break;
                 case 'feedback-delay':
@@ -210,31 +228,28 @@ class Synthstrument extends React.Component{
     }
 
     connectFX(effectNode){
-        console.log(this.signalChain);
         const destination = Tone.getDestination();
         let prevLastNode;
         this.signalChain.length === 0 ? prevLastNode = this.state.eq3 : prevLastNode = this.signalChain.slice(-1)[0];
         prevLastNode.disconnect(destination);
         prevLastNode.chain(effectNode, destination);
         this.signalChain.push(effectNode);
-        console.log(this.signalChain);
     }
 
     disconnectFX(effectNode){
-        console.log(this.signalChain);
         const destination = Tone.getDestination();
         if (this.signalChain.length === 1) {
             effectNode.disconnect(destination);
             this.signalChain = [];
             this.state.eq3.connect(destination);
-            console.log(this.signalChain);
+
         } else {
             this.signalChain.forEach (node => node.disconnect());
             const idx = this.signalChain.indexOf(effectNode);
             const newChain = this.signalChain.slice(0, idx).concat(this.signalChain.slice(idx + 1));
             this.state.eq3.chain(...newChain, destination);
             this.signalChain = newChain;
-            console.log(this.signalChain);
+
         }
     }
 
@@ -308,6 +323,7 @@ class Synthstrument extends React.Component{
                                     chorusNode={this.state.chorus}
                                     tremoloNode={this.state.tremolo}
                                     distortNode={this.state.distortion}
+                                    crushNode={this.state.bitCrush}
                                     feedDelayNode={this.state.feedDelay}
                                     pongDelayNode={this.state.pongDelay}/>
                         </div>
@@ -327,22 +343,11 @@ class Synthstrument extends React.Component{
                             <li className="key" id="C5">
                             </li>
                         </ol>
-                        <label>Volume
-                            <div className="volume" onClick={this.setVolume}>
-                                <label>
-                                    low
-                                    <input type="radio" value="-30" name="volume"/>
-                                </label>
-                                <label>
-                                    med
-                                    <input type="radio" value="-20" name="volume" defaultChecked/>
-                                </label>
-                                <label>
-                                    high
-                                    <input type="radio" value="-6" name="volume"/>
-                                </label>
-                            </div>
-                        </label>
+                        <div className="volume" onClick={this.setVolume}>
+                            <label>Volume
+                                <input type="range" value={this.state.synth1.volume.value} onChange={this.setVolume} min="-45" max="0" step="1" />
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>

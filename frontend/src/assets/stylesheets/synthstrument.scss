@@ -70,6 +70,9 @@
                 width: 80%;
                 display: flex;
                 font-size: 10px;
+                .invisible{
+                    display: none;
+                }
                 .mods{
                     display: flex;
                     flex-direction: column;
@@ -92,9 +95,6 @@
                     display: flex;
                     border: 1px solid rgb(122, 208, 255);
                     width: 33.3%;
-                    .invisible{
-                        display: none;
-                    }
                 }
                 .off{
                     filter: grayscale(100%);
@@ -128,6 +128,10 @@
             display: flex;
             flex-direction: column;
             font-size: 10px;
+            input{
+                -webkit-appearance: slider-vertical;
+                height: 70px;
+            }
         }
     }
 }

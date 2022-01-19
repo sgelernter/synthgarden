@@ -51,7 +51,7 @@ class Mods extends React.Component {
                     <label>
                         Delay
                         <input type="range" value={this.state.chorus.delayTime.value} 
-                            min="2" 
+                            min="0" 
                             max="20" 
                             step="2" 
                             onChange={this.props.updatePatch('chorus')} 
@@ -73,8 +73,8 @@ class Mods extends React.Component {
                             Freq
                             <input type="range" value={this.state.trem.frequency.value} 
                                 min="0" 
-                                max="1" 
-                                step=".1" 
+                                max="50" 
+                                step="1" 
                                 onChange={this.props.updatePatch('tremolo')} 
                                 className="frequency" />
                         </label>
@@ -83,7 +83,7 @@ class Mods extends React.Component {
                             <input type="range" value={this.state.trem.depth.value} 
                                 min="0" 
                                 max="1" 
-                                step=".1" 
+                                step=".05" 
                                 onChange={this.props.updatePatch('tremolo')} 
                                 className="trem-depth" />
                         </label>                    
