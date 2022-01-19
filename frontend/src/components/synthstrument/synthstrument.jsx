@@ -4,22 +4,16 @@
 import * as Tone from 'tone';
 import Oscillator1 from './osc_1';
 // import Oscillator2 from './osc_2';
-// import FXBank from './fx_bank';
 import React from 'react'
 import '../../assets/stylesheets/synthstrument.scss';
+import FXBank from './fx_bank';
 
 class Synthstrument extends React.Component{
 
     constructor(props){
         super(props);
-        // this.getDestination = Tone.getDestination;
-        // debugger
         const eq3 = new Tone.EQ3().toDestination();
-        // debugger
         const simpleSynth = new Tone.Synth().connect(eq3);
-        // debugger
-        // const autoWah = new Tone.AutoWah();
-        const bitCrusher = new Tone.BitCrusher(4).toDestination();
         simpleSynth.volume.value = -20;
         const oscillator1 = simpleSynth.oscillator;
         oscillator1.type = 'pwm';
@@ -40,7 +34,8 @@ class Synthstrument extends React.Component{
             synth1: simpleSynth,
             pitches,
             eq3,
-            oscillator1
+            oscillator1,
+            signalChain: []
         }
         this.instantiateAudioContext = this.instantiateAudioContext.bind(this);
         this.clickKey = this.clickKey.bind(this);
@@ -49,6 +44,8 @@ class Synthstrument extends React.Component{
         this.setVolume = this.setVolume.bind(this);
         this.updateSlider = this.updateSlider.bind(this);
         this.changeOctave = this.changeOctave.bind(this);
+        this.connectFX = this.connectFX.bind(this);
+        this.disconnectFX = this.disconnectFX.bind(this);
     }
 
     setVolume(e){
@@ -139,12 +136,26 @@ class Synthstrument extends React.Component{
         })
     }
 
-    connectFX(effect){
-
+    connectFX(effectNode){
+        const destination = Tone.getDestination();
+        let prevLastNode;
+        this.state.signalChain.length === 0 ? prevLastNode = this.state.eq3 : prevLastNode = this.state.signalChain.slice(-1)[0];
+        destination.disconnect(prevLastNode);
+        prevLastNode.chain(effectNode, destination);
+        this.setState({
+            signalChain: this.state.signalChain.push(effectNode)
+        });
     }
 
-    disconnectFX(effect){
-
+    disconnectFX(effectNode){
+        const destination = Tone.getDestination();
+        let newLastNode;
+        this.state.signalChain.length === 1 ? newLastNode = this.state.eq3 : newLastNode = this.state.signalChain[0];
+        destination.disconnect(effectNode);
+        newLastNode.connect(destination);
+        this.setState({
+            signalChain: this.state.signalChain.slice(0, -1)
+        });
     }
 
     render(){
@@ -220,6 +231,7 @@ class Synthstrument extends React.Component{
                                             className="high" />
                                     </label>
                                 </div>
+                                < FXBank />
                         </div>
                     </div>
                     <div className="keys-bar">
