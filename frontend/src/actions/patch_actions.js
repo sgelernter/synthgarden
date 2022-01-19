@@ -24,3 +24,28 @@ const removePatch = id => {
         id: id
     }
 }
+
+export const createPatch = patch => dispatch => {
+    return PatchApiUtil.createPatch(patch)
+      .then(patch => dispatch(receivePatch(patch)))
+}
+
+export const fetchPatches = () => dispatch => {
+    return PatchApiUtil.fetchAllPatches()
+      .then(patches => dispatch(receivePatches(patches)))
+}
+
+export const fetchUserPatches = userId => dispatch => {
+    return PatchApiUtil.fetchUserPatches(userId)
+      .then(patches => dispatch(receivePatches(patches)))
+}
+
+export const fetchPatch = id => dispatch => {
+    return PatchApiUtil.fetchPatch(id)
+      .then(patch => dispatch(receivePatch(patch)))
+}
+
+export const deletePatch = id => dispatch => {
+    return PatchApiUtil.deletePatch(id)
+      .then(() => dispatch(removePatch(id)))
+}
