@@ -2,6 +2,7 @@ import React from 'react';
 // import Navbar from '../navbar/navbar';
 import NavbarContainer from '../navbar/navbar_container';
 import Synthstrument from '../synthstrument/synthstrument';
+import Record from '../controls/record';
 import '../../assets/stylesheets/splash.scss';
 
 export default function Splash() {
@@ -10,6 +11,7 @@ export default function Splash() {
             <NavbarContainer />
             {/* <Navbar /> */}
             <Synthstrument />
+            <Record />
         </div>
     )
 }
