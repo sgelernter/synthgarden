@@ -15,7 +15,16 @@ router.post('/',
 
         const newPatch = new Patch({
             user: req.user.id,
-            name: req.body.name 
+            name: req.body.name,
+            osctype: req.body.oscillator.osctype,
+            attack: req.body.oscillator.attack,
+            sustain: req.body.oscillator.sustain,
+            release: req.body.oscillator.release,
+            low: req.body.equalizer.low,
+            mid: req.body.equalizer.mid,
+            high: req.body.equalizer.high,
+            mods: req.body.mods,
+            delay: req.body.delay
         })
 
         newPatch
