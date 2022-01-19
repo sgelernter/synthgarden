@@ -13,7 +13,7 @@ export default function Splash() {
             <NavbarContainer />
             {/* <Navbar /> */}
 
-            <Synthstrument />
+            {/* <Synthstrument /> */}
             <Record />
             {/* <AuthRoute path="/" component={Record} /> */}
             <SynthstrumentContainer />
