@@ -23,7 +23,7 @@
     .oscillators-bar{
         border: 1px solid aqua;
         width: 80%;
-        height: 150px;
+        height: 90%;
         display: flex;
         flex-direction: column;
         .osc-box{
@@ -41,22 +41,38 @@
                 justify-content: space-evenly;
             }
         }
+        .post-FX{
+            width: 100%;
+            height: 50%;
+            border: 1px solid yellow;
+            font-size: small;
+            .eq3{
+                display: flex;
+                border: 1px solid red;
+                width: 20%;
+                label{
+                    align-self: flex-end;
+                    height: 100%;
+                }
+                input{
+                    -webkit-appearance: slider-vertical;
+                    height: 40%;
+                    width: 10px;
+                }
+            }
+        }
     }
     .keys-bar{
         width: 80%;
         border: 1px solid blueviolet;
         display: flex;        
-        .post-FX{
-            width: 20%;
-            border: 1px solid yellow;
-        }
         ol{
             border: 1px solid lime;
             padding: 5px;
             list-style: none;
             display: flex;
             justify-content: space-evenly;
-            width: 80%;
+            width: 100%;
             height: 50px;
             li {
                 border: 1px solid orange;

@@ -4,7 +4,7 @@
 import * as Tone from 'tone';
 import Oscillator1 from './osc_1';
 // import Oscillator2 from './osc_2';
-import FXBank from './fx_bank';
+// import FXBank from './fx_bank';
 import React from 'react'
 import '../../assets/stylesheets/synthstrument.scss';
 
@@ -12,19 +12,21 @@ class Synthstrument extends React.Component{
 
     constructor(props){
         super(props);
-        this.simpleSynth = new Tone.Synth().toDestination();
-        this.simpleSynth.volume.value = -20;
-        this.oscillator1 = this.simpleSynth.oscillator;
-        this.oscillator1.type = 'pwm';
-        // this.oscillator2 = new Tone.OmniOscillator();
-        this.envelope = this.simpleSynth.envelope;
-        this.envelope.attackCurve = "linear";
-        this.envelope.attack = .2;
-        // this.oscillator1.connect(this.envelope);
-        // this.oscillator2.connect(this.envelope);
-        // this.vol = new Tone.Volume(-30).toDestination();
-        // this.envelope.connect(this.vol);
-        this.pitches = {
+        // this.getDestination = Tone.getDestination;
+        // debugger
+        const eq3 = new Tone.EQ3().toDestination();
+        // debugger
+        const simpleSynth = new Tone.Synth().connect(eq3);
+        // debugger
+        // const autoWah = new Tone.AutoWah();
+        const bitCrusher = new Tone.BitCrusher(4).toDestination();
+        simpleSynth.volume.value = -20;
+        const oscillator1 = simpleSynth.oscillator;
+        oscillator1.type = 'pwm';
+        const envelope = simpleSynth.envelope;
+        envelope.attackCurve = "linear";
+        envelope.attack = .2;
+        const pitches = {
             z: 'C4',
             x: 'D4',
             c: 'E4',
@@ -34,27 +36,31 @@ class Synthstrument extends React.Component{
         }
         this.state = {
             contextStarted: 'false',
-            envelope: this.envelope,
-            synth1: this.simpleSynth
+            envelope,
+            synth1: simpleSynth,
+            pitches,
+            eq3,
+            oscillator1
         }
-        // debugger
         this.instantiateAudioContext = this.instantiateAudioContext.bind(this);
         this.clickKey = this.clickKey.bind(this);
         this.pressKey = this.pressKey.bind(this);
         this.releaseKey = this.releaseKey.bind(this);
         this.setVolume = this.setVolume.bind(this);
         this.updateSlider = this.updateSlider.bind(this);
+        this.changeOctave = this.changeOctave.bind(this);
     }
 
     setVolume(e){
-        this.simpleSynth.volume.value = parseInt(e.target.value);
+        this.state.synth1.volume.value = parseInt(e.target.value);
     }
 
     instantiateAudioContext(e){
         if (this.state.contextStarted === 'false') {
             Tone.start().then(() => {
                 console.log('Audio context has started');
-                this.oscillator1.start();
+                // debugger
+                this.state.oscillator1.start();
                 // this.oscillator2.start();
             }).then(() => {
                 document.addEventListener("keydown", this.pressKey);
@@ -68,39 +74,77 @@ class Synthstrument extends React.Component{
     }
 
     clickKey(e){
-        this.oscillator1.frequency.value = e.target.id;
+        this.state.oscillator1.frequency.value = e.target.id;
         // this.oscillator2.frequency.value = e.target.id;
-        this.envelope.triggerAttackRelease("2t");
+        this.state.envelope.triggerAttackRelease("2t");
     }
 
     pressKey(e){
-        this.oscillator1.frequency.value = this.pitches[e.key];
+        this.state.oscillator1.frequency.value = this.state.pitches[e.key];
         // this.oscillator2.frequency.value = this.pitches[e.key];
-        this.envelope.triggerAttack();
-        document.getElementById(this.pitches[e.key]).className = 'active';
+        this.state.envelope.triggerAttack();
+        document.getElementById(this.state.pitches[e.key]).className = 'active';
     }
     
     releaseKey(e){
-        this.envelope.triggerRelease();
-        document.getElementById(this.pitches[e.key]).className = 'key';
+        this.state.envelope.triggerRelease();
+        document.getElementById(this.state.pitches[e.key]).className = 'key';
     }
 
     updateSlider(type){
         return e => {
-            if (type !== 'portamento') {
+            if (['attack', 'sustain', 'release'].includes(type)) {
                 const updateEnv = this.state.envelope;
                 updateEnv[type] = e.target.value;
                 this.setState({
                     envelope: updateEnv
                 })
-            } else {
+            } else if (type === 'portamento') {
                 this.state.synth1.portamento = e.target.value;
-                // debugger
                 this.setState({
                     synth1: this.state.synth1
                 })
+            } else if (type === 'eq') {
+                switch (e.target.className) {
+                    case 'low':
+                        this.state.eq3.low.value = e.target.value;
+                        break;
+                    case 'mid':
+                        this.state.eq3.mid.value = e.target.value;
+                        break;
+                    case 'high':
+                        this.state.eq3.high.value = e.target.value;
+                        break;
+                }
+                this.setState({
+                    eq3: this.state.eq3
+                })
             }
         }
+    }
+
+    changeOctave(e){
+        let octMod;
+        e.target.className === 'oct-up' ? octMod = 1 : octMod = -1;
+        const letters = ['z', 'x', 'c', 'v', 'b', 'n'];
+        const newPitches = {};
+        const origPitches = Object.values(this.state.pitches);
+        origPitches.forEach ((pitch, idx) => {
+            const pitchLetter = pitch.slice(0, -1);
+            const newOct = parseInt(pitch.slice(-1)) + octMod;
+            newPitches[letters[idx]] = pitchLetter + newOct;
+        });
+        this.setState({
+            pitches: newPitches
+        })
+    }
+
+    connectFX(effect){
+
+    }
+
+    disconnectFX(effect){
+
     }
 
     render(){
@@ -115,7 +159,7 @@ class Synthstrument extends React.Component{
                     </div>
                     <div className="oscillators-bar">
                         <div className="osc-box 1">
-                            < Oscillator1 oscillator={this.oscillator1}/>
+                            < Oscillator1 oscillator={this.state.oscillator1}/>
                             <div className="env-controls">
                                 <label>
                                     Attack
@@ -127,26 +171,58 @@ class Synthstrument extends React.Component{
                                 </label> */}
                                 <label>
                                     Sustain
-                                    <input type="range" value={this.state.envelope.sustainbbz} max="1" step=".1" onChange={this.updateSlider('sustain')}/>
+                                    <input type="range" value={this.state.envelope.sustain} max="1" step=".1" onChange={this.updateSlider('sustain')}/>
                                 </label>
                                 <label>
                                     Release
                                     <input type="range" value={this.state.envelope.release} max="5" step=".1" onChange={this.updateSlider('release')}/>
                                 </label>
-                                {/* <label>
-                                    Glide
-                                    <input type="range" value={this.state.synth1.portamento} max="3" step=".1" onChange={this.updateSlider('portamento')}/>
-                                </label> */}
+                            </div>
+                            <div className="octave-shift" onClick={this.changeOctave}>
+                                <button className="oct-up">
+                                    Oct. Up
+                                </button>
+                                <button className="oct-down">
+                                    Oct. Down
+                                </button>
                             </div>
                         </div>
-                        <div className="osc-box 2">
+                        {/* <div className="osc-box 2"> */}
                             {/* < Oscillator2 oscillator={this.oscillator2}/> */}
+                        {/* </div> */}
+                        <div className="post-FX">
+                                <div className="eq3">
+                                    <label>
+                                        Low
+                                        <input type="range" value={this.state.eq3.low.value} 
+                                            min="-12" 
+                                            max="12" 
+                                            step=".5" 
+                                            onChange={this.updateSlider('eq')} 
+                                            className="low" />
+                                    </label>
+                                    <label>
+                                        Mid
+                                        <input type="range" value={this.state.eq3.mid.value} 
+                                            min="-12" 
+                                            max="12" 
+                                            step=".5" 
+                                            onChange={this.updateSlider('eq')} 
+                                            className="mid" />
+                                    </label>
+                                    <label>
+                                        High
+                                        <input type="range" value={this.state.eq3.high.value} 
+                                            min="-12" 
+                                            max="12" 
+                                            step=".5" 
+                                            onChange={this.updateSlider('eq')} 
+                                            className="high" />
+                                    </label>
+                                </div>
                         </div>
                     </div>
                     <div className="keys-bar">
-                        <div className="post-FX">
-
-                        </div>
                         <ol className="keyboard" onClick={this.clickKey}>
                             <li className="key" id="C4">
                             </li>
