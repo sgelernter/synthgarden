@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { closeModal } from '../../actions/modal_actions';
 import '../../assets/stylesheets/session_form.scss';
 
 class SessionForm extends React.Component {
@@ -11,7 +12,6 @@ class SessionForm extends React.Component {
       password: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-    // console.log(this.props.errors)
     this.handleErrors = this.handleErrors.bind(this);
   }
 
@@ -22,21 +22,27 @@ class SessionForm extends React.Component {
   }
 
   handleErrors() {
-    return Object.values(this.props.errors).length < 1
+    // console.log(Object.values(this.props.errors).length)
+    return Object.values(this.props.errors).length === 0
   }
 
   handleSubmit(e) {
+    this.props.removeSessionErrors();
     e.preventDefault();
     const user = Object.assign({}, this.state);
     // const noErrors = (Object.values(this.props.errors).length < 1)
-    console.log(Object.values(this.props.errors).length < 1)
     this.props.processForm(user)
-      .then(this.handleErrors ? this.props.closeModal : () => e.stopPropogation())
+      // .then(() => this.handleErrors() ? this.closeModal() : console.log('IT WORKS'))
+      .then(() => this.handleErrors() ? closeModal() : e.stopPropagation())
+
+      // now the issue is on re-trying, errors persist
+
+    // const response = async (user) => this.props.processForm(user)
   }
 
-  // componentWillUnmount() {
-  //   this.props.removeSessionErrors();
-  // }
+  componentWillUnmount() {
+    this.props.removeSessionErrors();
+  }
 
   // renderErrors() {
   //   return(
