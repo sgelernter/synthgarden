@@ -20,7 +20,10 @@ class Record extends React.Component {
   }
 
   startRecording() {
-    // TEST NOIZE
+    // TEST NOIZE - WHEN WE START RECORDING,
+    // THIS SAMPLE STARTS TO PLAY
+    // INSTEAD, WE NEED TO LISTEN FOR THE SYNTHSTRUMENT
+    // AND WHAT THE USER IS PLAYING
     this.state.synth.triggerAttackRelease("C3", 0.5);
     this.state.synth.triggerAttackRelease("C4", 0.5, "+1");
     this.state.synth.triggerAttackRelease("C5", 0.5, "+2");
@@ -33,29 +36,15 @@ class Record extends React.Component {
   }
 
   stopRecording() {
-    // this.state.recorder.stop();
-    // debugger
-    // const recording = this.state.recorder.stop();
-    // debugger
-    // const url = URL.createObjectURL(recording)
-    // debugger
-    // // console.log(url)
-    // this.setState({
-    //   url,
-    //   recording: false
-    // });
     let clip, clipUrl;
     setTimeout(async () => {
       clip = await this.state.recorder.stop();
       clipUrl = URL.createObjectURL(clip);
-
-      // console.log(clipUrl)
-
       this.setState({
         url: clipUrl,
         recording: false
       })
-    }, 1000)
+    }, 500)
     
   }
 
@@ -83,7 +72,7 @@ class Record extends React.Component {
       (
         download = <Link to={`/${this.state.url}`} className="download-link" target="_blank">Download</Link>
         // blob:http://localhost:3000/0ac0faca-0700-4267-bf8a-8b8cc5c70d61
-        // fix
+        // test on heroku / fix to instant download link
         
       ) : (
         download = null
