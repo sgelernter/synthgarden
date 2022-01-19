@@ -340,7 +340,6 @@ class Synthstrument extends React.Component{
             const newChain = this.signalChain.slice(0, idx).concat(this.signalChain.slice(idx + 1));
             this.state.eq3.chain(...newChain, destination);
             this.signalChain = newChain;
-
         }
     }
 
