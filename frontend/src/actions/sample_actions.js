@@ -2,6 +2,7 @@ import * as SampleApiUtil from '../util/sample_api_util';
 
 export const RECEIVE_ALL_SAMPLES = 'RECEIVE_ALL_SAMPLES';
 export const RECEIVE_SAMPLE = 'RECEIVE_SAMPLE';
+export const LOAD_SAMPLE = 'LOAD_SAMPLE';
 export const REMOVE_SAMPLE = 'REMOVE_SAMPLE';
 
 const receiveSamples = samples => {
@@ -17,6 +18,13 @@ const receiveSample = sample => {
         sample: sample
     }
 }
+
+export const loadSample = sample => {
+    return {
+        type: LOAD_SAMPLE,
+        sample
+    }
+} 
 
 const removeSample = id => {
     return {
