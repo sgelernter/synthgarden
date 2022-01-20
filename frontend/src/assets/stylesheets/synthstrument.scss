@@ -13,16 +13,20 @@
     justify-content: center;
     border: 3px dashed hotpink;
     text-align: center;
+    position: relative;
+    top: -100px;
     width: 70vw;
     height: 70vh;
     margin-top: 7rem;
-    input{
-        transition: all 2s;
-    }
     .label{
         display: flex;
         justify-content: space-between;
         width: 100%;
+        height: 20px;
+        border: 1px solid seashell;
+    }
+    .main-controls{
+        display: flex;
     }
     .power-button.on {
         color: rgb(120, 247, 57);
@@ -31,7 +35,7 @@
     }
     .oscillators-bar{
         border: 1px solid aqua;
-        width: 80%;
+        width: 100%;
         height: 90%;
         display: flex;
         flex-direction: column;
@@ -112,7 +116,7 @@
         }
     }
     .keys-bar{
-        width: 80%;
+        width: 100%;
         border: 1px solid blueviolet;
         display: flex;        
         ol{
