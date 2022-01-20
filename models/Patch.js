@@ -126,6 +126,9 @@ const PatchSchema = new Schema({
             type: Number
         }
     },
+    signalChain: {
+        type: String
+    },
     date: {
         type: Date,
         default: Date.now

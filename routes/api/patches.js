@@ -57,7 +57,8 @@ router.post('/',
             time: req.body.pingPong.time,
             fb: req.body.pingPong.fb,
             amt: req.body.pingPong.amt
-          }
+          },
+          signalChain: req.body.signalChain
         })
 
         newPatch

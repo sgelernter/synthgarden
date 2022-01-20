@@ -15,6 +15,7 @@
     text-align: center;
     position: relative;
     top: -100px;
+    left: 100px;
     width: 70vw;
     height: 70vh;
     margin-top: 7rem;
@@ -27,6 +28,11 @@
     }
     .main-controls{
         display: flex;
+    }
+    .patch-interface{
+        display: flex;
+        flex-direction: column;
+        width: 80px;
     }
     .power-button.on {
         color: rgb(120, 247, 57);
