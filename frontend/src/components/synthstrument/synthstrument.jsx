@@ -45,6 +45,7 @@ class Synthstrument extends React.Component{
         this.state = {
             contextStarted: 'false',
             synth1: simpleSynth,
+            currentPatch: this.props.currentPatch,
             pitches,
             octave: 0,
             envelope,
@@ -70,6 +71,14 @@ class Synthstrument extends React.Component{
         this.connectFX = this.connectFX.bind(this);
         this.disconnectFX = this.disconnectFX.bind(this);
         this.savePatch = this.savePatch.bind(this);
+    }
+
+    componentDidUpdate(prevProps){
+        if (this.props.currentPatch !== prevProps.currentPatch) {
+            this.setState({
+                currentPatch: this.props.currentPatch
+            })
+        }
     }
 
     setVolume(e){
@@ -346,14 +355,14 @@ class Synthstrument extends React.Component{
     render(){
         return (
             <div className="synthstrument-container">
-                <div className="patch-interface">
-                    <input type="text" value={this.state.patchName} onClick={this.clearPatchName} onChange={this.updatePatchName} />
-                    <button onClick={this.savePatch}>
-                        save patch settings
-                    </button>
-                </div>
                 <div className="synthstrument">
                     <div className="label">
+                        <div className="patch-interface">
+                            <input type="text" value={this.state.patchName} onClick={this.clearPatchName} onChange={this.updatePatchName} />
+                            <button onClick={this.savePatch}>
+                                save patch settings
+                            </button>
+                        </div>
                         ✨ QT Synthstrument Here ✨
                         <button className="power-button off" onClick={this.instantiateAudioContext}>
                             POWER

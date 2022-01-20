@@ -16,6 +16,11 @@
     width: 70vw;
     height: 70vh;
     margin-top: 7rem;
+    .label{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
     .power-button.on {
         color: rgb(120, 247, 57);
         text-shadow: 1px white;

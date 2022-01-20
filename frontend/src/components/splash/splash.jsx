@@ -5,6 +5,7 @@ import Record from '../controls/record';
 // import { AuthRoute } from '../../util/route_utils';
 // import Synthstrument from '../synthstrument/synthstrument';
 import SynthstrumentContainer from '../synthstrument/synthstrument_container';
+import SidebarContainer from '../sidebar/sidebar_container';
 import '../../assets/stylesheets/splash.scss';
 
 export default function Splash() {
@@ -13,8 +14,10 @@ export default function Splash() {
             <NavbarContainer />
             {/* <Navbar /> */}
 
-            <Synthstrument />
+            {/* <Synthstrument /> */}
+
             <Record />
+            < SidebarContainer />
             {/* <AuthRoute path="/" component={Record} /> */}
             <SynthstrumentContainer />
         </div>

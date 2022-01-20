@@ -4,7 +4,8 @@ import { createPatch, fetchPatch } from '../../actions/patch_actions';
 
 const mSTP = state => {
     return {
-        currentUserId: state.session.user.id
+        currentUserId: state.session.user.id,
+        currentPatch: state.entities.currentPatch
     }
 };
 
