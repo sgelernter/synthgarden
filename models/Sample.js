@@ -8,6 +8,7 @@ const SampleSchema = new Schema({
     },
     user: {
         type: Schema.Types.ObjectId,
+        unique: true,
         ref: 'users'
     },
     blob: {
