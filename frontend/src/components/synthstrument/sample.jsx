@@ -95,8 +95,8 @@ class Sample extends React.Component {
     }
   }
 
-  // stella gives credit to stackoverflow - for this helper
-  // converting b64 to a blob
+  // stella gives TOTAL credit to stackoverflow - for this helper
+  // converting b64 to a blob - I do not know anything about byteCharacters
   // stella apologizes for not knowing how to write this right now
   // stella will quit typing in illeism
   // https://stackoverflow.com/questions/16245767/creating-a-blob-from-a-base64-string-in-javascript
@@ -118,7 +118,7 @@ class Sample extends React.Component {
 
   loadSample() {
     let b64str = this.props.currentSample.file.split(',')[1];
-    debugger
+    // debugger
 
     // let url = b64str.split(',')[1]
     // console.log(url);
@@ -127,14 +127,14 @@ class Sample extends React.Component {
     let blob = this.b64toBlob(b64str)
     const url = URL.createObjectURL(blob);
     console.log(url)
-    debugger
+    // debugger
     // b64 to blob
     // blob to url for audio element
     this.setState({
       url,
       name: this.props.currentSample.name,
     })
-    debugger
+    // debugger
   }
     
   render() {
@@ -178,7 +178,9 @@ class Sample extends React.Component {
       (
         download = 
         <>
-            <Link to={`${this.state.url}`}>Download</Link>
+          <audio src={this.state.url} controls></audio>
+          <Link to={`${this.state.url}`}>Download {this.state.name}</Link>
+            
         </>
       ) : (
         download = null
@@ -189,9 +191,9 @@ class Sample extends React.Component {
         <div>
             {recordingButton}
         </div>
-        <audio src={this.state.url} controls></audio>
-        {saveSample}
+        {/* <audio src={this.state.url} controls></audio> */}
         {download}
+        {saveSample}
       </div>
     )
   }

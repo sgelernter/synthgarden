@@ -3,14 +3,14 @@ import React from "react";
 import Modal from './modal/modal';
 import Splash from './splash/splash';
 // import { Route, Switch } from 'react-router-dom';
-// import { Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 
 
 const App = () => (
   <div>
     <Modal />  
-    {/* <Route exact path="/" component={Splash} /> */}
-    <Splash />
+    <Route exact path="/" component={Splash} />
+    {/* <Splash /> */}
   </div>
   
 );
