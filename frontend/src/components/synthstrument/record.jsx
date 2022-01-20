@@ -13,7 +13,7 @@ class Record extends React.Component {
         this.state = {
             recorder,
             recording: false,
-            url: '',
+            file: '',
             synth,
             sampleName: ''
         }
@@ -22,6 +22,7 @@ class Record extends React.Component {
         this.stopRecording = this.stopRecording.bind(this);
         this.updateSampleName = this.updateSampleName.bind(this);
         this.handleSave = this.handleSave.bind(this);
+        this.handleSubstring = this.handleSubstring.bind(this);
     }
 
     startRecording() {
@@ -37,43 +38,30 @@ class Record extends React.Component {
     })
   }
 
-  // stopRecording() {
-  //   let clip, clipUrl;
-  //   setTimeout(async () => {
-  //     clip = await this.state.recorder.stop();
-  //     clipUrl = URL.createObjectURL(clip);
-  //     this.setState({
-  //       url: clipUrl,
-  //       recording: false
-  //     })
-  //   }, 500) 
-  // }
+  handleSubstring(substring) {
+    this.setState({
+        // url: clipUrl,
+        file: substring,
+        recording: false
+      })
+      // console.log(this.state)
+  }
 
    stopRecording() {
-    // let clip, clipUrl;
     let clip, substring, base64String;
     setTimeout(async () => {
       clip = await this.state.recorder.stop();
-      // var reader = new FileReader();
-      // let blobToBase64 = reader.readAsDataURL(clip);
-      // console.log(blobToBase64)
-
       var reader = new FileReader();
       reader.readAsDataURL(clip);
-      reader.onloadend = function () {
-        base64String = reader.result;
-        // console.log('Base64 String - ', base64String);
-    
-        // Simply Print the Base64 Encoded String,
-        // without additional data: Attributes.
+      reader.onloadend = () => {
+        base64String = reader.result;    
+        // print base64 encoded string,
+        // without data attributes.
         substring = base64String.substr(base64String.indexOf(', ') + 1);
+        this.handleSubstring(substring)
       }
-      console.log(substring)
-      this.setState({
-        // url: clipUrl,
-        url: substring,
-        recording: false
-      })
+      // debugger
+      // console.log(substring)
     }, 500)
     
   }
@@ -85,14 +73,13 @@ class Record extends React.Component {
   }
 
   handleSave() {
-      let sampleData = {
-          name: this.state.sampleName,
-          user: this.props.currentUserId,
-          url: this.state.url
+    let sampleData = {
+        name: this.state.sampleName,
+        user: this.props.currentUserId,
+        file: this.state.file
 
-      }
-    //   console.log(sampleData)
-      this.props.saveSample(sampleData)
+    }
+    this.props.saveSample(sampleData)
   }
     
 
@@ -116,7 +103,7 @@ class Record extends React.Component {
       )
 
       let saveSample;
-      this.state.url ?
+      this.state.file ?
       (
         saveSample = 
         <>
@@ -128,7 +115,6 @@ class Record extends React.Component {
             />
             <button onClick={this.handleSave}>Save Sample</button>
         </>
-        // blob:http://localhost:3000/0ac0faca-0700-4267-bf8a-8b8cc5c70d61
       ) : (
         saveSample = null
       )
