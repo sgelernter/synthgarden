@@ -44,7 +44,7 @@ class Record extends React.Component {
         file: substring,
         recording: false
       })
-      console.log(this.state)
+      // console.log(this.state)
   }
 
    stopRecording() {
@@ -115,7 +115,6 @@ class Record extends React.Component {
             />
             <button onClick={this.handleSave}>Save Sample</button>
         </>
-        // blob:http://localhost:3000/0ac0faca-0700-4267-bf8a-8b8cc5c70d61
       ) : (
         saveSample = null
       )
