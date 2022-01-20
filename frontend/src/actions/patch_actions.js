@@ -45,6 +45,11 @@ export const fetchPatch = id => dispatch => {
       .then(patch => dispatch(receivePatch(patch)))
 }
 
+export const updatePatch = id => dispatch => {
+    return PatchApiUtil.updatePatch(id)
+      .then(patch => dispatch(receivePatch(patch)))
+}
+
 export const deletePatch = id => dispatch => {
     return PatchApiUtil.deletePatch(id)
       .then(() => dispatch(removePatch(id)))
