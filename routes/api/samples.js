@@ -13,7 +13,7 @@ router.post('/',
         if(!isValid) return res.status(400).json(errors);
 
         const newSample = new Sample({
-            user: req.user.id,
+            user: req.body.user,
             name: req.body.name,
             file: req.body.file
         })

@@ -8,7 +8,6 @@ const PatchSchema = new Schema({
     },
     user: {
         type: Schema.Types.ObjectId,
-        unqiue: true,
         ref: 'users'
     },
     oscillator: {

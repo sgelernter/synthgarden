@@ -86,6 +86,7 @@ class Sample extends React.Component {
         user: this.props.currentUserId,
         file: this.state.file
     }
+    // console.log(sampleData)
     this.props.saveSample(sampleData)
   }
 
