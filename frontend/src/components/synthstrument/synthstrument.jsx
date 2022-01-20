@@ -486,6 +486,8 @@ class Synthstrument extends React.Component{
                                     disconnectFX={this.disconnectFX}
                                     saveSample={this.props.saveSample}
                                     currentUserId={this.props.currentUserId}
+                                    currentSample={this.props.currentSample}
+                                    loadSample={this.props.loadSample}
                                     className="sample"
                                 />
                         </div>

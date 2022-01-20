@@ -24,6 +24,7 @@ class Sample extends React.Component {
         this.updateSampleName = this.updateSampleName.bind(this);
         this.handleSave = this.handleSave.bind(this);
         this.handleSubstring = this.handleSubstring.bind(this);
+        this.loadSample = this.loadSample.bind(this);
     }
 
     startRecording() {
@@ -69,7 +70,6 @@ class Sample extends React.Component {
       // debugger
       // console.log(substring)
     }, 500)
-    
   }
 
   updateSampleName(e) {
@@ -86,6 +86,22 @@ class Sample extends React.Component {
 
     }
     this.props.saveSample(sampleData)
+  }
+
+  componentDidUpdate(prevProps){
+    if (this.props.currentSample !== prevProps.currentPcurrentSampleatch) {
+        this.loadSample();
+    }
+  }
+
+  loadSample() {
+    let b64str = this.props.currentSample.file
+    // b64 to blob
+    // blob to url for audio element
+    this.setState({
+      // url: this.props.currentSample.,
+      name: this.props.currentSample.name,
+    })
   }
     
 

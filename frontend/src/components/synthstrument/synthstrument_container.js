@@ -6,7 +6,8 @@ import { createSample } from '../../actions/sample_actions';
 const mSTP = state => {
     return {
         currentUserId: state.session.user.id,
-        currentPatch: state.entities.currentPatch
+        currentPatch: state.entities.currentPatch,
+        currentSample: state.entities.currentSample
     }
 };
 
