@@ -20,10 +20,7 @@ class Record extends React.Component {
   }
 
   startRecording() {
-    // TEST NOIZE - WHEN WE START RECORDING,
-    // THIS SAMPLE STARTS TO PLAY
-    // INSTEAD, WE NEED TO LISTEN FOR THE SYNTHSTRUMENT
-    // AND WHAT THE USER IS PLAYING
+    // TEST
     this.state.synth.triggerAttackRelease("C3", 0.5);
     this.state.synth.triggerAttackRelease("C4", 0.5, "+1");
     this.state.synth.triggerAttackRelease("C5", 0.5, "+2");
@@ -36,12 +33,19 @@ class Record extends React.Component {
   }
 
   stopRecording() {
-    let clip, clipUrl;
+    // let clip, clipUrl;
+    let clip;
+    debugger
     setTimeout(async () => {
       clip = await this.state.recorder.stop();
-      clipUrl = URL.createObjectURL(clip);
+      debugger
+      var reader = new FileReader();
+      let blobToBase64 = reader.readAsDataURL(clip); 
+      console.log(blobToBase64)
+      // clipUrl = URL.createObjectURL(clip);
       this.setState({
-        url: clipUrl,
+        // url: clipUrl,
+        url: reader.readAsDataURL(clip),
         recording: false
       })
     }, 500)

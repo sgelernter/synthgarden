@@ -10,6 +10,7 @@ const SampleSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'users'
     },
+    file: {
     blob: {
         type: String,
         required: true
