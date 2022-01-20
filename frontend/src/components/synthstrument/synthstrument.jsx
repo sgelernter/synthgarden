@@ -7,7 +7,7 @@ import Oscillator1 from './osc_1';
 import React from 'react'
 import '../../assets/stylesheets/synthstrument.scss';
 import FXBank from './fx_bank';
-import Record from './record';
+import Sample from './sample';
 
 class Synthstrument extends React.Component{
 
@@ -481,12 +481,12 @@ class Synthstrument extends React.Component{
                                         <input type="range" value={this.state.synth1.volume.value} onChange={this.setVolume} min="-45" max="0" step="1" />
                                     </label>
                                 </div>
-                                <Record
+                                <Sample
                                     connectFX={this.connectFX}
                                     disconnectFX={this.disconnectFX}
                                     saveSample={this.props.saveSample}
                                     currentUserId={this.props.currentUserId}
-                                    className="record"
+                                    className="sample"
                                 />
                         </div>
                     </div>

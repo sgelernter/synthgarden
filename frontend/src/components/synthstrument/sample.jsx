@@ -15,7 +15,8 @@ class Record extends React.Component {
             recording: false,
             file: '',
             synth,
-            sampleName: ''
+            sampleName: '',
+            url: ''
         }
         synth.toDestination();
         this.startRecording = this.startRecording.bind(this);
@@ -38,27 +39,32 @@ class Record extends React.Component {
     })
   }
 
-  handleSubstring(substring) {
+  handleSubstring(substring, clipUrl) {
     this.setState({
         // url: clipUrl,
         file: substring,
-        recording: false
+        recording: false,
+        url: clipUrl
       })
       // console.log(this.state)
   }
 
    stopRecording() {
-    let clip, substring, base64String;
+    let clip, clipUrl, substring, base64String;
     setTimeout(async () => {
       clip = await this.state.recorder.stop();
+      clipUrl = URL.createObjectURL(clip)
       var reader = new FileReader();
+      // debugger
       reader.readAsDataURL(clip);
       reader.onloadend = () => {
         base64String = reader.result;    
         // print base64 encoded string,
         // without data attributes.
         substring = base64String.substr(base64String.indexOf(', ') + 1);
-        this.handleSubstring(substring)
+        console.log(clipUrl)
+        debugger
+        this.handleSubstring(substring, clipUrl)
       }
       // debugger
       // console.log(substring)
@@ -120,7 +126,7 @@ class Record extends React.Component {
       )
 
     return (
-      <div className="record">
+      <div className="sample">
         <div>
             {recordingButton}
         </div>
