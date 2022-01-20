@@ -16,6 +16,9 @@
     width: 70vw;
     height: 70vh;
     margin-top: 7rem;
+    input{
+        transition: all 2s;
+    }
     .label{
         display: flex;
         justify-content: space-between;
