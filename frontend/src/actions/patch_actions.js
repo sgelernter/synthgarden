@@ -2,6 +2,7 @@ import * as PatchApiUtil from '../util/patch_api_util';
 
 export const RECEIVE_ALL_PATCHES = 'RECEIVE_ALL_PATCHES';
 export const RECEIVE_PATCH = 'RECEIVE_PATCH';
+export const LOAD_PATCH = 'LOAD_PATCH';
 export const REMOVE_PATCH = 'REMOVE_PATCH';
 
 const receivePatches = patches => {
@@ -17,6 +18,13 @@ const receivePatch = patch => {
         patch: patch
     }
 }
+
+export const loadPatch = patch => {
+    return {
+        type: LOAD_PATCH,
+        patch
+    }
+} 
 
 const removePatch = id => {
     return {

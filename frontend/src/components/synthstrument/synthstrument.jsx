@@ -26,25 +26,13 @@ class Synthstrument extends React.Component{
         oscillator1.type = 'pwm';
         envelope.attackCurve = "linear";
         envelope.attack = .2;
-        const pitches = {
-            a: 'C4',
-            w: 'C#4',
-            s: 'D4',
-            e: 'D#4',
-            d: 'E4',
-            f: 'F4',
-            t: 'F#4',
-            g: 'G4',
-            y: 'G#4',
-            h: 'A4',
-            u: 'A#4',
-            j: 'B4',
-            k: 'C5'
-        }
+        const pitches = {a: 'C4', w: 'C#4', s: 'D4', e: 'D#4', d: 'E4', f: 'F4',
+            t: 'F#4', g: 'G4', y: 'G#4', h: 'A4', u: 'A#4', j: 'B4', k: 'C5'}
         this.signalChain = [];
         this.state = {
             contextStarted: 'false',
             synth1: simpleSynth,
+            currentPatch: this.props.currentPatch,
             pitches,
             octave: 0,
             envelope,
@@ -56,7 +44,8 @@ class Synthstrument extends React.Component{
             bitCrush,
             feedDelay,
             pongDelay,
-            patchName: 'untitled patch'
+            patchName: 'untitled patch',
+            currentName: 'no patch selected'
         }
         this.instantiateAudioContext = this.instantiateAudioContext.bind(this);
         this.clearPatchName = this.clearPatchName.bind(this);
@@ -70,6 +59,14 @@ class Synthstrument extends React.Component{
         this.connectFX = this.connectFX.bind(this);
         this.disconnectFX = this.disconnectFX.bind(this);
         this.savePatch = this.savePatch.bind(this);
+        this.loadPatch = this.loadPatch.bind(this);
+    }
+
+    // UPDATE SELECTED PATCH
+    componentDidUpdate(prevProps){
+        if (this.props.currentPatch !== prevProps.currentPatch) {
+            this.loadPatch();
+        }
     }
 
     setVolume(e){
@@ -99,7 +96,7 @@ class Synthstrument extends React.Component{
             })
         }
     }
-
+    //  KEY CONTROLLER HANDLERS
     clickKey(e){
         this.state.oscillator1.frequency.value = e.target.id;
         this.state.envelope.triggerAttackRelease("2t");
@@ -116,6 +113,7 @@ class Synthstrument extends React.Component{
         document.getElementById(this.state.pitches[e.key]).className = 'key';
     }
 
+    // PATCH CONTROLS
     updatePatchName(e){
         this.setState({
             patchName: e.target.value
@@ -124,9 +122,6 @@ class Synthstrument extends React.Component{
 
     clearPatchName(e){
         if (this.state.patchName === 'untitled patch') this.setState({patchName: ''});
-    }
-
-    loadPatch(patchName){
     }
 
     savePatch(){
@@ -187,7 +182,46 @@ class Synthstrument extends React.Component{
         }
         this.props.savePatch(patchData);
     }
+    // ASSIGN NEW NODE SETTINGS AND SET STATE - NEED TO WRITE ON/OFF LOGIC FOR FX & OCTAVES
+    loadPatch(){
+        this.state.oscillator1.type = this.props.currentPatch.oscillator.osctype;
+        this.state.envelope['attack'] = this.props.currentPatch.oscillator.attack;
+        this.state.envelope['sustain'] = this.props.currentPatch.oscillator.sustain;
+        this.state.envelope['release'] = this.props.currentPatch.oscillator.release;
+        this.state.octave = this.props.currentPatch.octave;
+        this.state.eq3.high.value = this.props.currentPatch.eq.high;
+        this.state.eq3.mid.value = this.props.currentPatch.eq.mid;
+        this.state.eq3.low.value = this.props.currentPatch.eq.low;
+        this.state.chorus.frequency.value = this.props.currentPatch.chorus.LFO;
+        this.state.chorus.delayTime = this.props.currentPatch.chorus.delay;
+        this.state.chorus.depth = this.props.currentPatch.chorus.depth;
+        this.state.tremolo.frequency.value = this.props.currentPatch.tremolo.frequency;
+        this.state.tremolo.depth.value = this.props.currentPatch.tremolo.depth;
+        this.state.distortion.wet.value = this.props.currentPatch.distortion.amt; 
+        this.state.bitCrush.bits.value = this.props.currentPatch.bitCrusher.bitDepth;
+        this.state.bitCrush.wet.value = this.props.currentPatch.bitCrusher.amount;
+        this.state.feedDelay.delayTime.value = this.props.currentPatch.feedback.time;
+        this.state.feedDelay.feedback.value = this.props.currentPatch.feedback.fb;
+        this.state.feedDelay.wet.value = this.props.currentPatch.feedback.amt;
+        this.state.pongDelay.delayTime.value = this.props.currentPatch.pingPong.time;
+        this.state.pongDelay.feedback.value = this.props.currentPatch.pingPong.fb;
+        this.state.pongDelay.wet.value = this.props.currentPatch.pingPong.amt;
+        this.setState({
+            currentPatch: this.props.currentPatch,
+            currentName: this.props.currentPatch.name,
+            oscillator1: this.state.oscillator1,
+            envelope: this.state.envelope,
+            eq3: this.state.eq3, 
+            chorus: this.state.chorus, 
+            tremolo: this.state.tremolo, 
+            distortion: this.state.distortion, 
+            bitCrush: this.state.bitCrush, 
+            feedDelay: this.state.feedDelay, 
+            pongDelay: this.state.pongDelay
+        })
+    }
 
+    // SYNTH SETTINGS CHANGE TREE
     updatePatch(type){
         return e => {
             switch (type) {
@@ -318,6 +352,7 @@ class Synthstrument extends React.Component{
         }
     }
 
+    // CONNECT AND DISCONNECT EFFECTS NODES
     connectFX(effectNode){
         const destination = Tone.getDestination();
         let prevLastNode;
@@ -346,99 +381,106 @@ class Synthstrument extends React.Component{
     render(){
         return (
             <div className="synthstrument-container">
-                <div className="patch-interface">
-                    <input type="text" value={this.state.patchName} onClick={this.clearPatchName} onChange={this.updatePatchName} />
-                    <button onClick={this.savePatch}>
-                        save patch settings
-                    </button>
-                </div>
                 <div className="synthstrument">
                     <div className="label">
-                        ✨ QT Synthstrument Here ✨
                         <button className="power-button off" onClick={this.instantiateAudioContext}>
                             POWER
                         </button>
+                        ✨ QT Synthstrument Here ✨
                     </div>
-                    <div className="oscillators-bar">
-                        <div className="osc-box 1">
-                            < Oscillator1 oscillator={this.state.oscillator1}/>
-                            <div className="env-controls">
-                                <label>
-                                    Attack
-                                    <input type="range" value={this.state.envelope.attack} max="2" step=".05" onChange={this.updatePatch('attack')}/>
-                                </label>
-                                <label>
-                                    Sustain
-                                    <input type="range" value={this.state.envelope.sustain} max="1" step=".1" onChange={this.updatePatch('sustain')}/>
-                                </label>
-                                <label>
-                                    Release
-                                    <input type="range" value={this.state.envelope.release} max="5" step=".05" onChange={this.updatePatch('release')}/>
-                                </label>
-                            </div>
-                            <div className="octave-shift" onClick={this.changeOctave}>
-                                <button className="oct-up">
-                                    Oct. Up
-                                </button>
-                                <button className="oct-down">
-                                    Oct. Down
-                                </button>
-                            </div>
+                    <div className="main-controls box">
+                        <div className="patch-interface">
+                            <input type="text" value={this.state.patchName} onClick={this.clearPatchName} onChange={this.updatePatchName} />
+                            <button onClick={this.savePatch}>
+                                save patch settings
+                            </button>
+                            <p>
+                                Current patch: {this.state.currentName}
+                            </p>
                         </div>
-                        <div className="post-FX">
-                                <div className="eq3">
-                                    <label>
-                                        Low
-                                        <input type="range" value={this.state.eq3.low.value} 
-                                            min="-12" 
-                                            max="12" 
-                                            step=".5" 
-                                            onChange={this.updatePatch('eq')} 
-                                            className="low" />
-                                    </label>
-                                    <label>
-                                        Mid
-                                        <input type="range" value={this.state.eq3.mid.value} 
-                                            min="-12" 
-                                            max="12" 
-                                            step=".5" 
-                                            onChange={this.updatePatch('eq')} 
-                                            className="mid" />
-                                    </label>
-                                    <label>
-                                        High
-                                        <input type="range" value={this.state.eq3.high.value} 
-                                            min="-12" 
-                                            max="12" 
-                                            step=".5" 
-                                            onChange={this.updatePatch('eq')} 
-                                            className="high" />
+                        <div className="main-synth box">
+                            <div className="oscillators-bar">
+                                <div className="osc-box 1">
+                                    < Oscillator1 oscillator={this.state.oscillator1}/>
+                                    <div className="env-controls">
+                                        <label>
+                                            Attack
+                                            <input type="range" value={this.state.envelope.attack} max="2" step=".05" onChange={this.updatePatch('attack')}/>
+                                        </label>
+                                        <label>
+                                            Sustain
+                                            <input type="range" value={this.state.envelope.sustain} max="1" step=".1" onChange={this.updatePatch('sustain')}/>
+                                        </label>
+                                        <label>
+                                            Release
+                                            <input type="range" value={this.state.envelope.release} max="5" step=".05" onChange={this.updatePatch('release')}/>
+                                        </label>
+                                    </div>
+                                    <div className="octave-shift" onClick={this.changeOctave}>
+                                        <button className="oct-up">
+                                            Oct. Up
+                                        </button>
+                                        <button className="oct-down">
+                                            Oct. Down
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className="post-FX">
+                                        <div className="eq3">
+                                            <label>
+                                                Low
+                                                <input type="range" value={this.state.eq3.low.value} 
+                                                    min="-12" 
+                                                    max="12" 
+                                                    step=".5" 
+                                                    onChange={this.updatePatch('eq')} 
+                                                    className="low" />
+                                            </label>
+                                            <label>
+                                                Mid
+                                                <input type="range" value={this.state.eq3.mid.value} 
+                                                    min="-12" 
+                                                    max="12" 
+                                                    step=".5" 
+                                                    onChange={this.updatePatch('eq')} 
+                                                    className="mid" />
+                                            </label>
+                                            <label>
+                                                High
+                                                <input type="range" value={this.state.eq3.high.value} 
+                                                    min="-12" 
+                                                    max="12" 
+                                                    step=".5" 
+                                                    onChange={this.updatePatch('eq')} 
+                                                    className="high" />
+                                            </label>
+                                        </div>
+                                        < FXBank connectFX={this.connectFX} disconnectFX={this.disconnectFX} updatePatch={this.updatePatch}
+                                            chorusNode={this.state.chorus}
+                                            tremoloNode={this.state.tremolo}
+                                            distortNode={this.state.distortion}
+                                            crushNode={this.state.bitCrush}
+                                            feedDelayNode={this.state.feedDelay}
+                                            pongDelayNode={this.state.pongDelay}/>
+                                </div>
+                            </div>
+                            <div className="keys-bar">
+                                <ol className="keyboard" onClick={this.clickKey}>
+                                    {Object.values(this.state.pitches).map ((note, idx) => (
+                                        <li className="key" key={idx} id={note}>
+                                            {Object.keys(this.state.pitches)[idx]}
+                                            <p>
+                                            {note}
+                                            </p>
+                                        </li>
+                                    ))}
+                                </ol>
+                                <div className="volume" onClick={this.setVolume}>
+                                    <label>Volume
+                                        <input type="range" value={this.state.synth1.volume.value} onChange={this.setVolume} min="-45" max="0" step="1" />
                                     </label>
                                 </div>
-                                < FXBank connectFX={this.connectFX} disconnectFX={this.disconnectFX} updatePatch={this.updatePatch}
-                                    chorusNode={this.state.chorus}
-                                    tremoloNode={this.state.tremolo}
-                                    distortNode={this.state.distortion}
-                                    crushNode={this.state.bitCrush}
-                                    feedDelayNode={this.state.feedDelay}
-                                    pongDelayNode={this.state.pongDelay}/>
-                        </div>
-                    </div>
-                    <div className="keys-bar">
-                        <ol className="keyboard" onClick={this.clickKey}>
-                            {Object.values(this.state.pitches).map ((note, idx) => (
-                                <li className="key" key={idx} id={note}>
-                                    {Object.keys(this.state.pitches)[idx]}
-                                    <p>
-                                    {note}
-                                    </p>
-                                </li>
-                            ))}
-                        </ol>
-                        <div className="volume" onClick={this.setVolume}>
-                            <label>Volume
-                                <input type="range" value={this.state.synth1.volume.value} onChange={this.setVolume} min="-45" max="0" step="1" />
-                            </label>
+                            </div>
                         </div>
                     </div>
                 </div>

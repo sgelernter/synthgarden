@@ -77,7 +77,7 @@ router.post('/',
 // )
 
 //showing all the patches
-router.get('/', (req, res) => {
+router.get('/', (req, res) => { 
     Patch.find()
          .then(patches => res.json(patches))
          .catch(err => res.status(404).json({ nopatchesfound: 'There are no patches, start jamming now!' }));
