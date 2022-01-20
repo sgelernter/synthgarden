@@ -189,7 +189,6 @@ class Synthstrument extends React.Component{
         this.state.envelope['attack'] = this.props.currentPatch.oscillator.attack;
         this.state.envelope['sustain'] = this.props.currentPatch.oscillator.sustain;
         this.state.envelope['release'] = this.props.currentPatch.oscillator.release;
-        this.state.octave = this.props.currentPatch.octave;
         this.state.eq3.high.value = this.props.currentPatch.eq.high;
         this.state.eq3.mid.value = this.props.currentPatch.eq.mid;
         this.state.eq3.low.value = this.props.currentPatch.eq.low;
@@ -220,6 +219,7 @@ class Synthstrument extends React.Component{
             feedDelay: this.state.feedDelay, 
             pongDelay: this.state.pongDelay
         })
+        this.changeOctave(null, this.props.currentPatch.octave);
     }
 
     // SYNTH SETTINGS CHANGE TREE
@@ -334,9 +334,10 @@ class Synthstrument extends React.Component{
         }
     }
 
-    changeOctave(e){
+    changeOctave(e, patchOct){
         let octMod;
-        e.target.className === 'oct-up' ? octMod = 1 : octMod = -1;
+        if (e) e.target.className === 'oct-up' ? octMod = 1 : octMod = -1;
+        if (patchOct || patchOct === 0) octMod = (patchOct - this.state.octave);
         const letters = Object.keys(this.state.pitches);
         const newPitches = {};
         const origPitches = Object.values(this.state.pitches);
