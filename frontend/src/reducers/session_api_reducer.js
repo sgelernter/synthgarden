@@ -18,12 +18,7 @@ const SessionReducer = (prevState = _nullSession, action) => {
         user: action.currentUser
       };
     case RECEIVE_USER_LOGOUT:
-      return {
-        isAuthenticated: false,
-        user: {
-          id: ''
-        }
-      }
+      return _nullSession;
     case RECEIVE_USER_SIGN_IN:
       return {
         ...prevState,
