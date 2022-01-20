@@ -25,6 +25,7 @@ class Sample extends React.Component {
       this.handleSave = this.handleSave.bind(this);
       this.handleSubstring = this.handleSubstring.bind(this);
       this.loadSample = this.loadSample.bind(this);
+      this.b64toBlob = this.b64toBlob.bind(this);
     }
 
   startRecording() {
@@ -54,6 +55,7 @@ class Sample extends React.Component {
     let clip, clipUrl, substring, base64String;
     setTimeout(async () => {
       clip = await this.state.recorder.stop();
+      console.log(clip)
       clipUrl = URL.createObjectURL(clip)
       var reader = new FileReader();
       // debugger
@@ -83,7 +85,6 @@ class Sample extends React.Component {
         name: this.state.sampleName,
         user: this.props.currentUserId,
         file: this.state.file
-
     }
     this.props.saveSample(sampleData)
   }
@@ -94,23 +95,48 @@ class Sample extends React.Component {
     }
   }
 
+  // stella gives credit to stackoverflow - for this helper
+  // converting b64 to a blob
+  // stella apologizes for not knowing how to write this right now
+  // stella will quit typing in illeism
+  // https://stackoverflow.com/questions/16245767/creating-a-blob-from-a-base64-string-in-javascript
+  b64toBlob (b64Data, contentType='audio/webm;codecs=opus', sliceSize=512) {
+    const byteCharacters = atob(b64Data);
+    const byteArrays = [];
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      const slice = byteCharacters.slice(offset, offset + sliceSize);
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+    const blob = new Blob(byteArrays, {type: contentType});
+    return blob;
+  }
+
   loadSample() {
-    let b64str = this.props.currentSample.file;
+    let b64str = this.props.currentSample.file.split(',')[1];
     debugger
-    let url = b64str.split(',')[1]
-    console.log(url);
-    let contentType = 'audio/webm'
-    console.log(contentType)
+
+    // let url = b64str.split(',')[1]
+    // console.log(url);
+    // let contentType = 'audio/webm'
+    // const blob = new Blob(b64str, {type: 'audio/webm;codecs=opus'});
+    let blob = this.b64toBlob(b64str)
+    const url = URL.createObjectURL(blob);
+    console.log(url)
     debugger
     // b64 to blob
     // blob to url for audio element
     this.setState({
-      // url: this.props.currentSample.,
+      url,
       name: this.props.currentSample.name,
     })
+    debugger
   }
     
-
   render() {
     let recordingButton;
     this.state.recording ?
