@@ -8,17 +8,17 @@ import stop from '../../assets/images/stop-rec.png'
 class Sample extends React.Component {
     constructor(props) {
       super(props)
-      const recorder = new Tone.Recorder()
-      const synth = new Tone.Synth().connect(recorder);
+      // const recorder = new Tone.Recorder()
+      // const synth = new Tone.Synth().connect(recorder);
       this.state = {
-          recorder,
+          // recorder,
           recording: false,
           file: '',
-          synth,
+          // synth,
           sampleName: '',
           url: ''
       }
-      synth.toDestination();
+      // synth.toDestination();
       this.startRecording = this.startRecording.bind(this);
       this.stopRecording = this.stopRecording.bind(this);
       this.updateSampleName = this.updateSampleName.bind(this);
@@ -30,21 +30,24 @@ class Sample extends React.Component {
 
   startRecording() {
     // TEST
-    this.state.synth.triggerAttackRelease("C3", 0.5);
-    this.state.synth.triggerAttackRelease("C4", 0.5, "+1");
-    this.state.synth.triggerAttackRelease("C5", 0.5, "+2");
+    // this.state.synth.triggerAttackRelease("C3", 0.5);
+    // this.state.synth.triggerAttackRelease("C4", 0.5, "+1");
+    // this.state.synth.triggerAttackRelease("C5", 0.5, "+2");
     // DELETE ABOVE
 
-    this.state.recorder.start();
+    // debugger
+    this.props.connectFX(this.props.recorder)
+    // debugger
+
+    this.props.recorder.start();
     this.setState({
       recording: true
     })
   }
 
-  handleSubstring(substring, clipUrl) {
+  handleSubstring(base64String, clipUrl) {
     this.setState({
-        // url: clipUrl,
-        file: substring,
+        file: base64String,
         recording: false,
         url: clipUrl
       })
@@ -52,26 +55,23 @@ class Sample extends React.Component {
   }
 
    stopRecording() {
-    let clip, clipUrl, substring, base64String;
+    let clip, clipUrl, base64String;
     setTimeout(async () => {
-      clip = await this.state.recorder.stop();
-      console.log(clip)
+      clip = await this.props.recorder.stop();
+      // console.log(clip)
       clipUrl = URL.createObjectURL(clip)
       var reader = new FileReader();
       // debugger
       reader.readAsDataURL(clip);
       reader.onloadend = () => {
         base64String = reader.result;    
-        // print base64 encoded string,
-        // without data attributes
-        substring = base64String.substr(base64String.indexOf(', ') + 1);
         // console.log(clipUrl)
-        debugger
-        this.handleSubstring(substring, clipUrl)
+        // debugger
+        this.handleSubstring(base64String, clipUrl)
       }
       // debugger
-      // console.log(substring)
     }, 500)
+    // this.props.disconnectFX(this.props.recorder)
   }
 
   updateSampleName(e) {
@@ -119,14 +119,13 @@ class Sample extends React.Component {
   loadSample() {
     let b64str = this.props.currentSample.file.split(',')[1];
     // debugger
-
     // let url = b64str.split(',')[1]
     // console.log(url);
     // let contentType = 'audio/webm'
     // const blob = new Blob(b64str, {type: 'audio/webm;codecs=opus'});
     let blob = this.b64toBlob(b64str)
     const url = URL.createObjectURL(blob);
-    console.log(url)
+    // console.log(url)
     // debugger
     // b64 to blob
     // blob to url for audio element
@@ -179,8 +178,10 @@ class Sample extends React.Component {
         download = 
         <>
           <audio src={this.state.url} controls></audio>
-          <Link to={`${this.state.url}`}>Download {this.state.name}</Link>
-            
+          {/* <Link to={'/'+this.state.url} download target="_self">Download {this.state.name}</Link> */}
+            <a href={this.state.url} download>
+            Download {this.state.name}
+          </a>
         </>
       ) : (
         download = null

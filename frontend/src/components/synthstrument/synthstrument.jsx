@@ -14,6 +14,7 @@ class Synthstrument extends React.Component{
     constructor(props){
         super(props);
         const eq3 = new Tone.EQ3().toDestination();
+        const recorder = new Tone.Recorder();
         const simpleSynth = new Tone.Synth().connect(eq3);
         const oscillator1 = simpleSynth.oscillator;
         const envelope = simpleSynth.envelope;
@@ -46,7 +47,8 @@ class Synthstrument extends React.Component{
             feedDelay,
             pongDelay,
             patchName: 'untitled patch',
-            currentName: 'no patch selected'
+            currentName: 'no patch selected',
+            recorder
         }
         this.instantiateAudioContext = this.instantiateAudioContext.bind(this);
         this.clearPatchName = this.clearPatchName.bind(this);
@@ -358,9 +360,15 @@ class Synthstrument extends React.Component{
         const destination = Tone.getDestination();
         let prevLastNode;
         this.signalChain.length === 0 ? prevLastNode = this.state.eq3 : prevLastNode = this.signalChain.slice(-1)[0];
-        prevLastNode.disconnect(destination);
-        prevLastNode.chain(effectNode, destination);
-        this.signalChain.push(effectNode);
+        
+        if (effectNode.name !== 'Recorder') {
+            prevLastNode.disconnect(destination);
+            prevLastNode.chain(effectNode, destination);
+            this.signalChain.push(effectNode);
+        } else {
+            debugger
+            prevLastNode.connect(effectNode);
+        }
     }
 
     disconnectFX(effectNode){
@@ -488,6 +496,7 @@ class Synthstrument extends React.Component{
                                     currentUserId={this.props.currentUserId}
                                     currentSample={this.props.currentSample}
                                     loadSample={this.props.loadSample}
+                                    recorder={this.state.recorder}
                                     className="sample"
                                 />
                         </div>
