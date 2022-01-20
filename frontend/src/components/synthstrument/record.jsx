@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import * as Tone from 'tone';
 import '../../assets/stylesheets/synthstrument.scss'
 import start from '../../assets/images/start-rec.png'
@@ -106,7 +106,7 @@ class Record extends React.Component {
       /*
         name: this.state.sampleName,
         user: this.props.currentUserId,
-        file: this.state.url
+        file: this.state.url ???
       */
 
     return (

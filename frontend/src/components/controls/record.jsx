@@ -20,10 +20,7 @@ class Record extends React.Component {
   }
 
   startRecording() {
-    // TEST NOIZE - WHEN WE START RECORDING,
-    // THIS SAMPLE STARTS TO PLAY
-    // INSTEAD, WE NEED TO LISTEN FOR THE SYNTHSTRUMENT
-    // AND WHAT THE USER IS PLAYING
+    // TEST
     this.state.synth.triggerAttackRelease("C3", 0.5);
     this.state.synth.triggerAttackRelease("C4", 0.5, "+1");
     this.state.synth.triggerAttackRelease("C5", 0.5, "+2");

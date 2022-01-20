@@ -1,7 +1,7 @@
 import React from 'react';
 // import Navbar from '../navbar/navbar';
 import NavbarContainer from '../navbar/navbar_container';
-import Record from '../synthstrument/record';
+// import Record from '../synthstrument/record';
 // import { AuthRoute } from '../../util/route_utils';
 // import Synthstrument from '../synthstrument/synthstrument';
 import SynthstrumentContainer from '../synthstrument/synthstrument_container';
