@@ -12,7 +12,6 @@ class Mods extends React.Component {
     }
 
     toggleFX(e){
-        debugger
         if (e.target.className === 'switch off') {
             e.target.className = 'switch on';
             this.state.chorus.start();
