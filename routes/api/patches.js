@@ -67,14 +67,43 @@ router.post('/',
 );
  
 //edit patch name
-// router.put('/:id',
-//     passport.authenticate("jwt", { session: false }),
-//     (req, res) => {
-//         Patch.findOneAndUpdate(req.params.id)
-//              .then(patch => patch.name = req.body.name)
-//              .catch(err => res.status(404).json(err))
-//     }
-// )
+router.put('/:id',
+    passport.authenticate("jwt", { session: false }),
+    (req, res) => {
+        Patch.findByIdAndUpdate(req.params.id)
+             .then(patch => {
+                patch.name = (!req.body.name) ? patch.name : req.body.name;
+                patch.oscillator.osctype = (!req.body.oscillator.osctype) ? patch.oscillator.osctype : req.body.oscillator.osctype;
+                patch.oscillator.attack = (!req.body.oscillator.attack) ? patch.oscillator.attack : req.body.oscillator.attack;
+                patch.oscillator.sustain = (!req.body.oscillator.sustain) ? patch.oscillator.sustain : req.body.oscillator.sustain;
+                patch.oscillator.release = (!req.body.oscillator.release) ? patch.oscillator.release : req.body.oscillator.release;
+                patch.octave = (!req.body.octave) ? patch.octave : req.body.octave;
+                patch.eq.low = (!req.body.eq.low) ? patch.eq.low : req.body.eq.low;
+                patch.eq.mid = (!req.body.eq.mid) ? patch.eq.mid : req.body.eq.mid;
+                patch.eq.high = (!req.body.eq.high) ? patch.eq.high : req.body.eq.high;
+                patch.mods = (!req.body.mods) ? patch.mods : req.body.mods;
+                patch.chorus.LFO = (!req.body.chorus.LFO) ? patch.chorus.LFO : req.body.chorus.LFO;
+                patch.chorus.delay = (!req.body.chorus.delay) ? patch.chorus.delay : req.body.chorus.delay;
+                patch.chorus.depth = (!req.body.chorus.depth) ? patch.chorus.depth : req.body.chorus.depth;
+                patch.tremolo.frequency = (!req.body.tremolo.frequency) ? patch.tremolo.frequency : req.body.tremolo.frequency; 
+                patch.tremolo.depth = (!req.body.tremolo.depth) ? patch.tremolo.depth : req.body.tremolo.depth;
+                patch.harmonics = (!req.body.harmonics) ? patch.harmonics : req.body.harmonics;
+                patch.selectedHarmonics = (!req.body.selectedHarmonics) ? patch.selectedHarmonics : req.body.selectedHarmonics;
+                patch.distortion.amt = (!req.body.distortion.amt) ? patch.distortion.amt : req.body.distortion.amt;
+                patch.bitCrusher.bitDepth = (!req.body.bitCrusher.bitDepth) ? patch.bitCrusher.bitDepth : req.body.bitCrusher.bitDepth;
+                patch.bitCrusher.amount = (!req.body.bitCrusher.amount) ? patch.bitCrusher.amount : req.body.bitCrusher.amount;
+                patch.delay = (!req.body.delay) ? patch.delay : req.body.delay;
+                patch.selectedDelay = (!req.body.selectedDelay) ? patch.selectedDelay : req.body.selectedDelay;
+                patch.feedback.time = (!req.body.feedback.time) ? patch.feedback.time : req.body.feedback.time;
+                patch.feedback.fb = (!req.body.feedback.fb) ? patch.feedback.fb : req.body.feedback.fb;
+                patch.feedback.amt = (!req.body.feedback.amt) ? patch.feedback.amt : req.body.feedback.amt;
+                patch.pingPong.time = (!req.body.pingPong.time) ? patch.pingPong.time : req.body.pingPong.time;
+                patch.pingPong.fb = (!req.body.pingPong.fb) ? patch.pingPong.fb : req.body.pingPong.fb;
+                patch.pingPong.amt = (!req.body.pingPong.amt) ? patch.pingPong.amt : req.body.pingPong.amt;
+             })
+             .catch(err => res.status(404).json(err))
+    }
+)
 
 //showing all the patches
 router.get('/', (req, res) => { 

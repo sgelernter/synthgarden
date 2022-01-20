@@ -19,3 +19,7 @@ export const fetchPatch = id => {
 export const deletePatch = id => {
     return axios.delete(`/api/patches/${id}`)
 }
+
+export const updatePatch = id => {
+    return axios.patch(`/api/patches/${id}`)
+}
