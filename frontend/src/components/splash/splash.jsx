@@ -12,7 +12,7 @@ export default function Splash() {
     return (
         <div className="splash-container">
             <NavbarContainer />
-            <Record />
+            {/* <Record /> */}
             < SidebarContainer />
             <SynthstrumentContainer />
         </div>

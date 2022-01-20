@@ -12,7 +12,6 @@ const SampleSchema = new Schema({
         ref: 'users'
     },
     file: {
-    blob: {
         type: String,
         required: true
     },

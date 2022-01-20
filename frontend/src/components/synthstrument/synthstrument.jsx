@@ -481,14 +481,6 @@ class Synthstrument extends React.Component{
                                         <input type="range" value={this.state.synth1.volume.value} onChange={this.setVolume} min="-45" max="0" step="1" />
                                     </label>
                                 </div>
-                                < FXBank connectFX={this.connectFX} disconnectFX={this.disconnectFX} updatePatch={this.updatePatch}
-                                    chorusNode={this.state.chorus}
-                                    tremoloNode={this.state.tremolo}
-                                    distortNode={this.state.distortion}
-                                    crushNode={this.state.bitCrush}
-                                    feedDelayNode={this.state.feedDelay}
-                                    pongDelayNode={this.state.pongDelay}/>
-
                                 <Record
                                     connectFX={this.connectFX}
                                     disconnectFX={this.disconnectFX}
@@ -498,24 +490,7 @@ class Synthstrument extends React.Component{
                                 />
                         </div>
                     </div>
-                    <div className="keys-bar">
-                        <ol className="keyboard" onClick={this.clickKey}>
-                            {Object.values(this.state.pitches).map ((note, idx) => (
-                                <li className="key" key={idx} id={note}>
-                                    {Object.keys(this.state.pitches)[idx]}
-                                    <p>
-                                    {note}
-                                    </p>
-                                </li>
-                            ))}
-                        </ol>
-                        <div className="volume" onClick={this.setVolume}>
-                            <label>Volume
-                                <input type="range" value={this.state.synth1.volume.value} onChange={this.setVolume} min="-45" max="0" step="1" />
-                            </label>
-                            </div>
-                        </div>
-                    </div>
+                     </div>
                 </div>
             </div>
         )
