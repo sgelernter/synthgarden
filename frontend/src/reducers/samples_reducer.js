@@ -11,9 +11,9 @@ const samplesReducer = (state = {}, action) => {
         case RECEIVE_ALL_SAMPLES:
             const samplesObj = {};
             action.samples.data.forEach(sample => samplesObj[sample.name] = sample);
-            return patchesObj;
+            return samplesObj;
 
-        case REMOVE_PATCH:
+        case REMOVE_SAMPLE:
             delete nextState[action.sample.id]
             return nextState;
     

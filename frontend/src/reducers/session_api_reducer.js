@@ -4,7 +4,9 @@ import { RECEIVE_CURRENT_USER,
 
 const _nullSession = {
     isAuthenticated: false,
-    user: {}
+    user: {
+      id: ''
+    }
 };
 
 const SessionReducer = (prevState = _nullSession, action) => {
@@ -16,14 +18,11 @@ const SessionReducer = (prevState = _nullSession, action) => {
         user: action.currentUser
       };
     case RECEIVE_USER_LOGOUT:
-      return {
-        isAuthenticated: false,
-        user: undefined
-      };
+      return _nullSession;
     case RECEIVE_USER_SIGN_IN:
       return {
         ...prevState,
-        isSignedIn: true
+        isAuthenticated: true
       }
     default:
       return prevState;

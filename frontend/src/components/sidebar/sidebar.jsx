@@ -6,17 +6,26 @@ class Sidebar extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            patchesFetched: 'false'
+            patchesFetched: 'false',
+            samplesFetched: false
         }
     }
 
     componentDidMount(){
         this.props.fetchPatches();
-        this.setState({patchesFetched: true});
+        this.props.fetchSamples();
+        this.setState({
+            patchesFetched: true,
+            samplesFetched: true
+        });
     }
 
     render(){
         if (this.state.patchesFetched === 'false') {
+            return null;
+        }
+        
+        if (this.state.samplesFetched === false) {
             return null;
         }
         // debugger
@@ -27,6 +36,14 @@ class Sidebar extends React.Component{
                     {Object.values(this.props.patches).map((fullPatch, idx) => (
                         <li key={idx} className="sidebar-list-item" onClick={() => this.props.loadPatch(fullPatch)} >
                             {fullPatch.name}
+                        </li>
+                    ))}
+                </ul>
+                <h3>Your Samples:</h3>
+                <ul>
+                    {Object.values(this.props.samples).map((sample, idx) => (
+                        <li key={idx} className="sidebar-list-item" onClick={() => this.props.loadSample(sample)} >
+                            {sample.name}
                         </li>
                     ))}
                 </ul>
