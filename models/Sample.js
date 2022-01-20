@@ -10,6 +10,10 @@ const SampleSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'users'
     },
+    // file: {
+    //     type: String,
+    //     required: true
+    // },
     date: {
         type: Date,
         default: Date.now

@@ -8,13 +8,14 @@ const validateSampleInput = require("../../validation/samples");
 router.post('/',
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
+        debugger
         const { isValid, errors } = validateSampleInput(req.body);
-
         if(!isValid) return res.status(400).json(errors);
 
         const newSample = new Sample({
             user: req.user.id,
-            name: req.body.name 
+            name: req.body.name,
+            // file: req.body.blobToBase64
         })
 
         newSample

@@ -37,16 +37,46 @@ class Record extends React.Component {
     })
   }
 
-  stopRecording() {
-    let clip, clipUrl;
+  // stopRecording() {
+  //   let clip, clipUrl;
+  //   setTimeout(async () => {
+  //     clip = await this.state.recorder.stop();
+  //     clipUrl = URL.createObjectURL(clip);
+  //     this.setState({
+  //       url: clipUrl,
+  //       recording: false
+  //     })
+  //   }, 500) 
+  // }
+
+   stopRecording() {
+    // let clip, clipUrl;
+    let clip;
     setTimeout(async () => {
       clip = await this.state.recorder.stop();
-      clipUrl = URL.createObjectURL(clip);
+      // var reader = new FileReader();
+      // let blobToBase64 = reader.readAsDataURL(clip);
+      // console.log(blobToBase64)
+
+      var reader = new FileReader();
+      reader.readAsDataURL(clip);
+      reader.onloadend = function () {
+        var base64String = reader.result;
+        console.log('Base64 String - ', base64String);
+      
+        // Simply Print the Base64 Encoded String,
+        // without additional data: Attributes.
+        console.log('Base64 String without Tags- ', 
+        base64String.substr(base64String.indexOf(', ') + 1));
+      }
+
       this.setState({
-        url: clipUrl,
+        // url: clipUrl,
+        url: reader.readAsDataURL(clip),
         recording: false
       })
-    }, 500) 
+    }, 500)
+    
   }
 
   updateSampleName(e) {
