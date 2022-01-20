@@ -15,13 +15,13 @@ class Record extends React.Component {
             recording: false,
             url: '',
             synth,
-            sampleName: '',
-            user: this.props.currentUserId
+            sampleName: ''
         }
         synth.toDestination();
         this.startRecording = this.startRecording.bind(this);
         this.stopRecording = this.stopRecording.bind(this);
         this.updateSampleName = this.updateSampleName.bind(this);
+        this.handleSave = this.handleSave.bind(this);
     }
 
     startRecording() {
@@ -58,9 +58,9 @@ class Record extends React.Component {
   handleSave() {
       let sampleData = {
           name: this.state.sampleName,
-          user: this.state.user
+          user: this.props.currentUserId
       }
-    //   console.log(this.state)
+    //   console.log(sampleData)
       this.props.saveSample(sampleData)
   }
     
