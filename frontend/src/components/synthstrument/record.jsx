@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import * as Tone from 'tone';
 import '../../assets/stylesheets/synthstrument.scss'
+import start from '../../assets/images/start-rec.png'
+import stop from '../../assets/images/stop-rec.png'
 
 class Record extends React.Component {
     constructor(props) {
@@ -53,27 +55,26 @@ class Record extends React.Component {
                             className="record-btn"
                             onClick={this.stopRecording}
                           >
-                            STOP RECORDING
+                            <img src={stop} alt='stop-rec' className="rec-img" />
                           </button>
       ) : (
         recordingButton = <button
                             className="record-btn"
                             onClick={this.startRecording}
                           >
-                            START RECORDING
+                            <img src={start} alt='start-rec' className="rec-img" />
                           </button>
       )
 
-    //   let download;
-    //   this.state.url ?
-    //   (
-    //     download = <Link to={`/${this.state.url}`} className="download-link" target="_blank">Download</Link>
-    //     // blob:http://localhost:3000/0ac0faca-0700-4267-bf8a-8b8cc5c70d61
-    //     // test on heroku / fix to instant download link
+      let saveSample;
+      this.state.url ?
+      (
+        saveSample = <button to={`/${this.state.url}`} className="download-link">Save Sample</button>
+        // blob:http://localhost:3000/0ac0faca-0700-4267-bf8a-8b8cc5c70d61
         
-    //   ) : (
-    //     download = null
-    //   )
+      ) : (
+        saveSample = null
+      )
 
     return (
       <div className="record">
@@ -81,7 +82,7 @@ class Record extends React.Component {
             {recordingButton}
         </div>
         <audio src={this.state.url} controls></audio>
-        {/* {download} */}
+        {saveSample}
       </div>
     )
   }

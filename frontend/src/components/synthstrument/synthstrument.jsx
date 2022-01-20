@@ -355,7 +355,6 @@ class Synthstrument extends React.Component{
                 </div>
                 <div className="synthstrument">
                     <div className="label">
-                        ✨ QT Synthstrument Here ✨
                         <button className="power-button off" onClick={this.instantiateAudioContext}>
                             POWER
                         </button>

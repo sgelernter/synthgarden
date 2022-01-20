@@ -146,4 +146,7 @@
 .record {
     display: flex;
     flex-direction: column;
+    .rec-img {
+        width: 50px;
+    }
 }
