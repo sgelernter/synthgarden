@@ -426,6 +426,8 @@ class Synthstrument extends React.Component{
                                 <Record
                                     connectFX={this.connectFX}
                                     disconnectFX={this.disconnectFX}
+                                    saveSample={this.props.saveSample}
+                                    currentUserId={this.props.currentUserId}
                                     className="record"
                                 />
                         </div>

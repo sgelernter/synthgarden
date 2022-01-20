@@ -14,15 +14,18 @@ class Record extends React.Component {
             recorder,
             recording: false,
             url: '',
-            synth
+            synth,
+            sampleName: '',
+            user: this.props.currentUserId
         }
         synth.toDestination();
         this.startRecording = this.startRecording.bind(this);
         this.stopRecording = this.stopRecording.bind(this);
+        this.updateSampleName = this.updateSampleName.bind(this);
     }
 
     startRecording() {
-    // TEST NOIZE
+    // TEST
     this.state.synth.triggerAttackRelease("C3", 0.5);
     this.state.synth.triggerAttackRelease("C4", 0.5, "+1");
     this.state.synth.triggerAttackRelease("C5", 0.5, "+2");
@@ -43,9 +46,24 @@ class Record extends React.Component {
         url: clipUrl,
         recording: false
       })
-    }, 500)
-    
+    }, 500) 
   }
+
+  updateSampleName(e) {
+        this.setState({
+            sampleName: e.currentTarget.value
+        })
+  }
+
+  handleSave() {
+      let sampleData = {
+          name: this.state.sampleName,
+          user: this.state.user
+      }
+    //   console.log(this.state)
+      this.props.saveSample(sampleData)
+  }
+    
 
   render() {
     let recordingButton;
@@ -69,12 +87,27 @@ class Record extends React.Component {
       let saveSample;
       this.state.url ?
       (
-        saveSample = <button to={`/${this.state.url}`} className="download-link">Save Sample</button>
+        saveSample = 
+        <>
+            <input
+                type="text"
+                value={this.state.sampleName}
+                onChange={this.updateSampleName}
+                placeholder="sample name"
+            />
+            <button onClick={this.handleSave}>Save Sample</button>
+        </>
         // blob:http://localhost:3000/0ac0faca-0700-4267-bf8a-8b8cc5c70d61
-        
       ) : (
         saveSample = null
       )
+
+      // sampleData
+      /*
+        name: this.state.sampleName,
+        user: this.props.currentUserId,
+        file: this.state.url
+      */
 
     return (
       <div className="record">
