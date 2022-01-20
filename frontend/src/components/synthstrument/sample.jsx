@@ -5,7 +5,7 @@ import '../../assets/stylesheets/synthstrument.scss'
 import start from '../../assets/images/start-rec.png'
 import stop from '../../assets/images/stop-rec.png'
 
-class Record extends React.Component {
+class Sample extends React.Component {
     constructor(props) {
         super(props)
         const recorder = new Tone.Recorder()
@@ -137,4 +137,4 @@ class Record extends React.Component {
   }
 }
 
-export default Record;
+export default Sample;
