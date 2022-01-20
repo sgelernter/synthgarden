@@ -1,5 +1,5 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as Tone from 'tone';
 import '../../assets/stylesheets/synthstrument.scss'
 import start from '../../assets/images/start-rec.png'
@@ -7,27 +7,27 @@ import stop from '../../assets/images/stop-rec.png'
 
 class Sample extends React.Component {
     constructor(props) {
-        super(props)
-        const recorder = new Tone.Recorder()
-        const synth = new Tone.Synth().connect(recorder);
-        this.state = {
-            recorder,
-            recording: false,
-            file: '',
-            synth,
-            sampleName: '',
-            url: ''
-        }
-        synth.toDestination();
-        this.startRecording = this.startRecording.bind(this);
-        this.stopRecording = this.stopRecording.bind(this);
-        this.updateSampleName = this.updateSampleName.bind(this);
-        this.handleSave = this.handleSave.bind(this);
-        this.handleSubstring = this.handleSubstring.bind(this);
-        this.loadSample = this.loadSample.bind(this);
+      super(props)
+      const recorder = new Tone.Recorder()
+      const synth = new Tone.Synth().connect(recorder);
+      this.state = {
+          recorder,
+          recording: false,
+          file: '',
+          synth,
+          sampleName: '',
+          url: ''
+      }
+      synth.toDestination();
+      this.startRecording = this.startRecording.bind(this);
+      this.stopRecording = this.stopRecording.bind(this);
+      this.updateSampleName = this.updateSampleName.bind(this);
+      this.handleSave = this.handleSave.bind(this);
+      this.handleSubstring = this.handleSubstring.bind(this);
+      this.loadSample = this.loadSample.bind(this);
     }
 
-    startRecording() {
+  startRecording() {
     // TEST
     this.state.synth.triggerAttackRelease("C3", 0.5);
     this.state.synth.triggerAttackRelease("C4", 0.5, "+1");
@@ -61,9 +61,9 @@ class Sample extends React.Component {
       reader.onloadend = () => {
         base64String = reader.result;    
         // print base64 encoded string,
-        // without data attributes.
+        // without data attributes
         substring = base64String.substr(base64String.indexOf(', ') + 1);
-        console.log(clipUrl)
+        // console.log(clipUrl)
         debugger
         this.handleSubstring(substring, clipUrl)
       }
@@ -89,13 +89,19 @@ class Sample extends React.Component {
   }
 
   componentDidUpdate(prevProps){
-    if (this.props.currentSample !== prevProps.currentPcurrentSampleatch) {
+    if (this.props.currentSample !== prevProps.currentSample) {
         this.loadSample();
     }
   }
 
   loadSample() {
-    let b64str = this.props.currentSample.file
+    let b64str = this.props.currentSample.file;
+    debugger
+    let url = b64str.split(',')[1]
+    console.log(url);
+    let contentType = 'audio/webm'
+    console.log(contentType)
+    debugger
     // b64 to blob
     // blob to url for audio element
     this.setState({
@@ -141,6 +147,17 @@ class Sample extends React.Component {
         saveSample = null
       )
 
+      let download;
+      this.state.url ?
+      (
+        download = 
+        <>
+            <Link to={`${this.state.url}`}>Download</Link>
+        </>
+      ) : (
+        download = null
+      )
+
     return (
       <div className="sample">
         <div>
@@ -148,6 +165,7 @@ class Sample extends React.Component {
         </div>
         <audio src={this.state.url} controls></audio>
         {saveSample}
+        {download}
       </div>
     )
   }

@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import Synthstrument from "./synthstrument";
 import { createPatch, fetchPatch } from '../../actions/patch_actions';
 import { createSample } from '../../actions/sample_actions';
+import { withRouter } from "react-router-dom";
 
 const mSTP = state => {
     return {
@@ -18,4 +19,4 @@ const mDTP = dispatch => {
     }
 }
 
-export default connect(mSTP, mDTP)(Synthstrument);
+export default withRouter(connect(mSTP, mDTP)(Synthstrument));
