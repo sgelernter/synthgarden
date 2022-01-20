@@ -12,10 +12,6 @@ export default function Splash() {
     return (
         <div className="splash-container">
             <NavbarContainer />
-            {/* <Navbar /> */}
-
-            {/* <Synthstrument /> */}
-
             <Record />
             < SidebarContainer />
             {/* <AuthRoute path="/" component={Record} /> */}
