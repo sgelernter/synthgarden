@@ -19,3 +19,7 @@ export const fetchSample = id => {
 export const deleteSample = id => {
     return axios.delete(`/api/samples/${id}`)
 }
+
+export const updateSample = id => {
+    return axios.put(`/api/samples/${id}`)
+}
