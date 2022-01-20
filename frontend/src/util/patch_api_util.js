@@ -21,5 +21,5 @@ export const deletePatch = id => {
 }
 
 export const updatePatch = id => {
-    return axios.patch(`/api/patches/${id}`)
+    return axios.put(`/api/patches/${id}`)
 }
