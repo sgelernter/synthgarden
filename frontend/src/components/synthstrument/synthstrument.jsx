@@ -131,6 +131,7 @@ class Synthstrument extends React.Component{
         const modsOn = document.getElementById('mods').className === 'mods on';
         const harmonicsOn = document.getElementById('distortion').className === 'harmonics on';
         const delaysOn = document.getElementById('delay').className === 'delays on';
+        const signalChain = this.signalChain.map(node => node.name).join('/');
         let selectedDelay;
         let selectedHarmonics;
         document.getElementById('distortion-controls').className === 'distortion visible' ? selectedHarmonics = 'distortion' : selectedHarmonics = 'bitCrusher';
@@ -181,7 +182,8 @@ class Synthstrument extends React.Component{
                 time: this.state.pongDelay.delayTime.value,
                 fb: this.state.pongDelay.feedback.value,
                 amt: this.state.pongDelay.wet.value
-            }
+            },
+            signalChain
         }
         this.props.savePatch(patchData);
     }
@@ -191,7 +193,6 @@ class Synthstrument extends React.Component{
         this.state.envelope['attack'] = this.props.currentPatch.oscillator.attack;
         this.state.envelope['sustain'] = this.props.currentPatch.oscillator.sustain;
         this.state.envelope['release'] = this.props.currentPatch.oscillator.release;
-        this.state.octave = this.props.currentPatch.octave;
         this.state.eq3.high.value = this.props.currentPatch.eq.high;
         this.state.eq3.mid.value = this.props.currentPatch.eq.mid;
         this.state.eq3.low.value = this.props.currentPatch.eq.low;
@@ -209,6 +210,23 @@ class Synthstrument extends React.Component{
         this.state.pongDelay.delayTime.value = this.props.currentPatch.pingPong.time;
         this.state.pongDelay.feedback.value = this.props.currentPatch.pingPong.fb;
         this.state.pongDelay.wet.value = this.props.currentPatch.pingPong.amt;
+        const newSignalChain = [];
+        const availableEffects = {
+            Chorus: this.state.chorus, Tremolo: this.state.tremolo, Distortion: this.state.distortion, BitCrusher: this.state.bitCrush,
+            FeedbackDelay: this.state.feedDelay, PingPongDelay: this.state.pongDelay
+        }
+        const activeEffectsNames = this.props.currentPatch.signalChain.split('/');
+        if (activeEffectsNames) {
+                activeEffectsNames.forEach (nodeName => {
+                    newSignalChain.push(availableEffects[nodeName]);
+            });
+        }
+        if (this.signalChain.length > 0) {
+            this.signalChain.forEach (node => this.disconnectFX(node));
+        }
+        if (newSignalChain.length > 0) {
+            newSignalChain.forEach (node => this.connectFX(node));
+        }
         this.setState({
             currentPatch: this.props.currentPatch,
             currentName: this.props.currentPatch.name,
@@ -222,6 +240,7 @@ class Synthstrument extends React.Component{
             feedDelay: this.state.feedDelay, 
             pongDelay: this.state.pongDelay
         })
+        this.changeOctave(null, this.props.currentPatch.octave);
     }
 
     // SYNTH SETTINGS CHANGE TREE
@@ -336,9 +355,10 @@ class Synthstrument extends React.Component{
         }
     }
 
-    changeOctave(e){
+    changeOctave(e, patchOct){
         let octMod;
-        e.target.className === 'oct-up' ? octMod = 1 : octMod = -1;
+        if (e) e.target.className === 'oct-up' ? octMod = 1 : octMod = -1;
+        if (patchOct || patchOct === 0) octMod = (patchOct - this.state.octave);
         const letters = Object.keys(this.state.pitches);
         const newPitches = {};
         const origPitches = Object.values(this.state.pitches);
@@ -388,6 +408,7 @@ class Synthstrument extends React.Component{
     }
 
     render(){
+        console.log(this.signalChain);
         return (
             <div className="synthstrument-container">
                 <div className="synthstrument">
@@ -414,11 +435,11 @@ class Synthstrument extends React.Component{
                                     <div className="env-controls">
                                         <label>
                                             Attack
-                                            <input type="range" value={this.state.envelope.attack} max="2" step=".05" onChange={this.updatePatch('attack')}/>
+                                            <input type="range" value={this.state.envelope.attack} max="2" step=".01" onChange={this.updatePatch('attack')}/>
                                         </label>
                                         <label>
                                             Sustain
-                                            <input type="range" value={this.state.envelope.sustain} max="1" step=".1" onChange={this.updatePatch('sustain')}/>
+                                            <input type="range" value={this.state.envelope.sustain} max="1" step=".05" onChange={this.updatePatch('sustain')}/>
                                         </label>
                                         <label>
                                             Release
