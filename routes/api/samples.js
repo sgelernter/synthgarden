@@ -15,7 +15,7 @@ router.post('/',
         const newSample = new Sample({
             user: req.user.id,
             name: req.body.name,
-            // file: req.body.blobToBase64
+            file: req.body.base64String
         })
 
         newSample

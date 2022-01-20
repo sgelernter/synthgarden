@@ -51,7 +51,7 @@ class Record extends React.Component {
 
    stopRecording() {
     // let clip, clipUrl;
-    let clip;
+    let clip, substring, base64String;
     setTimeout(async () => {
       clip = await this.state.recorder.stop();
       // var reader = new FileReader();
@@ -61,18 +61,17 @@ class Record extends React.Component {
       var reader = new FileReader();
       reader.readAsDataURL(clip);
       reader.onloadend = function () {
-        var base64String = reader.result;
-        console.log('Base64 String - ', base64String);
-      
+        base64String = reader.result;
+        // console.log('Base64 String - ', base64String);
+    
         // Simply Print the Base64 Encoded String,
         // without additional data: Attributes.
-        console.log('Base64 String without Tags- ', 
-        base64String.substr(base64String.indexOf(', ') + 1));
+        substring = base64String.substr(base64String.indexOf(', ') + 1);
       }
-
+      console.log(substring)
       this.setState({
         // url: clipUrl,
-        url: reader.readAsDataURL(clip),
+        url: substring,
         recording: false
       })
     }, 500)
@@ -80,15 +79,17 @@ class Record extends React.Component {
   }
 
   updateSampleName(e) {
-        this.setState({
-            sampleName: e.currentTarget.value
-        })
+    this.setState({
+        sampleName: e.currentTarget.value
+    })
   }
 
   handleSave() {
       let sampleData = {
           name: this.state.sampleName,
-          user: this.props.currentUserId
+          user: this.props.currentUserId,
+          url: this.state.url
+
       }
     //   console.log(sampleData)
       this.props.saveSample(sampleData)
@@ -131,13 +132,6 @@ class Record extends React.Component {
       ) : (
         saveSample = null
       )
-
-      // sampleData
-      /*
-        name: this.state.sampleName,
-        user: this.props.currentUserId,
-        file: this.state.url ???
-      */
 
     return (
       <div className="record">
