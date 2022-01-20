@@ -60,8 +60,8 @@ class Harmonics extends React.Component {
             <div className="harmonics off" id="distortion">
                 <label>
                     DISTORTION
-                    <input type="checkbox" className="switch off" onChange={this.toggleFX}/>
-                    <select name="distortType" onChange={this.updateHarmonics} defaultValue='distortion'>
+                    <input type="checkbox" className="switch off" onChange={this.toggleFX} id="harmonics-controller"/>
+                    <select name="distortType" onChange={this.updateHarmonics} defaultValue='distortion' id="harmonics-selector">
                             <option value='distortion'>Distortion</option>
                             <option value='bitcrush'>Bit Crusher</option>
                         </select>
