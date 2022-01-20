@@ -7,6 +7,7 @@ import Oscillator1 from './osc_1';
 import React from 'react'
 import '../../assets/stylesheets/synthstrument.scss';
 import FXBank from './fx_bank';
+import Record from './record';
 
 class Synthstrument extends React.Component{
 
@@ -422,6 +423,12 @@ class Synthstrument extends React.Component{
                                     crushNode={this.state.bitCrush}
                                     feedDelayNode={this.state.feedDelay}
                                     pongDelayNode={this.state.pongDelay}/>
+
+                                <Record
+                                    connectFX={this.connectFX}
+                                    disconnectFX={this.disconnectFX}
+                                    className="record"
+                                />
                         </div>
                     </div>
                     <div className="keys-bar">
