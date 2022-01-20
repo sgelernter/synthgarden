@@ -5,6 +5,7 @@ module.exports = function validateSampleInput(data) {
   let errors = {};
 
   data.name = validText(data.name) ? data.name : '';
+  data.blob = validText(data.blob) ? data.blob : '';
 
   if (Validator.isEmpty(data.name)) {
     errors.name = 'Name field is required';
