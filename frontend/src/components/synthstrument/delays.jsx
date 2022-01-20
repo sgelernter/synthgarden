@@ -60,9 +60,9 @@ class Delays extends React.Component {
             <div className="delays off" id="delay">
                 <label>
                     DELAY
-                    <input type="checkbox" className="switch off" onChange={this.toggleFX}/>
+                    <input type="checkbox" className="switch off" onChange={this.toggleFX} id="delays-controller"/>
                     <div className="delay-controls">
-                        <select name="delayType" onChange={this.updateDelay} defaultValue='feedback'>
+                        <select name="delayType" onChange={this.updateDelay} defaultValue='feedback' id="delays-selector">
                             <option value='feedback'>Feedback</option>
                             <option value='pong'>Ping-Pong</option>
                         </select>

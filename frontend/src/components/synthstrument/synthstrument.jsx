@@ -134,7 +134,7 @@ class Synthstrument extends React.Component{
         const signalChain = this.signalChain.map(node => node.name).join('/');
         let selectedDelay;
         let selectedHarmonics;
-        document.getElementById('distortion-controls').className === 'distortion visible' ? selectedHarmonics = 'distortion' : selectedHarmonics = 'bitCrusher';
+        document.getElementById('distortion-controls').className === 'distortion visible' ? selectedHarmonics = 'distortion' : selectedHarmonics = 'bitcrush';
         document.getElementById('feedback-controls').className === 'feedback-delay visible' ? selectedDelay = 'feedback' : selectedDelay = 'pong';
 
         const patchData = {
@@ -189,34 +189,36 @@ class Synthstrument extends React.Component{
     }
     // ASSIGN NEW NODE SETTINGS AND SET STATE - NEED TO WRITE ON/OFF LOGIC FOR FX & OCTAVES
     loadPatch(){
-        this.state.oscillator1.type = this.props.currentPatch.oscillator.osctype;
-        this.state.envelope['attack'] = this.props.currentPatch.oscillator.attack;
-        this.state.envelope['sustain'] = this.props.currentPatch.oscillator.sustain;
-        this.state.envelope['release'] = this.props.currentPatch.oscillator.release;
-        this.state.eq3.high.value = this.props.currentPatch.eq.high;
-        this.state.eq3.mid.value = this.props.currentPatch.eq.mid;
-        this.state.eq3.low.value = this.props.currentPatch.eq.low;
-        this.state.chorus.frequency.value = this.props.currentPatch.chorus.LFO;
-        this.state.chorus.delayTime = this.props.currentPatch.chorus.delay;
-        this.state.chorus.depth = this.props.currentPatch.chorus.depth;
-        this.state.tremolo.frequency.value = this.props.currentPatch.tremolo.frequency;
-        this.state.tremolo.depth.value = this.props.currentPatch.tremolo.depth;
-        this.state.distortion.wet.value = this.props.currentPatch.distortion.amt; 
-        this.state.bitCrush.bits.value = this.props.currentPatch.bitCrusher.bitDepth;
-        this.state.bitCrush.wet.value = this.props.currentPatch.bitCrusher.amount;
-        this.state.feedDelay.delayTime.value = this.props.currentPatch.feedback.time;
-        this.state.feedDelay.feedback.value = this.props.currentPatch.feedback.fb;
-        this.state.feedDelay.wet.value = this.props.currentPatch.feedback.amt;
-        this.state.pongDelay.delayTime.value = this.props.currentPatch.pingPong.time;
-        this.state.pongDelay.feedback.value = this.props.currentPatch.pingPong.fb;
-        this.state.pongDelay.wet.value = this.props.currentPatch.pingPong.amt;
+        const currentState = this.state;
+        const currentPatch = this.props.currentPatch;
+        currentState.oscillator1.type = currentPatch.oscillator.osctype;
+        currentState.envelope['attack'] = currentPatch.oscillator.attack;
+        currentState.envelope['sustain'] = currentPatch.oscillator.sustain;
+        currentState.envelope['release'] = currentPatch.oscillator.release;
+        currentState.eq3.high.value = currentPatch.eq.high;
+        currentState.eq3.mid.value = currentPatch.eq.mid;
+        currentState.eq3.low.value = currentPatch.eq.low;
+        currentState.chorus.frequency.value = currentPatch.chorus.LFO;
+        currentState.chorus.delayTime = currentPatch.chorus.delay;
+        currentState.chorus.depth = currentPatch.chorus.depth;
+        currentState.tremolo.frequency.value = currentPatch.tremolo.frequency;
+        currentState.tremolo.depth.value = currentPatch.tremolo.depth;
+        currentState.distortion.wet.value = currentPatch.distortion.amt; 
+        currentState.bitCrush.bits.value = currentPatch.bitCrusher.bitDepth;
+        currentState.bitCrush.wet.value = currentPatch.bitCrusher.amount;
+        currentState.feedDelay.delayTime.value = currentPatch.feedback.time;
+        currentState.feedDelay.feedback.value = currentPatch.feedback.fb;
+        currentState.feedDelay.wet.value = currentPatch.feedback.amt;
+        currentState.pongDelay.delayTime.value = currentPatch.pingPong.time;
+        currentState.pongDelay.feedback.value = currentPatch.pingPong.fb;
+        currentState.pongDelay.wet.value = currentPatch.pingPong.amt;
         const newSignalChain = [];
         const availableEffects = {
-            Chorus: this.state.chorus, Tremolo: this.state.tremolo, Distortion: this.state.distortion, BitCrusher: this.state.bitCrush,
-            FeedbackDelay: this.state.feedDelay, PingPongDelay: this.state.pongDelay
+            Chorus: currentState.chorus, Tremolo: currentState.tremolo, Distortion: currentState.distortion, BitCrusher: currentState.bitCrush,
+            FeedbackDelay: currentState.feedDelay, PingPongDelay: currentState.pongDelay
         }
-        const activeEffectsNames = this.props.currentPatch.signalChain.split('/');
-        if (activeEffectsNames) {
+        const activeEffectsNames = currentPatch.signalChain.split('/');
+        if (Boolean(activeEffectsNames[0])) {
                 activeEffectsNames.forEach (nodeName => {
                     newSignalChain.push(availableEffects[nodeName]);
             });
@@ -227,20 +229,56 @@ class Synthstrument extends React.Component{
         if (newSignalChain.length > 0) {
             newSignalChain.forEach (node => this.connectFX(node));
         }
+        this.signalChain = newSignalChain;
+        document.getElementById('harmonics-selector').value = currentPatch.selectedHarmonics;
+        document.getElementById('delays-selector').value = currentPatch.selectedDelay;
         this.setState({
-            currentPatch: this.props.currentPatch,
-            currentName: this.props.currentPatch.name,
-            oscillator1: this.state.oscillator1,
-            envelope: this.state.envelope,
-            eq3: this.state.eq3, 
-            chorus: this.state.chorus, 
-            tremolo: this.state.tremolo, 
-            distortion: this.state.distortion, 
-            bitCrush: this.state.bitCrush, 
-            feedDelay: this.state.feedDelay, 
-            pongDelay: this.state.pongDelay
+            currentPatch: currentPatch,
+            currentName: currentPatch.name,
+            oscillator1: currentState.oscillator1,
+            envelope: currentState.envelope,
+            eq3: currentState.eq3, 
+            chorus: currentState.chorus, 
+            tremolo: currentState.tremolo, 
+            distortion: currentState.distortion, 
+            bitCrush: currentState.bitCrush, 
+            feedDelay: currentState.feedDelay, 
+            pongDelay: currentState.pongDelay
         })
-        this.changeOctave(null, this.props.currentPatch.octave);
+        this.changeOctave(null, currentPatch.octave);
+        const modSwitch = document.getElementById('mods-controller');
+        const harmonicSwitch = document.getElementById('harmonics-controller');
+        const delaySwitch = document.getElementById('delays-controller');
+        const modsPanel = document.getElementById('mods');
+        const harmonicsPanel = document.getElementById('distortion');
+        const delayPanel = document.getElementById('delay');
+        if (currentPatch.mods) {
+            modSwitch.checked = true;
+            modSwitch.className = 'switch on';
+            modsPanel.className = 'mods on';
+        } else {
+            modSwitch.checked = false;
+            modSwitch.className = 'switch off';
+            modsPanel.className = 'mods off';
+        } 
+        if (currentPatch.harmonics) {
+            harmonicSwitch.checked = true;
+            harmonicSwitch.className = 'switch on';
+            harmonicsPanel.className = 'harmonics on';
+        } else {
+            harmonicSwitch.checked = false;
+            harmonicSwitch.className = 'switch off';
+            harmonicsPanel.className = 'harmonics off';
+        }
+        if (currentPatch.delay) {
+            delaySwitch.checked = true;
+            delaySwitch.className = 'switch on';
+            delayPanel.className = 'delays on';
+        } else {
+            delaySwitch.checked = false;
+            delaySwitch.className = 'switch off';
+            delayPanel.className = 'delays off';
+        }
     }
 
     // SYNTH SETTINGS CHANGE TREE
@@ -408,7 +446,6 @@ class Synthstrument extends React.Component{
     }
 
     render(){
-        console.log(this.signalChain);
         return (
             <div className="synthstrument-container">
                 <div className="synthstrument">

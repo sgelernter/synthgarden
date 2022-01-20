@@ -12,6 +12,7 @@ class Mods extends React.Component {
     }
 
     toggleFX(e){
+        debugger
         if (e.target.className === 'switch off') {
             e.target.className = 'switch on';
             this.state.chorus.start();
@@ -35,7 +36,7 @@ class Mods extends React.Component {
             <div className="mods off" id="mods">
                 <label>
                     MODS  
-                    <input type="checkbox" className="switch off" onChange={this.toggleFX}/>
+                    <input type="checkbox" className="switch off" onChange={this.toggleFX} id="mods-controller"/>
                 </label>
                 <div className="chorus">
                     <h4>Chorus:</h4>
