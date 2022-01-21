@@ -6,15 +6,16 @@ const samplesReducer = (state = {}, action) => {
     
     switch (action.type) {
         case RECEIVE_SAMPLE:
-            return action.sample.data;
-
+            const sampleObj = {};
+            sampleObj[action.sample.data._id] = action.sample.data;
+            return Object.assign({}, state, sampleObj);
         case RECEIVE_ALL_SAMPLES:
             const samplesObj = {};
-            action.samples.data.forEach(sample => samplesObj[sample.name] = sample);
+            action.samples.data.forEach(sample => samplesObj[sample._id] = sample);
             return samplesObj;
-
         case REMOVE_SAMPLE:
-            delete nextState[action.id]
+            debugger
+            delete nextState[action.sample.data._id]
             return nextState;
     
         default:

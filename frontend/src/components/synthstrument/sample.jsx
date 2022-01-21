@@ -84,7 +84,7 @@ class Sample extends React.Component {
   }
 
   handleUpdate() {
-    debugger
+    // debugger
     // this.props.updateSample(this.props.currentSample._id)
     let updatedSample = {
       name: this.state.sampleName,
@@ -92,7 +92,7 @@ class Sample extends React.Component {
       file: this.props.currentSample.file,
       _id: this.props.currentSample._id
     }
-    debugger
+    // debugger
     this.props.updateSample(updatedSample)
     // debugger
   }

@@ -21,5 +21,5 @@ export const deleteSample = id => {
 }
 
 export const updateSample = sample => {
-    return axios.put(`/api/samples/${sample._id}`, sample)
+    return axios.patch(`/api/samples/${sample._id}`, sample)
 }

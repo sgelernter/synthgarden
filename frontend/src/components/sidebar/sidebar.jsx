@@ -13,6 +13,7 @@ class Sidebar extends React.Component{
     }
 
     componentDidMount(){
+        debugger
         this.props.fetchUserSamples(this.props.currentUserId);
         if (this.state.currentUserId !== '') this.props.fetchUserPatches(this.props.currentUserId);
         this.setState({
@@ -23,8 +24,9 @@ class Sidebar extends React.Component{
 
     componentDidUpdate(prevProps){
         if (prevProps.currentUserId !== this.props.currentUserId) {
+            debugger
             this.props.fetchUserPatches(this.props.currentUserId);
-            // this.props.fetchUserSamples(this.props.currentUserId);
+            this.props.fetchUserSamples(this.props.currentUserId);
             this.setState({
                 currentUserId: this.props.currentUserId
             })

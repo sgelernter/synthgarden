@@ -26,10 +26,10 @@ export const loadSample = sample => {
     }
 } 
 
-const removeSample = id => {
+const removeSample = sample => {
     return {
         type: REMOVE_SAMPLE,
-        id: id
+        sample
     }
 }
 
@@ -60,5 +60,5 @@ export const updateSample = data => dispatch => {
 
 export const deleteSample = id => dispatch => {
     return SampleApiUtil.deleteSample(id)
-      .then(() => dispatch(removeSample(id)))
+      .then(sample => dispatch(removeSample(sample)))
 }

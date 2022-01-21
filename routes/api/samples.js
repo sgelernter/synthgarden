@@ -8,7 +8,7 @@ const validateSampleInput = require("../../validation/samples");
 router.post('/',
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
-        debugger
+        // debugger
         const { isValid, errors } = validateSampleInput(req.body);
         if(!isValid) return res.status(400).json(errors);
 
@@ -22,6 +22,17 @@ router.post('/',
             .save()
             .then(sample => res.json(sample))
     }
+)
+
+router.patch('/:id',
+    passport.authenticate("jwt", { session: false }),
+    (async (req, res) => {
+        Sample.findById(req.params.id)
+             .then(sample => {
+                sample.name = req.body.name;
+                sample.save().then(() => res.json(sample))
+             });
+    })
 )
 
 //showing all the samples
@@ -53,8 +64,8 @@ router.delete('/:id',
     passport.authenticate("jwt", { session: false}),
     (req, res) => {
         Sample.findByIdAndDelete(req.params.id)
-            //   .then(sample => res.json(sample))
-              .then(() => res.json({ msg: "This sample has been deleted" }))
+              .then(sample => res.json(sample))
+            //   .then(() => res.json({ msg: "This sample has been deleted" }))
               .catch(err => res.status(404).json(err))
     }
 );
