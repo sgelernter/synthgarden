@@ -1,13 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import * as Tone from 'tone';
+// import { Link } from 'react-router-dom';
+// import * as Tone from 'tone';
 import '../../assets/stylesheets/synthstrument.scss'
 import start from '../../assets/images/start-rec.png'
 import stop from '../../assets/images/stop-rec.png'
 
 class Sample extends React.Component {
     constructor(props) {
-      super(props)
+      super(props);
       // const recorder = new Tone.Recorder()
       // const synth = new Tone.Synth().connect(recorder);
       this.state = {
@@ -15,9 +15,10 @@ class Sample extends React.Component {
           recording: false,
           file: '',
           // synth,
+          updating: false,
           sampleName: '',
           url: ''
-      }
+      };
       // synth.toDestination();
       this.startRecording = this.startRecording.bind(this);
       this.stopRecording = this.stopRecording.bind(this);
@@ -26,6 +27,8 @@ class Sample extends React.Component {
       this.handleSubstring = this.handleSubstring.bind(this);
       this.loadSample = this.loadSample.bind(this);
       this.b64toBlob = this.b64toBlob.bind(this);
+      this.handleUpdate = this.handleUpdate.bind(this);
+      this.handleDelete = this.handleDelete.bind(this);
     }
 
   startRecording() {
@@ -35,14 +38,11 @@ class Sample extends React.Component {
     // this.state.synth.triggerAttackRelease("C5", 0.5, "+2");
     // DELETE ABOVE
 
-    // debugger
-    this.props.connectFX(this.props.recorder)
-    // debugger
-
+    this.props.connectFX(this.props.recorder);
     this.props.recorder.start();
     this.setState({
       recording: true
-    })
+    });
   }
 
   handleSubstring(base64String, clipUrl) {
@@ -51,26 +51,20 @@ class Sample extends React.Component {
         recording: false,
         url: clipUrl
       })
-      // console.log(this.state)
   }
 
    stopRecording() {
     let clip, clipUrl, base64String;
     setTimeout(async () => {
       clip = await this.props.recorder.stop();
-      // console.log(clip)
       clipUrl = URL.createObjectURL(clip)
       var reader = new FileReader();
-      // debugger
       reader.readAsDataURL(clip);
       reader.onloadend = () => {
-        base64String = reader.result;    
-        // console.log(clipUrl)
-        // debugger
+        base64String = reader.result;   
         this.handleSubstring(base64String, clipUrl)
       }
-      // debugger
-    }, 500)
+    }, 500);
     // this.props.disconnectFX(this.props.recorder)
   }
 
@@ -86,14 +80,28 @@ class Sample extends React.Component {
         user: this.props.currentUserId,
         file: this.state.file
     }
-    // console.log(sampleData)
     this.props.saveSample(sampleData)
+  }
+
+  handleUpdate() {
+    // debugger
+    this.props.updateSample(this.props.currentSample._id)
+    // debugger
+  }
+
+  handleDelete() {
+    this.props.deleteSample(this.props.currentSample._id)
   }
 
   componentDidUpdate(prevProps){
     if (this.props.currentSample !== prevProps.currentSample) {
-        this.loadSample();
+      this.loadSample();
+      this.setState({
+        updating: true
+      })
     }
+    // this.props.updateSample
+    // this.props.deleteSample
   }
 
   // stella gives TOTAL credit to stackoverflow - for this helper
@@ -119,22 +127,15 @@ class Sample extends React.Component {
 
   loadSample() {
     let b64str = this.props.currentSample.file.split(',')[1];
-    // debugger
     // let url = b64str.split(',')[1]
-    // console.log(url);
     // let contentType = 'audio/webm'
     // const blob = new Blob(b64str, {type: 'audio/webm;codecs=opus'});
     let blob = this.b64toBlob(b64str)
     const url = URL.createObjectURL(blob);
-    // console.log(url)
-    // debugger
-    // b64 to blob
-    // blob to url for audio element
     this.setState({
       url,
       name: this.props.currentSample.name,
-    })
-    // debugger
+    });
   }
     
   render() {
@@ -156,46 +157,62 @@ class Sample extends React.Component {
                           </button>
       )
 
-      let saveSample;
-      this.state.file ?
-      (
-        saveSample = 
-        <>
-            <input
-                type="text"
-                value={this.state.sampleName}
-                onChange={this.updateSampleName}
-                placeholder="sample name"
-            />
-            <button onClick={this.handleSave}>Save Sample</button>
-        </>
-      ) : (
-        saveSample = null
-      )
+    let saveSample;
+    this.state.file ?
+    (
+      saveSample = 
+      <>
+          <input
+              type="text"
+              value={this.state.sampleName}
+              onChange={this.updateSampleName}
+              placeholder="sample name"
+          />
+          <button onClick={this.handleSave}>Save Sample</button>
+      </>
+    ) : (
+      saveSample = null
+    )
 
-      let download;
-      this.state.url ?
-      (
-        download = 
-        <>
-          <audio src={this.state.url} controls></audio>
-          {/* <Link to={'/'+this.state.url} download target="_self">Download {this.state.name}</Link> */}
-            <a href={this.state.url} download>
-            Download {this.state.name}
-          </a>
-        </>
-      ) : (
-        download = null
-      )
+    let download;
+    this.state.url ?
+    (
+      download = 
+      <>
+        <audio src={this.state.url} controls></audio>
+        {/* <Link to={'/'+this.state.url} download target="_self">Download {this.state.name}</Link> */}
+        <a href={this.state.url} download>Download {this.state.name}</a>
+      </>
+    ) : (
+      download = null
+    )
+
+    let edit;
+    this.state.updating ?
+    (
+      edit = 
+      <>
+        <input
+          type="text"
+          value={this.state.sampleName}
+          onChange={this.updateSampleName}
+          placeholder="sample name"
+        />
+        <button onClick={this.handleUpdate}>Update Sample</button>
+        <button onClick={this.handleDelete}>Delete Sample</button>
+      </>
+    ) : (
+      edit = null
+    )
 
     return (
       <div className="sample">
         <div>
             {recordingButton}
         </div>
-        {/* <audio src={this.state.url} controls></audio> */}
         {download}
         {saveSample}
+        {edit}
       </div>
     )
   }

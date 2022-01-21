@@ -453,7 +453,6 @@ class Synthstrument extends React.Component{
                         <button className="power-button off" onClick={this.instantiateAudioContext}>
                             POWER
                         </button>
-                        ✨ QT Synthstrument Here ✨
                     </div>
                     <div className="main-controls box">
                         <div className="patch-interface">
@@ -550,10 +549,12 @@ class Synthstrument extends React.Component{
                                 <Sample
                                     connectFX={this.connectFX}
                                     disconnectFX={this.disconnectFX}
-                                    saveSample={this.props.saveSample}
                                     currentUserId={this.props.currentUserId}
-                                    currentSample={this.props.currentSample}
                                     loadSample={this.props.loadSample}
+                                    currentSample={this.props.currentSample}
+                                    saveSample={this.props.saveSample}
+                                    updateSample={this.props.updateSample}
+                                    deleteSample={this.props.deleteSample}
                                     recorder={this.state.recorder}
                                     className="sample"
                                 />
