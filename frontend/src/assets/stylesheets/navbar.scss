@@ -25,7 +25,7 @@
 }
 
 .home-link:hover {
-    cursor: default;
+    cursor: pointer;
 }
 
 @keyframes flicker {
@@ -60,14 +60,18 @@
     text-align: center;
     border-radius: 5px;     /* per neon signs */
     text-decoration: none;
-    color: black;
+    color: rgb(46, 45, 45);
+    // color: rgb(247, 247, 234);
     font-weight: bold;
     margin-left: 10px;
     border: none;
     font-size: 15px;
+    // text-shadow: 3px 4px 10px #FFFFFF;
+    transition: box-shadow .3s;
 }
 
 .session-btn:hover {
-    cursor: default;
-    background: rgba(87, 235, 255, 0.884)
+    cursor: pointer;
+    background: rgb(74, 227, 247);
+    box-shadow: 1px 1px 17px 8px rgba(255, 255, 255, 0.959);
 }
