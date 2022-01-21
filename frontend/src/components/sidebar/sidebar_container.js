@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { fetchPatches, loadPatch, deletePatch } from "../../actions/patch_actions";
+import { fetchUserPatches, loadPatch, deletePatch } from "../../actions/patch_actions";
 import { fetchSamples, loadSample, deleteSample } from "../../actions/sample_actions";
 
 import Sidebar from "./sidebar";
@@ -7,13 +7,14 @@ import Sidebar from "./sidebar";
 const mSTP = state => {
     return {
         patches: state.entities.patches,
-        samples: state.entities.samples
+        samples: state.entities.samples,
+        currentUserId: state.session.user.id
     }
 };
 
 const mDTP = dispatch => {
     return {
-        fetchPatches: () => dispatch(fetchPatches()),
+        fetchUserPatches: (userId) => dispatch(fetchUserPatches(userId)),
         loadPatch: (patchId) => dispatch(loadPatch(patchId)),
         deletePatch: (id) => dispatch(deletePatch(id)),
         fetchSamples: () => dispatch(fetchSamples()),

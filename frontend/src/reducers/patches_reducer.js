@@ -1,5 +1,11 @@
 import { RECEIVE_PATCH, RECEIVE_ALL_PATCHES, REMOVE_PATCH, LOAD_PATCH } from "../actions/patch_actions";
 
+// const defaultPatch = {
+
+// }
+
+
+
 const patchesReducer = (state = {}, action) => {
 
     Object.freeze(state);
@@ -10,16 +16,15 @@ const patchesReducer = (state = {}, action) => {
             return state;
 
         case RECEIVE_PATCH:
-            // newState.filter(patch => action.patch.data._id in patch);
-            return action.patch.data;
-
+            const patchObj = {};
+            patchObj[action.patch.data.name] = action.patch.data;
+            return Object.assign({}, state, patchObj);
         case RECEIVE_ALL_PATCHES:
             const patchesObj = {};
             action.patches.data.forEach(patch => patchesObj[patch.name] = patch);
             return patchesObj;
-
         case REMOVE_PATCH:
-            delete nextState[action.patch.id]
+            delete nextState[action.patch.data.name];
             return nextState;
     }
 } 
@@ -28,12 +33,11 @@ const currentPatchReducer = (state = null, action) => {
     
     switch (action.type) {
         default: 
-            return state;
-            
+            return state;        
         case LOAD_PATCH:
             return action.patch;
     }
 }
 
-export { patchesReducer, currentPatchReducer};  
+export { patchesReducer, currentPatchReducer};   
 
