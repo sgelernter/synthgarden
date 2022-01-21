@@ -174,7 +174,7 @@ class Sample extends React.Component {
               onChange={this.updateSampleName}
               placeholder="sample name"
           />
-          <button onClick={this.handleSave}>Save Sample</button>
+          <button onClick={this.handleSave}>Save</button>
       </>
     ) : (
       saveSample = null
@@ -204,8 +204,10 @@ class Sample extends React.Component {
           onChange={this.updateSampleName}
           placeholder="sample name"
         />
-        <button onClick={this.handleUpdate}>Update Sample</button>
-        <button onClick={this.handleDelete}>Delete Sample</button>
+        <div className="edit-btns">
+        <button onClick={this.handleUpdate}>Update</button>
+        <button onClick={this.handleDelete}>Delete</button>
+        </div>
       </>
     ) : (
       edit = null
@@ -213,9 +215,7 @@ class Sample extends React.Component {
 
     return (
       <div className="sample">
-        <div>
-            {recordingButton}
-        </div>
+        {recordingButton}
         {download}
         {saveSample}
         {edit}

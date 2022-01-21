@@ -525,7 +525,29 @@ class Synthstrument extends React.Component{
                                             distortNode={this.state.distortion}
                                             crushNode={this.state.bitCrush}
                                             feedDelayNode={this.state.feedDelay}
-                                            pongDelayNode={this.state.pongDelay}/>
+                                            pongDelayNode={this.state.pongDelay}
+
+                                            currentUserId={this.props.currentUserId}
+                                            loadSample={this.props.loadSample}
+                                            currentSample={this.props.currentSample}
+                                            saveSample={this.props.saveSample}
+                                            updateSample={this.props.updateSample}
+                                            deleteSample={this.props.deleteSample}
+                                            recorder={this.state.recorder}
+                                        />
+
+                                            {/* <Sample
+                                                connectFX={this.connectFX}
+                                                disconnectFX={this.disconnectFX}
+                                                currentUserId={this.props.currentUserId}
+                                                loadSample={this.props.loadSample}
+                                                currentSample={this.props.currentSample}
+                                                saveSample={this.props.saveSample}
+                                                updateSample={this.props.updateSample}
+                                                deleteSample={this.props.deleteSample}
+                                                recorder={this.state.recorder}
+                                                className="sample"
+                                            /> */}
                                 </div>
                             </div>
                             <div className="keys-bar">
@@ -544,7 +566,7 @@ class Synthstrument extends React.Component{
                                         <input type="range" value={this.state.synth1.volume.value} onChange={this.setVolume} min="-45" max="0" step="1" />
                                     </label>
                                 </div>
-                                <Sample
+                                {/* <Sample
                                     connectFX={this.connectFX}
                                     disconnectFX={this.disconnectFX}
                                     currentUserId={this.props.currentUserId}
@@ -555,7 +577,7 @@ class Synthstrument extends React.Component{
                                     deleteSample={this.props.deleteSample}
                                     recorder={this.state.recorder}
                                     className="sample"
-                                />
+                                /> */}
                         </div>
                     </div>
                      </div>
