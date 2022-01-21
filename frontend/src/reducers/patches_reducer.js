@@ -10,7 +10,6 @@ const patchesReducer = (state = {}, action) => {
             return state;
 
         case RECEIVE_PATCH:
-            // newState.filter(patch => action.patch.data._id in patch);
             return action.patch.data;
 
         case RECEIVE_ALL_PATCHES:
