@@ -7,12 +7,13 @@ class Sidebar extends React.Component{
         super(props)
         this.state = {
             patchesFetched: 'false',
-            samplesFetched: false
+            samplesFetched: false,
+            currentUserId: this.props.currentUserId
         }
     }
 
     componentDidMount(){
-        this.props.fetchPatches();
+        if (this.state.currentUserId !== '') this.props.fetchUserPatches(this.props.currentUserId);
         this.props.fetchSamples();
         this.setState({
             patchesFetched: true,
@@ -20,21 +21,32 @@ class Sidebar extends React.Component{
         });
     }
 
+    componentDidUpdate(prevProps){
+        if (prevProps.currentUserId !== this.props.currentUserId) {
+            this.props.fetchUserPatches(this.props.currentUserId);
+            this.setState({
+                currentUserId: this.props.currentUserId
+            })
+        }
+    }
+
     render(){
-        if (this.state.patchesFetched === 'false') {
+        if (this.state.currentUserId === '') {
+            return (
+                <div className="sidebar hidden">
+    
+                </div>
+            )   
+        }
+        if (this.state.patchesFetched === 'false' || this.state.samplesFetched === false) {
             return null;
         }
-        
-        if (this.state.samplesFetched === false) {
-            return null;
-        }
-        // debugger
         return (
             <div className="sidebar">
-                <h3>All Patches:</h3>
-                <ul>
+                <h3>Your Patches:</h3>
+                <ul className="patches-list">
                     {Object.values(this.props.patches).map((fullPatch, idx) => (
-                        <li key={idx} className="sidebar-list-item" onClick={() => this.props.loadPatch(fullPatch)} >
+                        <li key={idx} className="sidebar-list-item" onClick={() => this.props.loadPatch(fullPatch)} id="sidebar-list">
                             {fullPatch.name}
                         </li>
                     ))}

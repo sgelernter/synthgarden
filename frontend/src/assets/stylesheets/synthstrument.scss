@@ -13,12 +13,13 @@
     justify-content: center;
     border: 3px dashed hotpink;
     text-align: center;
-    position: relative;
-    top: -100px;
-    left: 100px;
-    width: 70vw;
+    // position: relative;
+    // top: -100px;
+    // left: 100px;
+    max-width: 70vw;
     height: 70vh;
-    margin-top: 7rem;
+    margin-left: 250px;
+    // margin-top: 7rem;
     .label{
         display: flex;
         justify-content: space-between;
@@ -32,7 +33,11 @@
     .patch-interface{
         display: flex;
         flex-direction: column;
-        width: 80px;
+        width: 150px;
+        border: 1px solid fuchsia;
+        .hidden{
+            display: none;
+        }
     }
     .power-button.on {
         color: rgb(120, 247, 57);

@@ -8,6 +8,7 @@ import React from 'react'
 import '../../assets/stylesheets/synthstrument.scss';
 import FXBank from './fx_bank';
 import Sample from './sample';
+import PatchControlsContainer from './patch_controls_container';
 
 class Synthstrument extends React.Component{
 
@@ -46,7 +47,7 @@ class Synthstrument extends React.Component{
             bitCrush,
             feedDelay,
             pongDelay,
-            patchName: 'untitled patch',
+            patchName: 'enter patch name',
             currentName: 'no patch selected',
             recorder
         }
@@ -119,15 +120,17 @@ class Synthstrument extends React.Component{
     // PATCH CONTROLS
     updatePatchName(e){
         this.setState({
-            patchName: e.target.value
+            patchName: e.target.value,
+            currentName: e.target.value
         })
+        document.getElementById('loaded-patch-CRUD').className = "hidden";
     }
 
     clearPatchName(e){
-        if (this.state.patchName === 'untitled patch') this.setState({patchName: ''});
+        if (this.state.patchName === 'enter patch name') this.setState({patchName: ''});
     }
 
-    savePatch(){
+    savePatch(saveType){
         const modsOn = document.getElementById('mods').className === 'mods on';
         const harmonicsOn = document.getElementById('distortion').className === 'harmonics on';
         const delaysOn = document.getElementById('delay').className === 'delays on';
@@ -185,7 +188,13 @@ class Synthstrument extends React.Component{
             },
             signalChain
         }
-        this.props.savePatch(patchData);
+        if (saveType === 'new') {
+            this.props.savePatch(patchData);
+        } else {
+            patchData.id = this.state.currentPatch._id;
+            patchData.name = this.state.currentPatch.name;
+            this.props.saveUpdatedPatch(patchData);
+        }
     }
     // ASSIGN NEW NODE SETTINGS AND SET STATE - NEED TO WRITE ON/OFF LOGIC FOR FX & OCTAVES
     loadPatch(){
@@ -279,6 +288,9 @@ class Synthstrument extends React.Component{
             delaySwitch.className = 'switch off';
             delayPanel.className = 'delays off';
         }
+        document.getElementById('loaded-patch-CRUD').className = "visible";
+        document.getElementById('new-patch-CRUD').className = "hidden";
+        document.getElementById('new-patch-toggle').className = "visible";
     }
 
     // SYNTH SETTINGS CHANGE TREE
@@ -456,15 +468,13 @@ class Synthstrument extends React.Component{
                         ✨ QT Synthstrument Here ✨
                     </div>
                     <div className="main-controls box">
-                        <div className="patch-interface">
-                            <input type="text" value={this.state.patchName} onClick={this.clearPatchName} onChange={this.updatePatchName} />
-                            <button onClick={this.savePatch}>
-                                save patch settings
-                            </button>
-                            <p>
-                                Current patch: {this.state.currentName}
-                            </p>
-                        </div>
+                        < PatchControlsContainer 
+                            patchName={this.state.patchName} 
+                            currentName={this.state.currentName}
+                            clearPatchName={this.clearPatchName}
+                            updatePatchName={this.updatePatchName}
+                            savePatch={this.savePatch}
+                            />
                         <div className="main-synth box">
                             <div className="oscillators-bar">
                                 <div className="osc-box 1">

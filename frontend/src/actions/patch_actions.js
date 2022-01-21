@@ -26,10 +26,10 @@ export const loadPatch = patch => {
     }
 } 
 
-const removePatch = id => {
+const removePatch = patch => {
     return {
         type: REMOVE_PATCH,
-        id: id
+        patch
     }
 }
 
@@ -53,12 +53,12 @@ export const fetchPatch = id => dispatch => {
       .then(patch => dispatch(receivePatch(patch)))
 }
 
-export const updatePatch = id => dispatch => {
-    return PatchApiUtil.updatePatch(id)
+export const updatePatch = patchData => dispatch => {
+    return PatchApiUtil.updatePatch(patchData)
       .then(patch => dispatch(receivePatch(patch)))
 }
 
 export const deletePatch = id => dispatch => {
     return PatchApiUtil.deletePatch(id)
-      .then(() => dispatch(removePatch(id)))
+      .then(patch => dispatch(removePatch(patch)))
 }
