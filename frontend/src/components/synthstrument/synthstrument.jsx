@@ -338,7 +338,6 @@ class Synthstrument extends React.Component{
                         chorus: this.state.chorus
                     })
                 case 'tremolo':
-                    console.log(this.state.tremolo);
                     switch (e.target.className) {
                         case 'frequency':
                             this.state.tremolo.frequency.value = e.target.value;
@@ -346,8 +345,7 @@ class Synthstrument extends React.Component{
                         case 'trem-depth':
                             this.state.tremolo.depth.value = e.target.value;
                             break;
-                    }
-                    console.log(this.state.tremolo);      
+                    }     
                     this.setState({
                         tremolo: this.state.tremolo
                     })
@@ -436,7 +434,6 @@ class Synthstrument extends React.Component{
             prevLastNode.chain(effectNode, destination);
             this.signalChain.push(effectNode);
         } else {
-            debugger
             prevLastNode.connect(effectNode);
         }
     }
