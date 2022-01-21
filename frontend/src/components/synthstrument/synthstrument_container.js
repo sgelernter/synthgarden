@@ -16,7 +16,7 @@ const mDTP = dispatch => {
     return {
         savePatch: (patchData) => dispatch(createPatch(patchData)),
         saveSample: (sampleData) => dispatch(createSample(sampleData)),
-        updateSample: (id) => dispatch(updateSample(id)),
+        updateSample: (sample) => dispatch(updateSample(sample)),
         deleteSample: (id) => dispatch(deleteSample(id))
     }
 }

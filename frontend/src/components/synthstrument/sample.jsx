@@ -84,8 +84,16 @@ class Sample extends React.Component {
   }
 
   handleUpdate() {
-    // debugger
-    this.props.updateSample(this.props.currentSample._id)
+    debugger
+    // this.props.updateSample(this.props.currentSample._id)
+    let updatedSample = {
+      name: this.state.sampleName,
+      user: this.props.currentUserId,
+      file: this.props.currentSample.file,
+      _id: this.props.currentSample._id
+    }
+    debugger
+    this.props.updateSample(updatedSample)
     // debugger
   }
 
@@ -100,8 +108,6 @@ class Sample extends React.Component {
         updating: true
       })
     }
-    // this.props.updateSample
-    // this.props.deleteSample
   }
 
   // stella gives TOTAL credit to stackoverflow - for this helper

@@ -53,8 +53,8 @@ export const fetchSample = id => dispatch => {
       .then(sample => dispatch(receiveSample(sample)))
 }
 
-export const updateSample = id => dispatch => {
-    return SampleApiUtil.updateSample(id)
+export const updateSample = data => dispatch => {
+    return SampleApiUtil.updateSample(data)
       .then(sample => dispatch(receiveSample(sample)))
 }
 
