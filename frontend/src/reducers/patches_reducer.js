@@ -14,7 +14,6 @@ const patchesReducer = (state = {}, action) => {
     switch (action.type) {
         default: 
             return state;
-
         case RECEIVE_PATCH:
             const patchObj = {};
             patchObj[action.patch.data.name] = action.patch.data;
