@@ -34,14 +34,14 @@
     }
     .power-button.on {
         font-weight: bold;
-        background-color: rgb(100, 233, 34);
+        background-image: radial-gradient(rgb(177, 245, 138), rgb(107, 233, 34), rgb(88, 186, 31));
         color: white;
         text-shadow: 0px 0px 2px rgb(227, 251, 215);
         font-size: 20px;
     }
     .power-button.off {
-        background-color: rgb(255, 0, 128);
-        color: rgb(191, 189, 189);
+        background-image: radial-gradient(rgb(138, 194, 105), rgb(95, 191, 40), rgb(67, 152, 17));
+        color: rgb(231, 231, 231);
         font-size: 20px;
     }
     .oscillators-bar{
@@ -102,36 +102,73 @@
                     border: 1px solid rgb(122, 208, 255);
                     width: 33.3%;
                     .chorus{
-                        border: 1px solid blue;
+                        border: 1px solid rgba(142, 142, 142, 0.149);
+                        border-bottom: none;
                         height: 50%;
                     }
                     .tremolo{
-                        border: 1px solid blue;
+                        border: 1px solid rgba(164, 164, 164, 0.299);
                     }
                     .switch{
                         appearance: none;
-                        border: 1px solid white;
-                        width: 40px;
-                        height: 15px;
+                        box-shadow: inset 1px -1px 1px rgb(162, 105, 0);
+                        background-image: radial-gradient(rgb(253, 215, 165), rgb(251, 185, 98), rgb(186, 106, 3));
+                        width: 45px;
+                        height: 20px;
                         margin: auto;
                         position: relative;
-                        top: 3px;
+                        top: 6px;
                         margin-left: 10px;
+                        &.off{
+                            background-image: radial-gradient(rgb(221, 127, 3), rgb(197, 113, 2), rgb(142, 81, 1));
+                        }
                     }
                 }
                 .harmonics{
                     display: flex;
                     border: 1px solid rgb(122, 208, 255);
                     width: 33.3%;
+                    .switch{
+                        appearance: none;
+                        box-shadow: inset 1px -1px 1px rgba(0, 20, 56, 0.578);
+                        background-image: radial-gradient(rgb(162, 211, 253), rgb(115, 150, 255), rgb(38, 90, 194));
+                        width: 45px;
+                        height: 20px;
+                        margin: auto;
+                        position: relative;
+                        top: 3px;
+                        margin-left: 10px;
+                        &.off{
+                            background-image: radial-gradient(rgb(62, 110, 206), rgb(44, 96, 199), rgb(28, 73, 162));
+                        }
+                    }
                 }
                 .delays{
                     display: flex;
                     border: 1px solid rgb(122, 208, 255);
                     width: 33.3%;
+                    .switch{
+                        appearance: none;
+                        box-shadow: inset 1px -1px 1px rgb(122, 11, 11);
+                        background-image: radial-gradient(rgb(250, 182, 182), rgb(251, 118, 118), rgb(194, 32, 32));
+                        width: 45px;
+                        height: 20px;
+                        margin: auto;
+                        position: relative;
+                        top: 3px;
+                        left: 15px;
+                        margin-left: 10px;
+                        &.off{
+                            background-image: radial-gradient(rgb(204, 68, 68), rgb(186, 63, 63), rgb(148, 21, 21));
+                        }
+                    }
                 }
                 .off{
-                    filter: grayscale(100%);
-                    transition: filter .7s;
+                    .delay, .LFO, .chorus-depth, .frequency, .trem-depth,
+                    .delay-time, .feedback, .wet-dry, .distortion, .crusher-wet, .bit-depth{
+                        filter: grayscale(100%);
+                        transition: filter .7s;
+                    }
                 }
             }
         }
@@ -145,7 +182,7 @@
             background-color: rgba(165, 165, 165, 0.122);
             border-radius: 3px;
             margin-left: 15px;
-            padding: 5px;
+            padding: 7px;
             list-style: none;
             display: flex;
             justify-content: space-evenly;
