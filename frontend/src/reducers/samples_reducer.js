@@ -14,7 +14,7 @@ const samplesReducer = (state = {}, action) => {
             return samplesObj;
 
         case REMOVE_SAMPLE:
-            delete nextState[action.sample.id]
+            delete nextState[action.id]
             return nextState;
     
         default:

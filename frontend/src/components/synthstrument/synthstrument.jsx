@@ -461,12 +461,9 @@ class Synthstrument extends React.Component{
         return (
             <div className="synthstrument-container">
                 <div className="synthstrument">
-                    <div className="label">
-                        <button className="power-button off" onClick={this.instantiateAudioContext}>
+                    <button className="power-button off" onClick={this.instantiateAudioContext}>
                             POWER
-                        </button>
-                        ✨ QT Synthstrument Here ✨
-                    </div>
+                    </button>
                     <div className="main-controls box">
                         < PatchControlsContainer 
                             patchName={this.state.patchName} 
@@ -478,7 +475,7 @@ class Synthstrument extends React.Component{
                         <div className="main-synth box">
                             <div className="oscillators-bar">
                                 <div className="osc-box 1">
-                                    < Oscillator1 oscillator={this.state.oscillator1}/>
+                                    <Oscillator1 oscillator={this.state.oscillator1}/>
                                     <div className="env-controls">
                                         <label>
                                             Attack
@@ -538,7 +535,29 @@ class Synthstrument extends React.Component{
                                             distortNode={this.state.distortion}
                                             crushNode={this.state.bitCrush}
                                             feedDelayNode={this.state.feedDelay}
-                                            pongDelayNode={this.state.pongDelay}/>
+                                            pongDelayNode={this.state.pongDelay}
+
+                                            currentUserId={this.props.currentUserId}
+                                            loadSample={this.props.loadSample}
+                                            currentSample={this.props.currentSample}
+                                            saveSample={this.props.saveSample}
+                                            updateSample={this.props.updateSample}
+                                            deleteSample={this.props.deleteSample}
+                                            recorder={this.state.recorder}
+                                        />
+
+                                            {/* <Sample
+                                                connectFX={this.connectFX}
+                                                disconnectFX={this.disconnectFX}
+                                                currentUserId={this.props.currentUserId}
+                                                loadSample={this.props.loadSample}
+                                                currentSample={this.props.currentSample}
+                                                saveSample={this.props.saveSample}
+                                                updateSample={this.props.updateSample}
+                                                deleteSample={this.props.deleteSample}
+                                                recorder={this.state.recorder}
+                                                className="sample"
+                                            /> */}
                                 </div>
                             </div>
                             <div className="keys-bar">
@@ -557,16 +576,18 @@ class Synthstrument extends React.Component{
                                         <input type="range" value={this.state.synth1.volume.value} onChange={this.setVolume} min="-45" max="0" step="1" />
                                     </label>
                                 </div>
-                                <Sample
+                                {/* <Sample
                                     connectFX={this.connectFX}
                                     disconnectFX={this.disconnectFX}
-                                    saveSample={this.props.saveSample}
                                     currentUserId={this.props.currentUserId}
-                                    currentSample={this.props.currentSample}
                                     loadSample={this.props.loadSample}
+                                    currentSample={this.props.currentSample}
+                                    saveSample={this.props.saveSample}
+                                    updateSample={this.props.updateSample}
+                                    deleteSample={this.props.deleteSample}
                                     recorder={this.state.recorder}
                                     className="sample"
-                                />
+                                /> */}
                         </div>
                     </div>
                      </div>
