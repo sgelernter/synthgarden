@@ -449,11 +449,9 @@ class Synthstrument extends React.Component{
         return (
             <div className="synthstrument-container">
                 <div className="synthstrument">
-                    <div className="label">
-                        <button className="power-button off" onClick={this.instantiateAudioContext}>
+                    <button className="power-button off" onClick={this.instantiateAudioContext}>
                             POWER
-                        </button>
-                    </div>
+                    </button>
                     <div className="main-controls box">
                         <div className="patch-interface">
                             <input type="text" value={this.state.patchName} onClick={this.clearPatchName} onChange={this.updatePatchName} />
@@ -467,7 +465,7 @@ class Synthstrument extends React.Component{
                         <div className="main-synth box">
                             <div className="oscillators-bar">
                                 <div className="osc-box 1">
-                                    < Oscillator1 oscillator={this.state.oscillator1}/>
+                                    <Oscillator1 oscillator={this.state.oscillator1}/>
                                     <div className="env-controls">
                                         <label>
                                             Attack
