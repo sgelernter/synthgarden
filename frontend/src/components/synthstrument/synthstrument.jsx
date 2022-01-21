@@ -495,6 +495,18 @@ class Synthstrument extends React.Component{
                                             Oct. Down
                                         </button>
                                     </div>
+                                    <Sample
+                                                connectFX={this.connectFX}
+                                                disconnectFX={this.disconnectFX}
+                                                currentUserId={this.props.currentUserId}
+                                                loadSample={this.props.loadSample}
+                                                currentSample={this.props.currentSample}
+                                                saveSample={this.props.saveSample}
+                                                updateSample={this.props.updateSample}
+                                                deleteSample={this.props.deleteSample}
+                                                recorder={this.state.recorder}
+                                                className="sample"
+                                            />
                                 </div>
                                 <div className="post-FX">
                                         <div className="eq3">
@@ -534,13 +546,13 @@ class Synthstrument extends React.Component{
                                             feedDelayNode={this.state.feedDelay}
                                             pongDelayNode={this.state.pongDelay}
 
-                                            currentUserId={this.props.currentUserId}
-                                            loadSample={this.props.loadSample}
-                                            currentSample={this.props.currentSample}
-                                            saveSample={this.props.saveSample}
-                                            updateSample={this.props.updateSample}
-                                            deleteSample={this.props.deleteSample}
-                                            recorder={this.state.recorder}
+                                            // currentUserId={this.props.currentUserId}
+                                            // loadSample={this.props.loadSample}
+                                            // currentSample={this.props.currentSample}
+                                            // saveSample={this.props.saveSample}
+                                            // updateSample={this.props.updateSample}
+                                            // deleteSample={this.props.deleteSample}
+                                            // recorder={this.state.recorder}
                                         />
 
                                             {/* <Sample

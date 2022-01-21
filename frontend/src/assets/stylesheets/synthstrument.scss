@@ -59,15 +59,28 @@
             border: 1px solid thistle;
             height: 50%;
             display: flex;
+            justify-content: space-between;
+            align-items: center;
             .oscillator{
                 display: flex;
                 justify-content: space-evenly;
+                flex-direction: column;
+                height: 100%;
             }
             .env-controls{
                 font-size: small;
                 display: flex;
-                flex-wrap: wrap;
-                justify-content: space-evenly;
+                flex-direction: column;
+                // flex-wrap: wrap;
+                align-items: center;
+                border: 1px solid hotpink;
+                height: 100%;
+            }
+            .octave-shift {
+                display: flex;
+                flex-direction: column;
+                border: 1px solid limegreen;
+                height: 100%;
             }
         }
         .post-FX{
