@@ -2,7 +2,7 @@ import React from "react";
 import Mods from "./mods";
 import Harmonics from "./harmonics";
 import Delays from "./delays";
-import Sample from './sample';
+// import Sample from './sample';
 
 const FXBank = props => {
         return (
@@ -10,15 +10,15 @@ const FXBank = props => {
                 < Mods connectFX={props.connectFX} disconnectFX={props.disconnectFX} updatePatch={props.updatePatch}
                     chorusNode={props.chorusNode}
                     tremoloNode={props.tremoloNode}/>
-                <div>
+                {/* <div> */}
                     < Harmonics connectFX={props.connectFX} disconnectFX={props.disconnectFX} updatePatch={props.updatePatch}
                         distortNode={props.distortNode}
                         crushNode={props.crushNode}/>
                     < Delays connectFX={props.connectFX} disconnectFX={props.disconnectFX} updatePatch={props.updatePatch}
                         feedDelayNode={props.feedDelayNode}
                     pongDelayNode={props.pongDelayNode}/>
-                </div>
-                <Sample
+                {/* </div> */}
+                {/* <Sample
                     currentUserId={props.currentUserId}
                     loadSample={props.loadSample}
                     currentSample={props.currentSample}
@@ -28,7 +28,7 @@ const FXBank = props => {
                     recorder={props.recorder}
                     connectFX={props.connectFX}
                     disconnectFX={props.disconnectFX}
-                />
+                /> */}
             </div>
         )
 }
