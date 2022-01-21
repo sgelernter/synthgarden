@@ -35,10 +35,10 @@ class Record extends React.Component {
   stopRecording() {
     // let clip, clipUrl;
     let clip;
-    debugger
+    // debugger
     setTimeout(async () => {
       clip = await this.state.recorder.stop();
-      debugger
+      // debugger
       var reader = new FileReader();
       let blobToBase64 = reader.readAsDataURL(clip); 
       console.log(blobToBase64)
