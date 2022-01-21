@@ -13,13 +13,14 @@
     // border: solid 2px yellow;
     // padding: 0 1px;
     width: 500px;
+    // filter: brightness(70%);
     p {
         // border: solid 2px fuchsia;
         font-family: 'Sacramento', cursive;
         font-size: 38px;
         display: flex;
         align-items: center;
-        text-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 20px #ff18d8, 0 0 30px #ff18d8, 0 0 40px #ff18d8, 0 0 55px #ff18d8, 0 0 75px #49ff18;
+        text-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 10px #ff18d8, 0 0 15px #ff18d8, 0 0 20px #ff18d8, 0 0 25px #ff18d8, 0 0 45px #49ff18;
     }
     a {
         // border: solid 2px blue;
@@ -30,8 +31,11 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        text-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 20px #49ff18, 0 0 30px #49FF18, 0 0 40px #49FF18, 0 0 55px #49FF18, 0 0 75px #49ff18;
-
+        text-shadow: 0 0 2px rgb(208, 208, 208), 0 0 5px rgb(198, 198, 198), 0 0 5px rgb(159, 159, 159), 0 0 10px #49ff18, 0 0 10px #49FF18, 0 0 20px #49FF18, 0 0 35px #49FF18, 0 0 45px #49ff18;
+        &:hover{
+            filter: brightness(115%);
+            // transition: brightness .5s;
+        }
     }
 }
 
