@@ -20,6 +20,6 @@ export const deletePatch = id => {
     return axios.delete(`/api/patches/${id}`)
 }
 
-export const updatePatch = id => {
-    return axios.put(`/api/patches/${id}`)
+export const updatePatch = patchData => {
+    return axios.patch(`/api/patches/${patchData.id}`, patchData)
 }

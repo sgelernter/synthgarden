@@ -4,6 +4,7 @@
     justify-content: center;
     height: 100%;
     padding: 10px;
+    max-width: 1500px;
 }
 
 .synthstrument {
@@ -11,33 +12,35 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: 3px dashed hotpink;
     text-align: center;
-    position: relative;
-    top: -100px;
-    left: 100px;
-    width: 70vw;
+    // position: relative;
+    // top: -100px;
+    // left: 100px;
+    max-width: 70vw;
     height: 70vh;
     margin-top: 7rem;
-    .label{
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        height: 20px;
-        border: 1px solid seashell;
-    }
+    max-width: 1500px;
     .main-controls{
         display: flex;
     }
     .patch-interface{
         display: flex;
         flex-direction: column;
-        width: 80px;
+        width: 150px;
+        border: 1px solid fuchsia;
+        .hidden{
+            display: none;
+        }
     }
     .power-button.on {
-        color: rgb(120, 247, 57);
-        text-shadow: 1px white;
-        margin-left: 50px;
+        background-color: rgb(88, 255, 5);
+        color: black;
+        font-size: 20px;
+    }
+    .power-button.off {
+        background-color: rgb(255, 0, 128);
+        color: black;
+        font-size: 20px;
     }
     .oscillators-bar{
         border: 1px solid aqua;
@@ -132,7 +135,7 @@
             display: flex;
             justify-content: space-evenly;
             width: 100%;
-            height: 70px;
+            height: 100px;
             li {
                 border: 1px solid orange;
                 width: 50px;
@@ -166,5 +169,17 @@
     flex-direction: column;
     .rec-img {
         width: 50px;
+    }
+    audio {
+        max-width: 100px;
+    }
+    a {
+        font-size: 15px;
+    }
+    .download {
+        display: flex;
+    }
+    .edit-btns {
+        display: flex;
     }
 }

@@ -20,6 +20,6 @@ export const deleteSample = id => {
     return axios.delete(`/api/samples/${id}`)
 }
 
-export const updateSample = id => {
-    return axios.put(`/api/samples/${id}`)
+export const updateSample = sample => {
+    return axios.put(`/api/samples/${sample._id}`, sample)
 }

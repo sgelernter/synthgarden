@@ -8,6 +8,7 @@ import React from 'react'
 import '../../assets/stylesheets/synthstrument.scss';
 import FXBank from './fx_bank';
 import Sample from './sample';
+import PatchControlsContainer from './patch_controls_container';
 
 class Synthstrument extends React.Component{
 
@@ -46,7 +47,7 @@ class Synthstrument extends React.Component{
             bitCrush,
             feedDelay,
             pongDelay,
-            patchName: 'untitled patch',
+            patchName: 'enter patch name',
             currentName: 'no patch selected',
             recorder
         }
@@ -119,15 +120,17 @@ class Synthstrument extends React.Component{
     // PATCH CONTROLS
     updatePatchName(e){
         this.setState({
-            patchName: e.target.value
+            patchName: e.target.value,
+            currentName: e.target.value
         })
+        document.getElementById('loaded-patch-CRUD').className = "hidden";
     }
 
     clearPatchName(e){
-        if (this.state.patchName === 'untitled patch') this.setState({patchName: ''});
+        if (this.state.patchName === 'enter patch name') this.setState({patchName: ''});
     }
 
-    savePatch(){
+    savePatch(saveType){
         const modsOn = document.getElementById('mods').className === 'mods on';
         const harmonicsOn = document.getElementById('distortion').className === 'harmonics on';
         const delaysOn = document.getElementById('delay').className === 'delays on';
@@ -185,7 +188,13 @@ class Synthstrument extends React.Component{
             },
             signalChain
         }
-        this.props.savePatch(patchData);
+        if (saveType === 'new') {
+            this.props.savePatch(patchData);
+        } else {
+            patchData.id = this.state.currentPatch._id;
+            patchData.name = this.state.currentPatch.name;
+            this.props.saveUpdatedPatch(patchData);
+        }
     }
     // ASSIGN NEW NODE SETTINGS AND SET STATE - NEED TO WRITE ON/OFF LOGIC FOR FX & OCTAVES
     loadPatch(){
@@ -279,6 +288,9 @@ class Synthstrument extends React.Component{
             delaySwitch.className = 'switch off';
             delayPanel.className = 'delays off';
         }
+        document.getElementById('loaded-patch-CRUD').className = "visible";
+        document.getElementById('new-patch-CRUD').className = "hidden";
+        document.getElementById('new-patch-toggle').className = "visible";
     }
 
     // SYNTH SETTINGS CHANGE TREE
@@ -449,26 +461,21 @@ class Synthstrument extends React.Component{
         return (
             <div className="synthstrument-container">
                 <div className="synthstrument">
-                    <div className="label">
-                        <button className="power-button off" onClick={this.instantiateAudioContext}>
+                    <button className="power-button off" onClick={this.instantiateAudioContext}>
                             POWER
-                        </button>
-                        ✨ QT Synthstrument Here ✨
-                    </div>
+                    </button>
                     <div className="main-controls box">
-                        <div className="patch-interface">
-                            <input type="text" value={this.state.patchName} onClick={this.clearPatchName} onChange={this.updatePatchName} />
-                            <button onClick={this.savePatch}>
-                                save patch settings
-                            </button>
-                            <p>
-                                Current patch: {this.state.currentName}
-                            </p>
-                        </div>
+                        < PatchControlsContainer 
+                            patchName={this.state.patchName} 
+                            currentName={this.state.currentName}
+                            clearPatchName={this.clearPatchName}
+                            updatePatchName={this.updatePatchName}
+                            savePatch={this.savePatch}
+                            />
                         <div className="main-synth box">
                             <div className="oscillators-bar">
                                 <div className="osc-box 1">
-                                    < Oscillator1 oscillator={this.state.oscillator1}/>
+                                    <Oscillator1 oscillator={this.state.oscillator1}/>
                                     <div className="env-controls">
                                         <label>
                                             Attack
@@ -528,7 +535,29 @@ class Synthstrument extends React.Component{
                                             distortNode={this.state.distortion}
                                             crushNode={this.state.bitCrush}
                                             feedDelayNode={this.state.feedDelay}
-                                            pongDelayNode={this.state.pongDelay}/>
+                                            pongDelayNode={this.state.pongDelay}
+
+                                            currentUserId={this.props.currentUserId}
+                                            loadSample={this.props.loadSample}
+                                            currentSample={this.props.currentSample}
+                                            saveSample={this.props.saveSample}
+                                            updateSample={this.props.updateSample}
+                                            deleteSample={this.props.deleteSample}
+                                            recorder={this.state.recorder}
+                                        />
+
+                                            {/* <Sample
+                                                connectFX={this.connectFX}
+                                                disconnectFX={this.disconnectFX}
+                                                currentUserId={this.props.currentUserId}
+                                                loadSample={this.props.loadSample}
+                                                currentSample={this.props.currentSample}
+                                                saveSample={this.props.saveSample}
+                                                updateSample={this.props.updateSample}
+                                                deleteSample={this.props.deleteSample}
+                                                recorder={this.state.recorder}
+                                                className="sample"
+                                            /> */}
                                 </div>
                             </div>
                             <div className="keys-bar">
@@ -547,16 +576,18 @@ class Synthstrument extends React.Component{
                                         <input type="range" value={this.state.synth1.volume.value} onChange={this.setVolume} min="-45" max="0" step="1" />
                                     </label>
                                 </div>
-                                <Sample
+                                {/* <Sample
                                     connectFX={this.connectFX}
                                     disconnectFX={this.disconnectFX}
-                                    saveSample={this.props.saveSample}
                                     currentUserId={this.props.currentUserId}
-                                    currentSample={this.props.currentSample}
                                     loadSample={this.props.loadSample}
+                                    currentSample={this.props.currentSample}
+                                    saveSample={this.props.saveSample}
+                                    updateSample={this.props.updateSample}
+                                    deleteSample={this.props.deleteSample}
                                     recorder={this.state.recorder}
                                     className="sample"
-                                />
+                                /> */}
                         </div>
                     </div>
                      </div>
