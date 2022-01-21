@@ -14,7 +14,6 @@ const samplesReducer = (state = {}, action) => {
             action.samples.data.forEach(sample => samplesObj[sample._id] = sample);
             return samplesObj;
         case REMOVE_SAMPLE:
-            debugger
             delete nextState[action.sample.data._id]
             return nextState;
     
