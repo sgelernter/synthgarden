@@ -8,7 +8,6 @@ const validateSampleInput = require("../../validation/samples");
 router.post('/',
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
-        // debugger
         const { isValid, errors } = validateSampleInput(req.body);
         if(!isValid) return res.status(400).json(errors);
 
@@ -65,7 +64,6 @@ router.delete('/:id',
     (req, res) => {
         Sample.findByIdAndDelete(req.params.id)
               .then(sample => res.json(sample))
-            //   .then(() => res.json({ msg: "This sample has been deleted" }))
               .catch(err => res.status(404).json(err))
     }
 );

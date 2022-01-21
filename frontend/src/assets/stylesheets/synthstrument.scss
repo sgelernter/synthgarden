@@ -4,22 +4,27 @@
     justify-content: center;
     height: 100%;
     padding: 10px;
-    max-width: 1500px;
+    // max-width: 1500px;
+    // border: 2px solid orange;
 }
 
 .synthstrument {
+    // border: solid 2px fuchsia;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    // position: relative;
+    // position: 
+    z-index: 1;
+    // margin-bottom: 10px;
+    padding-bottom: 20px;
     // top: -100px;
     // left: 100px;
     max-width: 70vw;
     height: 70vh;
-    margin-top: 7rem;
-    max-width: 1500px;
+    // margin-top: 7rem;
+    // max-width: 1500px;
     .main-controls{
         display: flex;
     }
@@ -182,4 +187,12 @@
     .edit-btns {
         display: flex;
     }
+}
+
+.main-synth-box {
+    // border: 10px solid blue;
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
 }

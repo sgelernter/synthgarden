@@ -72,38 +72,39 @@ class SessionForm extends React.Component {
         demoUserButton = <button className="demo-user-btn" onClick={this.handleDemoUser}>login as a guest</button>
     }
 
+    const usernameField = (this.props.formType === 'signup' ? (
+      <input type="text"
+        value={this.state.username}
+        onChange={this.update('username')}
+        className="login-input"
+        placeholder="Username"
+      />
+    ) : "" )
+
     return (
       <div className="login-form-container">
         <form onSubmit={this.handleSubmit} className="login-form-box">
-          SynthGarden
+          <h1>SynthGarden</h1>
           <br/>
           {this.props.formType} or {this.props.otherForm}
           <div onClick={this.props.closeModal} className="close-x">x</div>
           <div className="login-form">
-            <br/>
-            <label>Username:
-              <input type="text"
-                value={this.state.username}
-                onChange={this.update('username')}
-                className="login-input"
-              />
-            </label><br/>
-            <label>Email:
+            <div className="inputFields">
+              { usernameField }
               <input type="text"
                 value={this.state.email}
                 onChange={this.update('email')}
                 className="login-input"
+                placeholder='Email'
               />
-            </label>
-            <br/>
-            <label>Password:
               <input type="password"
                 value={this.state.password}
                 onChange={this.update('password')}
                 className="login-input"
+                placeholder='Password'
               />
-            </label>
-            <br/>
+            </div>
+            
             <div className="errors">{this.errors}</div>
             <br/>
             <input className="session-submit" type="submit" value={this.props.formType} />

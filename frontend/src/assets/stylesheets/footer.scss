@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
+
+.footer-box {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.peeps {
+    display: flex;
+    justify-content: space-between;
+    // border: solid 2px yellow;
+    // padding: 0 1px;
+    width: 500px;
+    p {
+        // border: solid 2px fuchsia;
+        font-family: 'Sacramento', cursive;
+        font-size: 38px;
+        display: flex;
+        align-items: center;
+        text-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 20px #ff18d8, 0 0 30px #ff18d8, 0 0 40px #ff18d8, 0 0 55px #ff18d8, 0 0 75px #49ff18;
+    }
+    a {
+        // border: solid 2px blue;
+        text-decoration: none;
+        font-family: 'Sacramento', cursive;
+        width: 100px;
+        font-size: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 20px #49ff18, 0 0 30px #49FF18, 0 0 40px #49FF18, 0 0 55px #49FF18, 0 0 75px #49ff18;
+
+    }
+}
+
+.repo-link {
+    // border: solid 2px white;
+    display: flex;
+    align-items: center;
+    font-size: 40px;
+    // height: 20px;
+    margin-right: 50px;
+}

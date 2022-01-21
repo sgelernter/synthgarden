@@ -468,8 +468,8 @@ class Synthstrument extends React.Component{
                             clearPatchName={this.clearPatchName}
                             updatePatchName={this.updatePatchName}
                             savePatch={this.savePatch}
-                            />
-                        <div className="main-synth box">
+                        />
+                        <div className="main-synth-box">
                             <div className="oscillators-bar">
                                 <div className="osc-box 1">
                                     <Oscillator1 oscillator={this.state.oscillator1}/>
@@ -585,9 +585,9 @@ class Synthstrument extends React.Component{
                                     recorder={this.state.recorder}
                                     className="sample"
                                 /> */}
+                            </div>
                         </div>
                     </div>
-                     </div>
                 </div>
             </div>
         )
