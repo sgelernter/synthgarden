@@ -1,10 +1,8 @@
 import React from 'react';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faGithubAlt } from "@fortawesome/free-solid-svg-icons";
-// import { faGithubAlt } from "react-icons/fa"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
+import '../../assets/stylesheets/footer.scss'
 
 library.add(fab)
 
@@ -14,13 +12,15 @@ const Footer = () => {
             <div className="footer-box">
                 <div className="peeps">
                     <p>Sync with us:</p>
-                    <a href="https://github.com/sgelernter">Sam</a>
-                    <a href="https://github.com/stellalc7">Stella</a>
-                    <a href="https://github.com/em-ng">Emily</a>
+                    <p><a href="https://github.com/sgelernter">Sam</a></p>
+                    <p><a href="https://github.com/stellalc7">Stella</a></p>
+                    <p><a href="https://github.com/em-ng">Emily</a></p>
                 </div>
 
                 <div className="repo-link">
-                    <a href="https://github.com/stellalc7/synthgarden"><FontAwesomeIcon icon={["fab", "github-alt"]} /></a>
+                    <a href="https://github.com/stellalc7/synthgarden">
+                        <FontAwesomeIcon icon={["fab", "github"]} />
+                    </a>
                 </div>
             </div>
         </footer>
