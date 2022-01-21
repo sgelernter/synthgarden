@@ -13,7 +13,7 @@ class Sidebar extends React.Component{
 
     componentDidMount(){
         this.props.fetchPatches();
-        this.props.fetchSamples();
+        this.props.fetchUserSamples(this.props.currentUserId);
         this.setState({
             patchesFetched: true,
             samplesFetched: true
