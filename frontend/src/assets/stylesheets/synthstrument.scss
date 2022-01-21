@@ -13,10 +13,10 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    position: relative;
-    top: -100px;
-    left: 100px;
-    width: 70vw;
+    // position: relative;
+    // top: -100px;
+    // left: 100px;
+    max-width: 70vw;
     height: 70vh;
     margin-top: 7rem;
     max-width: 1500px;
@@ -26,7 +26,11 @@
     .patch-interface{
         display: flex;
         flex-direction: column;
-        width: 80px;
+        width: 150px;
+        border: 1px solid fuchsia;
+        .hidden{
+            display: none;
+        }
     }
     .power-button.on {
         background-color: rgb(88, 255, 5);

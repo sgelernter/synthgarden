@@ -179,8 +179,10 @@ router.patch('/:id',
     (async (req, res) => {
         Patch.findById(req.params.id)
              .then(patch => {
+                //  console.log(patch);
+                //  console.log(req.body);
                 patch.name = req.body.name;
-                patch.oscillator.osctype = { $set: req.body.oscillator.osctype };
+                patch.oscillator.osctype = req.body.oscillator.osctype;
                 patch.oscillator.attack = req.body.oscillator.attack;
                 patch.oscillator.sustain = req.body.oscillator.sustain;
                 patch.oscillator.release = req.body.oscillator.release;
@@ -208,7 +210,7 @@ router.patch('/:id',
                 patch.pingPong.fb = req.body.pingPong.fb;
                 patch.pingPong.amt = req.body.pingPong.amt;
                 patch.save().then(() => res.json(patch))
-                // .catch(err => res.status(404).json(err))
+                // .catch(err => res.status(404).json(err)) 
              });
             //  .catch(err => res.status(404).json({ msg: "No patch found with that ID"}));
     })
@@ -243,8 +245,8 @@ router.delete('/:id',
     passport.authenticate("jwt", { session: false}),
     (req, res) => {
         Patch.findByIdAndDelete(req.params.id)
-            //   .then(patch => res.json(patch))
-              .then(() => res.json({ msg: "This patch has been deleted" }))
+              .then(patch => res.json(patch))
+            //   .then(() => res.json({ msg: "This patch has been deleted" }))
               .catch(err => res.status(404).json(err))
     }
 );

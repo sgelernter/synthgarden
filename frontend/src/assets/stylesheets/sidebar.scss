@@ -12,6 +12,12 @@
         margin-left: 0;
         padding: 7px;
         font-size: 12px;
+        display: flex;
+        flex-direction: column;
+        &.patches-list{
+            max-height: 80%;
+            overflow-y: auto;
+        }
         li{
             cursor: pointer;
             &:hover{
@@ -19,4 +25,8 @@
             }
         }
     }
+}
+
+.hidden{
+    display: none;
 }
