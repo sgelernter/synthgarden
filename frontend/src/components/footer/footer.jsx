@@ -12,13 +12,13 @@ const Footer = () => {
             <div className="footer-box">
                 <div className="peeps">
                     <p>Sync with us:</p>
-                    <p><a href="https://github.com/sgelernter">Sam</a></p>
-                    <p><a href="https://github.com/stellalc7">Stella</a></p>
-                    <p><a href="https://github.com/em-ng">Emily</a></p>
+                    <p><a href="https://github.com/sgelernter" target="_blank">Sam</a></p>
+                    <p><a href="https://github.com/stellalc7" target="_blank">Stella</a></p>
+                    <p><a href="https://github.com/em-ng" target="_blank">Emily</a></p>
                 </div>
 
                 <div className="repo-link">
-                    <a href="https://github.com/stellalc7/synthgarden">
+                    <a href="https://github.com/stellalc7/synthgarden" target="_blank">
                         <FontAwesomeIcon icon={["fab", "github"]} />
                     </a>
                 </div>
