@@ -4,6 +4,7 @@ import React from 'react';
 import '../../assets/stylesheets/synthstrument.scss'
 import start from '../../assets/images/start-rec.png'
 import stop from '../../assets/images/stop-rec.png'
+import ffmpeg from 'ffmpeg';
 
 class Sample extends React.Component {
     constructor(props) {
@@ -139,6 +140,24 @@ class Sample extends React.Component {
     // const blob = new Blob(b64str, {type: 'audio/webm;codecs=opus'});
     let blob = this.b64toBlob(b64str)
     const url = URL.createObjectURL(blob);
+
+    // var ffmpeg = require('ffmpeg');
+    try {
+      var process = new ffmpeg(blob)
+      process.then(function (audio) {
+        audio.fnExtractSoundToMP3('sample.mp3', function (error, file) {
+          if (!error)
+          console.log('Audio file: + file');
+        });
+      }, function (err) {
+        console.log('Error ' + err);
+      });
+    }
+    catch (e) {
+      console.log(e.code);
+      console.log(e.msg);
+    }
+
     this.setState({
       url,
       name: this.props.currentSample.name,
