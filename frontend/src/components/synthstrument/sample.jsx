@@ -60,6 +60,7 @@ class Sample extends React.Component {
       clipUrl = URL.createObjectURL(clip)
       var reader = new FileReader();
       reader.readAsDataURL(clip);
+      // reader.writeFileSync('file.mp3', Buffer.from(base64String.replace('data:audio/mp3; codecs=opus;base64,', ''), 'base64'))
       reader.onloadend = () => {
         base64String = reader.result;   
         this.handleSubstring(base64String, clipUrl)
@@ -149,14 +150,21 @@ class Sample extends React.Component {
     this.state.recording ?
       (
         recordingButton = <button
-                            className="record-btn"
+                            className="stop-record-btn"
                             onClick={this.stopRecording}
                           >
                             <img src={stop} alt='stop-rec' className="rec-img" />
                           </button>
+        // recordingButton = <input
+        //                     type="image"
+        //                     alt='stop-rec'
+        //                     className="stop-record-btn"
+        //                     onSubmit={this.stopRecording}
+        //                     src={stop}
+        //                   />
       ) : (
         recordingButton = <button
-                            className="record-btn"
+                            className="start-record-btn"
                             onClick={this.startRecording}
                           >
                             <img src={start} alt='start-rec' className="rec-img" />
