@@ -204,7 +204,6 @@ class Sample extends React.Component {
       download = 
       <>
         <audio src={this.state.url} autoPlay hidden loop></audio>
-        {/* <Link to={'/'+this.state.url} download target="_self">Download {this.state.name}</Link> */}
         <a href={this.state.url} download>Download {this.state.name}</a>
       </>
     ) : (
