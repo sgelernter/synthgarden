@@ -4,7 +4,7 @@ import React from 'react';
 import '../../assets/stylesheets/synthstrument.scss'
 import start from '../../assets/images/start-rec.png'
 import stop from '../../assets/images/stop-rec.png'
-import ffmpeg from 'ffmpeg';
+// import ffmpeg from 'ffmpeg';
 
 class Sample extends React.Component {
     constructor(props) {
@@ -142,21 +142,21 @@ class Sample extends React.Component {
     const url = URL.createObjectURL(blob);
 
     // var ffmpeg = require('ffmpeg');
-    try {
-      var process = new ffmpeg(blob)
-      process.then(function (audio) {
-        audio.fnExtractSoundToMP3('sample.mp3', function (error, file) {
-          if (!error)
-          console.log('Audio file: + file');
-        });
-      }, function (err) {
-        console.log('Error ' + err);
-      });
-    }
-    catch (e) {
-      console.log(e.code);
-      console.log(e.msg);
-    }
+    // try {
+    //   var process = new ffmpeg(blob)
+    //   process.then(function (audio) {
+    //     audio.fnExtractSoundToMP3('sample.mp3', function (error, file) {
+    //       if (!error)
+    //       console.log('Audio file: + file');
+    //     });
+    //   }, function (err) {
+    //     console.log('Error ' + err);
+    //   });
+    // }
+    // catch (e) {
+    //   console.log(e.code);
+    //   console.log(e.msg);
+    // }
 
     this.setState({
       url,
@@ -172,7 +172,8 @@ class Sample extends React.Component {
                             className="stop-record-btn"
                             onClick={this.stopRecording}
                           >
-                            <img src={stop} alt='stop-rec' className="rec-img" />
+                            {/* <img src={stop} alt='stop-rec' className="rec-img" /> */}
+                            {/* <img src={stop} alt='stop-rec' /> */}
                           </button>
         // recordingButton = <input
         //                     type="image"
@@ -186,7 +187,7 @@ class Sample extends React.Component {
                             className="start-record-btn"
                             onClick={this.startRecording}
                           >
-                            <img src={start} alt='start-rec' className="rec-img" />
+                            {/* <img src={start} alt='start-rec'/> */}
                           </button>
       )
 
