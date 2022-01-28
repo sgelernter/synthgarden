@@ -4,7 +4,7 @@ import React from 'react';
 import '../../assets/stylesheets/synthstrument.scss'
 // import start from '../../assets/images/start-rec.png'
 // import stop from '../../assets/images/stop-rec.png'
-// import ffmpeg from 'ffmpeg';
+import ffmpeg from 'react-ffmpeg';
 
 class Sample extends React.Component {
     constructor(props) {
