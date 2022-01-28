@@ -237,8 +237,12 @@
 .sample {
     display: flex;
     flex-direction: column;
+    width: 175px;
+    height: 150px;
+    justify-content: center;
+    align-items: center;
     audio {
-        max-width: 100px;
+        max-width: 175px;
     }
     .edit-btns {
         display: flex;

@@ -2,8 +2,8 @@ import React from 'react';
 // import { Link } from 'react-router-dom';
 // import * as Tone from 'tone';
 import '../../assets/stylesheets/synthstrument.scss'
-import start from '../../assets/images/start-rec.png'
-import stop from '../../assets/images/stop-rec.png'
+// import start from '../../assets/images/start-rec.png'
+// import stop from '../../assets/images/stop-rec.png'
 // import ffmpeg from 'ffmpeg';
 
 class Sample extends React.Component {
@@ -42,7 +42,9 @@ class Sample extends React.Component {
     this.props.connectFX(this.props.recorder);
     this.props.recorder.start();
     this.setState({
-      recording: true
+      recording: true,
+      url: '',
+      file: ''
     });
   }
 
@@ -171,24 +173,12 @@ class Sample extends React.Component {
         recordingButton = <button
                             className="stop-record-btn"
                             onClick={this.stopRecording}
-                          >
-                            {/* <img src={stop} alt='stop-rec' className="rec-img" /> */}
-                            {/* <img src={stop} alt='stop-rec' /> */}
-                          </button>
-        // recordingButton = <input
-        //                     type="image"
-        //                     alt='stop-rec'
-        //                     className="stop-record-btn"
-        //                     onSubmit={this.stopRecording}
-        //                     src={stop}
-        //                   />
+                          />
       ) : (
         recordingButton = <button
                             className="start-record-btn"
                             onClick={this.startRecording}
-                          >
-                            {/* <img src={start} alt='start-rec'/> */}
-                          </button>
+                          />
       )
 
     let saveSample;
@@ -213,7 +203,7 @@ class Sample extends React.Component {
     (
       download = 
       <>
-        <audio src={this.state.url} controls></audio>
+        <audio src={this.state.url} autoPlay hidden loop></audio>
         {/* <Link to={'/'+this.state.url} download target="_self">Download {this.state.name}</Link> */}
         <a href={this.state.url} download>Download {this.state.name}</a>
       </>
