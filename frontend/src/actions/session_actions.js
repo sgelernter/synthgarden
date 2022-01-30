@@ -32,6 +32,10 @@ export const removeSessionErrors = () => ({
     type: REMOVE_SESSION_ERRORS
 })
 
+export const clearErrors = () => dispatch => {
+    return dispatch(removeSessionErrors())
+}
+
 export const signup = user => dispatch => (
     APIUtil.signup(user).then(() => (
         dispatch(login(user))
