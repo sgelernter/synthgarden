@@ -218,6 +218,10 @@ class Sample extends React.Component {
     return (
       <div className="sample">
         <div className="cassette-outer">
+          <div className="screws top">
+            <div className="screw"></div>
+            <div className="screw"></div>
+          </div>
           <div className="cassette-label">
             <div className="cassette-inner">
               <div className="spool left">
@@ -229,6 +233,10 @@ class Sample extends React.Component {
                 <div className="tooth"></div>
               </div>
             </div>
+          </div>
+          <div className="screws bottom">
+            <div className="screw"></div>
+            <div className="screw"></div>
           </div>
           <div className="cassette-trapezoid">
           </div>
