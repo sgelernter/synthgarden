@@ -9,6 +9,7 @@ import '../../assets/stylesheets/synthstrument.scss';
 import FXBank from './fx_bank';
 import Sample from './sample';
 import PatchControlsContainer from './patch_controls_container';
+import Tape from './tape';
 
 class Synthstrument extends React.Component{
 
@@ -536,6 +537,7 @@ class Synthstrument extends React.Component{
                                         recorder={this.state.recorder}
                                         className="sample"
                                     />
+                                    < Tape /> 
                                 </div>
                                 <div className="post-FX">
                                         <div className="eq3">
