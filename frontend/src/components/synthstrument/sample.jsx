@@ -2,8 +2,9 @@ import React from 'react';
 // import { Link } from 'react-router-dom';
 // import * as Tone from 'tone';
 import '../../assets/stylesheets/synthstrument.scss'
-import start from '../../assets/images/start-rec.png'
-import stop from '../../assets/images/stop-rec.png'
+// import start from '../../assets/images/start-rec.png'
+// import stop from '../../assets/images/stop-rec.png'
+import ffmpeg from 'react-ffmpeg';
 
 class Sample extends React.Component {
     constructor(props) {
@@ -37,7 +38,9 @@ class Sample extends React.Component {
     this.props.connectFX(this.props.recorder);
     this.props.recorder.start();
     this.setState({
-      recording: true
+      recording: true,
+      url: '',
+      file: ''
     });
   }
 
@@ -57,6 +60,7 @@ class Sample extends React.Component {
       clipUrl = URL.createObjectURL(clip)
       var reader = new FileReader();
       reader.readAsDataURL(clip);
+      // reader.writeFileSync('file.mp3', Buffer.from(base64String.replace('data:audio/mp3; codecs=opus;base64,', ''), 'base64'))
       reader.onloadend = () => {
         base64String = reader.result;   
         this.handleSubstring(base64String, clipUrl)
@@ -135,6 +139,24 @@ class Sample extends React.Component {
     // const blob = new Blob(b64str, {type: 'audio/webm;codecs=opus'});
     let blob = this.b64toBlob(b64str)
     const url = URL.createObjectURL(blob);
+
+    // var ffmpeg = require('ffmpeg');
+    // try {
+    //   var process = new ffmpeg(blob)
+    //   process.then(function (audio) {
+    //     audio.fnExtractSoundToMP3('sample.mp3', function (error, file) {
+    //       if (!error)
+    //       console.log('Audio file: + file');
+    //     });
+    //   }, function (err) {
+    //     console.log('Error ' + err);
+    //   });
+    // }
+    // catch (e) {
+    //   console.log(e.code);
+    //   console.log(e.msg);
+    // }
+
     this.setState({
       url,
       name: this.props.currentSample.name,
@@ -146,18 +168,14 @@ class Sample extends React.Component {
     this.state.recording ?
       (
         recordingButton = <button
-                            className="record-btn"
+                            className="stop-record-btn"
                             onClick={this.stopRecording}
-                          >
-                            <img src={stop} alt='stop-rec' className="rec-img" />
-                          </button>
+                          />
       ) : (
         recordingButton = <button
-                            className="record-btn"
+                            className="start-record-btn"
                             onClick={this.startRecording}
-                          >
-                            <img src={start} alt='start-rec' className="rec-img" />
-                          </button>
+                          />
       )
 
     let saveSample;
@@ -183,8 +201,7 @@ class Sample extends React.Component {
     (
       download = 
       <>
-        <audio src={this.state.url} controls></audio>
-        {/* <Link to={'/'+this.state.url} download target="_self">Download {this.state.name}</Link> */}
+        <audio src={this.state.url} autoPlay hidden loop></audio>
         <a href={this.state.url} download>Download {this.state.name}</a>
       </>
     ) : (

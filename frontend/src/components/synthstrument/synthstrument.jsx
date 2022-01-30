@@ -500,7 +500,7 @@ class Synthstrument extends React.Component{
                         />
                         <div className="main-synth-box">
                             <div className="oscillators-bar">
-                                <div className="osc-box 1">
+                                <div className="osc-box">
                                     <Oscillator1 oscillator={this.state.oscillator1}/>
                                     <div className="env-controls">
                                         <label>
@@ -525,19 +525,17 @@ class Synthstrument extends React.Component{
                                         </button>
                                     </div>
                                     <Sample
-                                                connectFX={this.connectFX}
-                                                disconnectFX={this.disconnectFX}
-                                                currentUserId={this.props.currentUserId}
-                                                loadSample={this.props.loadSample}
-                                                currentSample={this.props.currentSample}
-                                                saveSample={this.props.saveSample}
-                                                updateSample={this.props.updateSample}
-                                                deleteSample={this.props.deleteSample}
-                                                recorder={this.state.recorder}
-                                                disableKeys={this.disableKeys}
-                                                enableKeys={this.enableKeys}
-                                                className="sample"
-                                            />
+                                        connectFX={this.connectFX}
+                                        disconnectFX={this.disconnectFX}
+                                        currentUserId={this.props.currentUserId}
+                                        loadSample={this.props.loadSample}
+                                        currentSample={this.props.currentSample}
+                                        saveSample={this.props.saveSample}
+                                        updateSample={this.props.updateSample}
+                                        deleteSample={this.props.deleteSample}
+                                        recorder={this.state.recorder}
+                                        className="sample"
+                                    />
                                 </div>
                                 <div className="post-FX">
                                         <div className="eq3">
