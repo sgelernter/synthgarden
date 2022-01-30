@@ -15,11 +15,11 @@ class PatchControls extends React.Component {
 
     render(){
         return (
-            <div className="patch-interface">
+            <div className="patch-interface" onFocus={this.props.disableKeys} onBlur={this.props.enableKeys}>
                 <div className="visible" id="new-patch-CRUD">
-                    <input type="text" value={this.props.patchName} onClick={this.props.clearPatchName} onChange={this.props.updatePatchName} className="default-text" />
+                    <input type="text" value={this.props.patchName} placeholder="enter patch name" onChange={this.props.updatePatchName} className="default-text" />
                     <button onClick={() => this.props.savePatch('new')}>
-                        save patch
+                        save to patch library
                     </button>
                 </div>
                 <button className="hidden" id="new-patch-toggle" onClick={this.toggleNewPatchUI}>

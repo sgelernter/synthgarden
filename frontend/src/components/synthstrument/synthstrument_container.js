@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import Synthstrument from "./synthstrument";
 import { createSample, updateSample, deleteSample } from '../../actions/sample_actions';
-import { createPatch, updatePatch, deletePatch } from '../../actions/patch_actions';
+import { createPatch, updatePatch, deletePatch, loadPatch, defaultPatch } from '../../actions/patch_actions';
 import { withRouter } from "react-router-dom";
 
 const mSTP = state => {
@@ -18,7 +18,8 @@ const mDTP = dispatch => {
         saveSample: (sampleData) => dispatch(createSample(sampleData)),
         updateSample: (sample) => dispatch(updateSample(sample)),
         deleteSample: (id) => dispatch(deleteSample(id)),
-        saveUpdatedPatch: (id) => dispatch(updatePatch(id))
+        saveUpdatedPatch: (id) => dispatch(updatePatch(id)),
+        resetSynthDefaults: () => dispatch(loadPatch(defaultPatch))
     }
 }
 
