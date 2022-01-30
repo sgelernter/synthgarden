@@ -17,7 +17,7 @@ class PatchControls extends React.Component {
         return (
             <div className="patch-interface">
                 <div className="visible" id="new-patch-CRUD">
-                    <input type="text" value={this.props.patchName} onClick={this.props.clearPatchName} onChange={this.props.updatePatchName} className="default-text" />
+                    <input type="text" value={this.props.patchName} placeholder="enter patch name" onChange={this.props.updatePatchName} className="default-text" />
                     <button onClick={() => this.props.savePatch('new')}>
                         save patch
                     </button>

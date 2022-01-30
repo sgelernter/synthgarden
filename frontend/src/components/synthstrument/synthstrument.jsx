@@ -47,14 +47,13 @@ class Synthstrument extends React.Component{
             bitCrush,
             feedDelay,
             pongDelay,
-            patchName: 'enter patch name',
+            patchName: '',
             currentName: 'no patch selected',
             recorder
         }
         this.instantiateAudioContext = this.instantiateAudioContext.bind(this);
         this.clearPatchName = this.clearPatchName.bind(this);
         this.updatePatchName = this.updatePatchName.bind(this);
-        this.clickKey = this.clickKey.bind(this);
         this.pressKey = this.pressKey.bind(this);
         this.releaseKey = this.releaseKey.bind(this);
         this.setVolume = this.setVolume.bind(this);
@@ -100,21 +99,29 @@ class Synthstrument extends React.Component{
             })
         }
     }
-    //  KEY CONTROLLER HANDLERS
-    clickKey(e){
-        this.state.oscillator1.frequency.value = e.target.id;
-        this.state.envelope.triggerAttackRelease("2t");
-    }
 
+    //  KEY CONTROLLER HANDLERS
     pressKey(e){
-        this.state.oscillator1.frequency.value = this.state.pitches[e.key];
+        let pitch; 
+        if (e.type === 'mousedown') {
+            pitch = e.target.id;
+        } else {
+            pitch = this.state.pitches[e.key];
+        }
+        this.state.oscillator1.frequency.value = pitch;
         this.state.envelope.triggerAttack();
-        document.getElementById(this.state.pitches[e.key]).className = 'active';
+        document.getElementById(pitch).className = 'active';
     }
     
     releaseKey(e){
+        let pitch;
+        if (e.type === 'mouseup') {
+            pitch = e.target.id;
+        } else {
+            pitch = this.state.pitches[e.key];
+        }
         this.state.envelope.triggerRelease();
-        document.getElementById(this.state.pitches[e.key]).className = 'key';
+        document.getElementById(pitch).className = 'key';
     }
 
     // PATCH CONTROLS
@@ -554,23 +561,10 @@ class Synthstrument extends React.Component{
                                             // deleteSample={this.props.deleteSample}
                                             // recorder={this.state.recorder}
                                         />
-
-                                            {/* <Sample
-                                                connectFX={this.connectFX}
-                                                disconnectFX={this.disconnectFX}
-                                                currentUserId={this.props.currentUserId}
-                                                loadSample={this.props.loadSample}
-                                                currentSample={this.props.currentSample}
-                                                saveSample={this.props.saveSample}
-                                                updateSample={this.props.updateSample}
-                                                deleteSample={this.props.deleteSample}
-                                                recorder={this.state.recorder}
-                                                className="sample"
-                                            /> */}
                                 </div>
                             </div>
                             <div className="keys-bar">
-                                <ol className="keyboard" onClick={this.clickKey}>
+                                <ol className="keyboard" onMouseDown={this.pressKey} onMouseUp={this.releaseKey}>
                                     {Object.values(this.state.pitches).map ((note, idx) => (
                                         <li className="key" key={idx} id={note}>
                                             {Object.keys(this.state.pitches)[idx]}

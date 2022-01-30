@@ -46,6 +46,7 @@ class Sample extends React.Component {
   }
 
   handleSubstring(base64String, clipUrl) {
+    debugger
     this.setState({
         file: base64String,
         recording: false,
