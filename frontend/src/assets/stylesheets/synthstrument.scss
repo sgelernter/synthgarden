@@ -262,3 +262,103 @@
     // justify-content: center;
     align-items: center;
 }
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.cassette-outer{
+    border:1px solid rgb(44, 96, 199);
+    width: 300px;
+    height: 150px;
+    // display: flex;
+    // flex-direction: column;
+    border-radius: 5px;
+    .cassette-label{
+        position: relative;
+        border: 1px solid red;
+        padding: 0px;
+        margin: 0px;
+        top: 30px;
+        left: 30px;
+        height: 70px;
+        border-radius: 5px;
+        width: 240px;
+        .cassette-inner{
+            position: relative;
+            border: 1px solid white;
+            top: 20px;
+            width: 200px;
+            left: 20px;
+            height: 30px;
+            display: flex;
+            overflow-x: hidden;
+            overflow-y: hidden;
+            .spool{
+                border: 2px solid orange;
+                border-radius: 50%;
+                width: 80px;
+                height: 80px;
+                &.left{
+                    position: relative;
+                    top: -25px;
+                    left: -15px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    &.playing {
+                        animation: spin 3s linear infinite;
+                    }
+                    .tooth{
+                        position: absolute;
+                        width: 80%;
+                        height: 10px;
+                        border-radius: 2px;
+                        box-shadow: inset orange 15px 0 0 0, 
+                            inset orange -15px 0 0 0;
+                        &:nth-of-type(2) {
+                            transform: rotate(90deg);
+                        }
+                    }
+                }
+                &.right{
+                    position: relative;
+                    top: -25px;
+                    left: 70px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    &.playing {
+                        animation: spin 3s linear infinite;
+                    }
+                    .tooth{
+                        position: absolute;
+                        width: 80%;
+                        height: 10px;
+                        border-radius: 2px;
+                        box-shadow: inset orange 15px 0 0 0, 
+                            inset orange -15px 0 0 0;
+                        &:nth-of-type(2) {
+                            transform: rotate(90deg);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .cassette-trapezoid{
+        position: relative;
+        top: 45px;
+        left: 60px;
+        border-bottom: 30px solid gray;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        height: 0;
+        width: 150px;
+    }
+}

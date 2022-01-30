@@ -33,7 +33,8 @@ class Sample extends React.Component {
     // this.state.synth.triggerAttackRelease("C4", 0.5, "+1");
     // this.state.synth.triggerAttackRelease("C5", 0.5, "+2");
     // DELETE ABOVE
-
+    const spools = Array.from(document.querySelectorAll('.spool'));
+    spools.forEach(spool => spool.classList.add('playing'));
     this.props.connectFX(this.props.recorder);
     this.props.recorder.start();
     this.setState({
@@ -42,7 +43,7 @@ class Sample extends React.Component {
   }
 
   handleSubstring(base64String, clipUrl) {
-    debugger
+    // debugger
     this.setState({
         file: base64String,
         recording: false,
@@ -52,6 +53,8 @@ class Sample extends React.Component {
 
    stopRecording() {
     let clip, clipUrl, base64String;
+    const spools = Array.from(document.querySelectorAll('.spool'));
+    spools.forEach(spool => spool.classList.remove('playing'));
     setTimeout(async () => {
       clip = await this.props.recorder.stop();
       clipUrl = URL.createObjectURL(clip)
@@ -214,6 +217,22 @@ class Sample extends React.Component {
 
     return (
       <div className="sample">
+        <div className="cassette-outer">
+          <div className="cassette-label">
+            <div className="cassette-inner">
+              <div className="spool left">
+                <div className="tooth"></div>
+                <div className="tooth"></div>
+              </div>
+              <div className="spool right">
+                <div className="tooth"></div>
+                <div className="tooth"></div>
+              </div>
+            </div>
+          </div>
+          <div className="cassette-trapezoid">
+          </div>
+        </div>
         {recordingButton}
         {download}
         {saveSample}
