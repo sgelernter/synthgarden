@@ -1,9 +1,5 @@
 import { RECEIVE_PATCH, RECEIVE_ALL_PATCHES, REMOVE_PATCH, LOAD_PATCH } from "../actions/patch_actions";
 
-// const defaultPatch = {
-
-// }
-
 
 
 const patchesReducer = (state = {}, action) => {

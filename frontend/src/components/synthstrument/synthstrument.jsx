@@ -47,16 +47,16 @@ class Synthstrument extends React.Component{
             bitCrush,
             feedDelay,
             pongDelay,
-            patchName: 'enter patch name',
+            patchName: '',
             currentName: 'no patch selected',
             recorder
         }
         this.instantiateAudioContext = this.instantiateAudioContext.bind(this);
-        this.clearPatchName = this.clearPatchName.bind(this);
         this.updatePatchName = this.updatePatchName.bind(this);
-        this.clickKey = this.clickKey.bind(this);
         this.pressKey = this.pressKey.bind(this);
         this.releaseKey = this.releaseKey.bind(this);
+        this.disableKeys = this.disableKeys.bind(this);
+        this.enableKeys = this.enableKeys.bind(this);
         this.setVolume = this.setVolume.bind(this);
         this.updatePatch = this.updatePatch.bind(this);
         this.changeOctave = this.changeOctave.bind(this);
@@ -70,6 +70,12 @@ class Synthstrument extends React.Component{
     componentDidUpdate(prevProps){
         if (this.props.currentPatch !== prevProps.currentPatch) {
             this.loadPatch();
+        }
+        if (this.props.currentUserId !== prevProps.currentUserId) {
+            this.props.resetSynthDefaults();
+            document.getElementById('loaded-patch-CRUD').className = "hidden";
+            document.getElementById('new-patch-CRUD').className = "visible";
+            document.getElementById('new-patch-toggle').className = "hidden";
         }
     }
 
@@ -100,21 +106,43 @@ class Synthstrument extends React.Component{
             })
         }
     }
-    //  KEY CONTROLLER HANDLERS
-    clickKey(e){
-        this.state.oscillator1.frequency.value = e.target.id;
-        this.state.envelope.triggerAttackRelease("2t");
-    }
 
+    //  KEY CONTROLLER HANDLERS
     pressKey(e){
-        this.state.oscillator1.frequency.value = this.state.pitches[e.key];
+        if (e.type === 'keydown' && !(e.key in this.state.pitches)) return null;
+        let pitch; 
+        if (e.type === 'mousedown') {
+            pitch = e.target.id;
+        } else {
+            pitch = this.state.pitches[e.key];
+        }
+        this.state.oscillator1.frequency.value = pitch;
         this.state.envelope.triggerAttack();
-        document.getElementById(this.state.pitches[e.key]).className = 'active';
+        document.getElementById(pitch).className = 'active';
     }
     
     releaseKey(e){
+        if (e.type === 'keyup' && !(e.key in this.state.pitches)) return null;
+        let pitch;
+        if (e.type === 'mouseup') {
+            pitch = e.target.id;
+        } else {
+            pitch = this.state.pitches[e.key];
+        }
         this.state.envelope.triggerRelease();
-        document.getElementById(this.state.pitches[e.key]).className = 'key';
+        document.getElementById(pitch).className = 'key';
+    }
+
+    disableKeys(){
+        console.log('keyboard disabled');
+        document.removeEventListener('keydown', this.pressKey);
+        document.removeEventListener('keyup', this.releaseKey);
+    }
+
+    enableKeys(){
+        console.log('keyboard enabled');
+        document.addEventListener('keydown', this.pressKey);
+        document.addEventListener('keyup', this.releaseKey);
     }
 
     // PATCH CONTROLS
@@ -124,10 +152,6 @@ class Synthstrument extends React.Component{
             currentName: e.target.value
         })
         document.getElementById('loaded-patch-CRUD').className = "hidden";
-    }
-
-    clearPatchName(e){
-        if (this.state.patchName === 'enter patch name') this.setState({patchName: ''});
     }
 
     savePatch(saveType){
@@ -190,13 +214,15 @@ class Synthstrument extends React.Component{
         }
         if (saveType === 'new') {
             this.props.savePatch(patchData);
+            this.props.resetSynthDefaults();
+            
         } else {
             patchData.id = this.state.currentPatch._id;
             patchData.name = this.state.currentPatch.name;
             this.props.saveUpdatedPatch(patchData);
         }
     }
-    // ASSIGN NEW NODE SETTINGS AND SET STATE - NEED TO WRITE ON/OFF LOGIC FOR FX & OCTAVES
+    // ASSIGN NEW NODE SETTINGS AND SET STATE
     loadPatch(){
         const currentState = this.state;
         const currentPatch = this.props.currentPatch;
@@ -288,9 +314,11 @@ class Synthstrument extends React.Component{
             delaySwitch.className = 'switch off';
             delayPanel.className = 'delays off';
         }
-        document.getElementById('loaded-patch-CRUD').className = "visible";
-        document.getElementById('new-patch-CRUD').className = "hidden";
-        document.getElementById('new-patch-toggle').className = "visible";
+        if (this.props.currentPatch.name !== 'no patch selected') {
+            document.getElementById('loaded-patch-CRUD').className = "visible";
+            document.getElementById('new-patch-CRUD').className = "hidden";
+            document.getElementById('new-patch-toggle').className = "visible";
+        }
     }
 
     // SYNTH SETTINGS CHANGE TREE
@@ -465,9 +493,10 @@ class Synthstrument extends React.Component{
                         < PatchControlsContainer 
                             patchName={this.state.patchName} 
                             currentName={this.state.currentName}
-                            clearPatchName={this.clearPatchName}
                             updatePatchName={this.updatePatchName}
                             savePatch={this.savePatch}
+                            disableKeys={this.disableKeys}
+                            enableKeys={this.enableKeys}
                         />
                         <div className="main-synth-box">
                             <div className="oscillators-bar">
@@ -554,23 +583,10 @@ class Synthstrument extends React.Component{
                                             // deleteSample={this.props.deleteSample}
                                             // recorder={this.state.recorder}
                                         />
-
-                                            {/* <Sample
-                                                connectFX={this.connectFX}
-                                                disconnectFX={this.disconnectFX}
-                                                currentUserId={this.props.currentUserId}
-                                                loadSample={this.props.loadSample}
-                                                currentSample={this.props.currentSample}
-                                                saveSample={this.props.saveSample}
-                                                updateSample={this.props.updateSample}
-                                                deleteSample={this.props.deleteSample}
-                                                recorder={this.state.recorder}
-                                                className="sample"
-                                            /> */}
                                 </div>
                             </div>
                             <div className="keys-bar">
-                                <ol className="keyboard" onClick={this.clickKey}>
+                                <ol className="keyboard" onMouseDown={this.pressKey} onMouseUp={this.releaseKey}>
                                     {Object.values(this.state.pitches).map ((note, idx) => (
                                         <li className="key" key={idx} id={note}>
                                             {Object.keys(this.state.pitches)[idx]}
