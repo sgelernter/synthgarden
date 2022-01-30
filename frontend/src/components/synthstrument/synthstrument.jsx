@@ -72,6 +72,12 @@ class Synthstrument extends React.Component{
         if (this.props.currentPatch !== prevProps.currentPatch) {
             this.loadPatch();
         }
+        if (this.props.currentUserId !== prevProps.currentUserId) {
+            this.props.resetSynthDefaults();
+            document.getElementById('loaded-patch-CRUD').className = "hidden";
+            document.getElementById('new-patch-CRUD').className = "visible";
+            document.getElementById('new-patch-toggle').className = "hidden";
+        }
     }
 
     setVolume(e){
@@ -219,7 +225,7 @@ class Synthstrument extends React.Component{
             this.props.saveUpdatedPatch(patchData);
         }
     }
-    // ASSIGN NEW NODE SETTINGS AND SET STATE - NEED TO WRITE ON/OFF LOGIC FOR FX & OCTAVES
+    // ASSIGN NEW NODE SETTINGS AND SET STATE
     loadPatch(){
         const currentState = this.state;
         const currentPatch = this.props.currentPatch;
@@ -311,9 +317,11 @@ class Synthstrument extends React.Component{
             delaySwitch.className = 'switch off';
             delayPanel.className = 'delays off';
         }
-        document.getElementById('loaded-patch-CRUD').className = "visible";
-        document.getElementById('new-patch-CRUD').className = "hidden";
-        document.getElementById('new-patch-toggle').className = "visible";
+        if (this.props.currentPatch.name !== 'no patch selected') {
+            document.getElementById('loaded-patch-CRUD').className = "visible";
+            document.getElementById('new-patch-CRUD').className = "hidden";
+            document.getElementById('new-patch-toggle').className = "visible";
+        }
     }
 
     // SYNTH SETTINGS CHANGE TREE
