@@ -52,7 +52,6 @@ class Synthstrument extends React.Component{
             recorder
         }
         this.instantiateAudioContext = this.instantiateAudioContext.bind(this);
-        this.clearPatchName = this.clearPatchName.bind(this);
         this.updatePatchName = this.updatePatchName.bind(this);
         this.pressKey = this.pressKey.bind(this);
         this.releaseKey = this.releaseKey.bind(this);
@@ -155,10 +154,6 @@ class Synthstrument extends React.Component{
         document.getElementById('loaded-patch-CRUD').className = "hidden";
     }
 
-    clearPatchName(e){
-        if (this.state.patchName === 'enter patch name') this.setState({patchName: ''});
-    }
-
     savePatch(saveType){
         const modsOn = document.getElementById('mods').className === 'mods on';
         const harmonicsOn = document.getElementById('distortion').className === 'harmonics on';
@@ -219,6 +214,8 @@ class Synthstrument extends React.Component{
         }
         if (saveType === 'new') {
             this.props.savePatch(patchData);
+            this.props.resetSynthDefaults();
+            
         } else {
             patchData.id = this.state.currentPatch._id;
             patchData.name = this.state.currentPatch.name;
@@ -496,7 +493,6 @@ class Synthstrument extends React.Component{
                         < PatchControlsContainer 
                             patchName={this.state.patchName} 
                             currentName={this.state.currentName}
-                            clearPatchName={this.clearPatchName}
                             updatePatchName={this.updatePatchName}
                             savePatch={this.savePatch}
                             disableKeys={this.disableKeys}
