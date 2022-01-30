@@ -56,6 +56,8 @@ class Synthstrument extends React.Component{
         this.updatePatchName = this.updatePatchName.bind(this);
         this.pressKey = this.pressKey.bind(this);
         this.releaseKey = this.releaseKey.bind(this);
+        this.disableKeys = this.disableKeys.bind(this);
+        this.enableKeys = this.enableKeys.bind(this);
         this.setVolume = this.setVolume.bind(this);
         this.updatePatch = this.updatePatch.bind(this);
         this.changeOctave = this.changeOctave.bind(this);
@@ -124,6 +126,18 @@ class Synthstrument extends React.Component{
         }
         this.state.envelope.triggerRelease();
         document.getElementById(pitch).className = 'key';
+    }
+
+    disableKeys(){
+        console.log('keyboard disabled');
+        document.removeEventListener('keydown', this.pressKey);
+        document.removeEventListener('keyup', this.releaseKey);
+    }
+
+    enableKeys(){
+        console.log('keyboard enabled');
+        document.addEventListener('keydown', this.pressKey);
+        document.addEventListener('keyup', this.releaseKey);
     }
 
     // PATCH CONTROLS
@@ -477,8 +491,8 @@ class Synthstrument extends React.Component{
                             clearPatchName={this.clearPatchName}
                             updatePatchName={this.updatePatchName}
                             savePatch={this.savePatch}
-                            pressKey={this.pressKey}
-                            releaseKey={this.releaseKey}
+                            disableKeys={this.disableKeys}
+                            enableKeys={this.enableKeys}
                         />
                         <div className="main-synth-box">
                             <div className="oscillators-bar">
@@ -516,6 +530,8 @@ class Synthstrument extends React.Component{
                                                 updateSample={this.props.updateSample}
                                                 deleteSample={this.props.deleteSample}
                                                 recorder={this.state.recorder}
+                                                disableKeys={this.disableKeys}
+                                                enableKeys={this.enableKeys}
                                                 className="sample"
                                             />
                                 </div>

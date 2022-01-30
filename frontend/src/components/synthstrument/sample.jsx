@@ -8,18 +8,14 @@ import stop from '../../assets/images/stop-rec.png'
 class Sample extends React.Component {
     constructor(props) {
       super(props);
-      // const recorder = new Tone.Recorder()
-      // const synth = new Tone.Synth().connect(recorder);
       this.state = {
-          // recorder,
           recording: false,
           file: '',
-          // synth,
           updating: false,
           sampleName: '',
           url: ''
       };
-      // synth.toDestination();
+
       this.startRecording = this.startRecording.bind(this);
       this.stopRecording = this.stopRecording.bind(this);
       this.updateSampleName = this.updateSampleName.bind(this);
@@ -173,6 +169,7 @@ class Sample extends React.Component {
               type="text"
               value={this.state.sampleName}
               onChange={this.updateSampleName}
+              onFocus={this.props.disableKeys} onBlur={this.props.enableKeys}
               placeholder="sample name"
           />
           <button onClick={this.handleSave}>Save</button>
@@ -203,6 +200,7 @@ class Sample extends React.Component {
           type="text"
           value={this.state.sampleName}
           onChange={this.updateSampleName}
+          onFocus={this.props.disableKeys} onBlur={this.props.enableKeys}
           placeholder="sample name"
         />
         <div className="edit-btns">
