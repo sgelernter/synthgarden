@@ -102,6 +102,7 @@ class Synthstrument extends React.Component{
 
     //  KEY CONTROLLER HANDLERS
     pressKey(e){
+        if (e.type === 'keydown' && !(e.key in this.state.pitches)) return null;
         let pitch; 
         if (e.type === 'mousedown') {
             pitch = e.target.id;
@@ -114,6 +115,7 @@ class Synthstrument extends React.Component{
     }
     
     releaseKey(e){
+        if (e.type === 'keyup' && !(e.key in this.state.pitches)) return null;
         let pitch;
         if (e.type === 'mouseup') {
             pitch = e.target.id;
@@ -475,6 +477,8 @@ class Synthstrument extends React.Component{
                             clearPatchName={this.clearPatchName}
                             updatePatchName={this.updatePatchName}
                             savePatch={this.savePatch}
+                            pressKey={this.pressKey}
+                            releaseKey={this.releaseKey}
                         />
                         <div className="main-synth-box">
                             <div className="oscillators-bar">

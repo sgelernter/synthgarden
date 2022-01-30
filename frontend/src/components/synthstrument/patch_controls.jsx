@@ -5,6 +5,7 @@ import React from 'react';
 class PatchControls extends React.Component {
     constructor(props){
         super(props);
+        this.logFocus = this.logFocus.bind(this);
     }
 
     toggleNewPatchUI(){
@@ -13,9 +14,19 @@ class PatchControls extends React.Component {
         document.getElementById('new-patch-toggle').className = "hidden"; 
     }
 
+    logFocus(){
+        console.log('keyboard disabled');
+        document.removeEventListener('keydown', this.props.pressKey);
+        document.removeEventListener('keydown', this.props.releaseKey);
+    }
+
+    logBlur(){
+        console.log('patch controls are blurred');
+    }
+
     render(){
         return (
-            <div className="patch-interface">
+            <div className="patch-interface" onFocus={this.logFocus} onBlur={this.logBlur}>
                 <div className="visible" id="new-patch-CRUD">
                     <input type="text" value={this.props.patchName} placeholder="enter patch name" onChange={this.props.updatePatchName} className="default-text" />
                     <button onClick={() => this.props.savePatch('new')}>
