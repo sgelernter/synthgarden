@@ -10,13 +10,14 @@ import FXBank from './fx_bank';
 import Sample from './sample';
 import PatchControlsContainer from './patch_controls_container';
 import Tape from './tape';
+import PatchedRecorder from './recording.js'
 
 class Synthstrument extends React.Component{
 
     constructor(props){
         super(props);
         const eq3 = new Tone.EQ3().toDestination();
-        const recorder = new Tone.Recorder();
+        const recorder = new PatchedRecorder();
         const simpleSynth = new Tone.Synth().connect(eq3);
         const oscillator1 = simpleSynth.oscillator;
         const envelope = simpleSynth.envelope;
@@ -576,14 +577,6 @@ class Synthstrument extends React.Component{
                                             crushNode={this.state.bitCrush}
                                             feedDelayNode={this.state.feedDelay}
                                             pongDelayNode={this.state.pongDelay}
-
-                                            // currentUserId={this.props.currentUserId}
-                                            // loadSample={this.props.loadSample}
-                                            // currentSample={this.props.currentSample}
-                                            // saveSample={this.props.saveSample}
-                                            // updateSample={this.props.updateSample}
-                                            // deleteSample={this.props.deleteSample}
-                                            // recorder={this.state.recorder}
                                         />
                                 </div>
                             </div>
@@ -603,18 +596,6 @@ class Synthstrument extends React.Component{
                                         <input type="range" value={this.state.synth1.volume.value} onChange={this.setVolume} min="-45" max="0" step="1" />
                                     </label>
                                 </div>
-                                {/* <Sample
-                                    connectFX={this.connectFX}
-                                    disconnectFX={this.disconnectFX}
-                                    currentUserId={this.props.currentUserId}
-                                    loadSample={this.props.loadSample}
-                                    currentSample={this.props.currentSample}
-                                    saveSample={this.props.saveSample}
-                                    updateSample={this.props.updateSample}
-                                    deleteSample={this.props.deleteSample}
-                                    recorder={this.state.recorder}
-                                    className="sample"
-                                /> */}
                             </div>
                         </div>
                     </div>

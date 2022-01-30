@@ -4,7 +4,8 @@ import React from 'react';
 import '../../assets/stylesheets/synthstrument.scss'
 // import start from '../../assets/images/start-rec.png'
 // import stop from '../../assets/images/stop-rec.png'
-import ffmpeg from 'react-ffmpeg';
+// import ffmpeg from 'react-ffmpeg';
+
 
 class Sample extends React.Component {
     constructor(props) {
@@ -29,11 +30,6 @@ class Sample extends React.Component {
     }
 
   startRecording() {
-    // TEST
-    // this.state.synth.triggerAttackRelease("C3", 0.5);
-    // this.state.synth.triggerAttackRelease("C4", 0.5, "+1");
-    // this.state.synth.triggerAttackRelease("C5", 0.5, "+2");
-    // DELETE ABOVE
     const spools = Array.from(document.querySelectorAll('.spool'));
     spools.forEach(spool => spool.classList.add('playing'));
     this.props.connectFX(this.props.recorder);
@@ -46,7 +42,6 @@ class Sample extends React.Component {
   }
 
   handleSubstring(base64String, clipUrl) {
-    // debugger
     this.setState({
         file: base64String,
         recording: false,
@@ -59,7 +54,9 @@ class Sample extends React.Component {
     const spools = Array.from(document.querySelectorAll('.spool'));
     spools.forEach(spool => spool.classList.remove('playing'));
     setTimeout(async () => {
-      clip = await this.props.recorder.stop();
+      debugger
+      clip = await this.props.recorder.stop();  // BLOB
+      // debugger
       clipUrl = URL.createObjectURL(clip)
       var reader = new FileReader();
       reader.readAsDataURL(clip);
@@ -69,7 +66,6 @@ class Sample extends React.Component {
         this.handleSubstring(base64String, clipUrl)
       }
     }, 500);
-    // this.props.disconnectFX(this.props.recorder)
   }
 
   updateSampleName(e) {
