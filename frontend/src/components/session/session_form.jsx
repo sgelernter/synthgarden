@@ -41,31 +41,39 @@ class SessionForm extends React.Component {
   }
 
   noErrors() {
-    // console.log(Object.values(this.props.errors).length)
     return Object.values(this.props.errors).length === 0
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.removeSessionErrors();
     const user = Object.assign({}, this.state);
-    // const noErrors = (Object.values(this.props.errors).length < 1)
     this.props.processForm(user)
-      // .then(() => this.noErrors() ? this.closeModal() : console.log('IT WORKS'))
       .then(() => this.noErrors() ? this.props.closeModal() : e.stopPropagation())
-    // const response = async (user) => this.props.processForm(user)
   }
 
   componentWillUnmount() {
-    this.props.removeSessionErrors();
+    this.props.clearErrors();
   }
+
+  renderErrors() {
+    // debugger
+    return(
+        <ul className="errors">
+          {Object.values(this.props.errors).map((error, i) => (
+            <li key={`error-${i}`}>
+              {error}
+            </li>
+          ))}
+        </ul>
+      );
+  } 
   
   render() {
-    if (Object.values(this.props.errors).length > 0) {
-      this.errors = Object.values(this.props.errors).map((err, idx) => (
-          <p key={idx}>{err}</p>
-      ))
-    }
+    // if (Object.values(this.props.errors).length > 0) {
+    //   this.errors = Object.values(this.props.errors).map((err, idx) => (
+    //       <p key={idx}>{err}</p>
+    //   ))
+    // }
 
     let demoUserButton;
     if (this.props.formType === 'login') {
@@ -104,8 +112,8 @@ class SessionForm extends React.Component {
                 placeholder='Password'
               />
             </div>
-            
-            <div className="errors">{this.errors}</div>
+            {this.renderErrors()}
+            {/* <div className="errors">{this.renderErrors()}</div> */}
             <br/>
             <input className="session-submit" type="submit" value={this.props.formType} />
             <br/>
