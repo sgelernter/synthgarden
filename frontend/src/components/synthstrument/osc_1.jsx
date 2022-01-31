@@ -1,5 +1,5 @@
 import React from "react";
-import * as Tone from 'tone';
+// import * as Tone from 'tone';
 
 class Oscillator1 extends React.Component{
     constructor(props){
@@ -13,6 +13,8 @@ class Oscillator1 extends React.Component{
     }
 
     updateSettings(e){
+        const keys = document.querySelector('.keyboard');
+        const volume = document.querySelector('.volume-label');
         e.preventDefault();
         if (e.currentTarget.name === 'oscType') {
             const pwmOption = document.getElementById('pwm-option1');
@@ -25,6 +27,8 @@ class Oscillator1 extends React.Component{
             } 
                 
             this.state.oscType = e.target.value;
+            keys.className = `keyboard ${e.target.value}`;
+            volume.className = `volume-label ${e.target.value}`;
         } else {
             this.state.waveType = e.target.value;
         }
@@ -34,7 +38,8 @@ class Oscillator1 extends React.Component{
     render(){
         return (
             <div className="oscillator">
-                <label>Oscillator type
+                <h4>Oscillator</h4>
+                <label>Type:
                     <select name="oscType" onChange={this.updateSettings}>
                         <option value="">Omni</option>
                         <option value="fm">FM</option>
@@ -42,7 +47,7 @@ class Oscillator1 extends React.Component{
                         <option value="fat">Fat</option>
                     </select>
                 </label>
-                <label>Oscillator shape
+                <label>Shape:
                     <select name="shapeType" onChange={this.updateSettings} defaultValue="pwm">
                         <option value="sine" id="sine-option1">Sine</option>
                         <option value="square">Square</option>
