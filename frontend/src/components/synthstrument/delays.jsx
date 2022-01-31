@@ -82,7 +82,7 @@ class Delays extends React.Component {
                             <input type="range" value={this.state.feedback.feedback.value} 
                                 min="0" 
                                 max="1" 
-                                step=".1" 
+                                step=".05" 
                                 onChange={this.props.updatePatch('feedback-delay')} 
                                 className="feedback" />
                         </label>
@@ -91,7 +91,7 @@ class Delays extends React.Component {
                             <input type="range" value={this.state.feedback.wet.value} 
                                 min="0" 
                                 max="1" 
-                                step=".1" 
+                                step=".05" 
                                 onChange={this.props.updatePatch('feedback-delay')} 
                                 className="wet-dry" />
                         </label>
@@ -111,7 +111,7 @@ class Delays extends React.Component {
                             <input type="range" value={this.state.pingPong.feedback.value} 
                                 min="0" 
                                 max="1" 
-                                step=".1" 
+                                step=".05" 
                                 onChange={this.props.updatePatch('pong-delay')} 
                                 className="feedback" />
                         </label>
@@ -120,7 +120,7 @@ class Delays extends React.Component {
                             <input type="range" value={this.state.pingPong.wet.value} 
                                 min="0" 
                                 max="1" 
-                                step=".1" 
+                                step=".05" 
                                 onChange={this.props.updatePatch('pong-delay')} 
                                 className="wet-dry" />
                         </label>

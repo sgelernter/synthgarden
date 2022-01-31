@@ -100,9 +100,19 @@ class Synthstrument extends React.Component{
                 contextStarted: 'true'
             })
             e.target.className = 'power-button on';
+            document.getElementById('eq').classList.remove('off');
+            document.getElementById('recorder').classList.remove('off');
+            document.querySelectorAll('.oct-up, .oct-down').forEach (el => el.classList.remove('off'));
+            document.querySelector('.env-controls').classList.remove('off');
+            document.querySelector('.volume').classList.remove('off');
         } else {
             this.state.oscillator1.stop();
             e.target.className = 'power-button off';
+            document.getElementById('eq').classList.add('off');
+            document.getElementById('recorder').classList.add('off');
+            document.querySelectorAll('.oct-up, .oct-down').forEach (el => el.classList.add('off'));
+            document.querySelector('.env-controls').classList.add('off');
+            document.querySelector('.volume').classList.add('off');
             this.setState({
                 contextStarted: 'false'
             })
@@ -435,6 +445,7 @@ class Synthstrument extends React.Component{
 
     changeOctave(e, patchOct){
         let octMod;
+        if (e && (e.target.className === 'oct-up off' || e.target.className === 'oct-down off')) return null;
         if (e) e.target.className === 'oct-up' ? octMod = 1 : octMod = -1;
         if (patchOct || patchOct === 0) octMod = (patchOct - this.state.octave);
         const letters = Object.keys(this.state.pitches);
@@ -504,7 +515,8 @@ class Synthstrument extends React.Component{
                             <div className="oscillators-bar">
                                 <div className="osc-box">
                                     <Oscillator1 oscillator={this.state.oscillator1}/>
-                                    <div className="env-controls">
+                                    <div className="env-controls off">
+                                        <h4>Envelope</h4>
                                         <label>
                                             Attack
                                             <input type="range" value={this.state.envelope.attack} max="2" step=".01" onChange={this.updatePatch('attack')}/>
@@ -519,10 +531,10 @@ class Synthstrument extends React.Component{
                                         </label>
                                     </div>
                                     <div className="octave-shift" onClick={this.changeOctave}>
-                                        <button className="oct-up">
+                                        <button className="oct-up off">
                                             Oct. Up
                                         </button>
-                                        <button className="oct-down">
+                                        <button className="oct-down off">
                                             Oct. Down
                                         </button>
                                     </div>
@@ -541,7 +553,7 @@ class Synthstrument extends React.Component{
                                     < Tape /> 
                                 </div>
                                 <div className="post-FX">
-                                        <div className="eq3">
+                                        <div className="eq3 off" id="eq">
                                             <label>
                                                 Low
                                                 <input type="range" value={this.state.eq3.low.value} 
@@ -581,7 +593,7 @@ class Synthstrument extends React.Component{
                                 </div>
                             </div>
                             <div className="keys-bar">
-                                <ol className="keyboard" onMouseDown={this.pressKey} onMouseUp={this.releaseKey}>
+                                <ol className="keyboard omni" onMouseDown={this.pressKey} onMouseUp={this.releaseKey}>
                                     {Object.values(this.state.pitches).map ((note, idx) => (
                                         <li className="key" key={idx} id={note}>
                                             {Object.keys(this.state.pitches)[idx]}
@@ -591,9 +603,9 @@ class Synthstrument extends React.Component{
                                         </li>
                                     ))}
                                 </ol>
-                                <div className="volume" onClick={this.setVolume}>
-                                    <label>Volume
-                                        <input type="range" value={this.state.synth1.volume.value} onChange={this.setVolume} min="-45" max="0" step="1" />
+                                <div className="volume off" onClick={this.setVolume}>
+                                    <label className="volume-label omni">Volume
+                                        <input type="range" value={this.state.synth1.volume.value} onChange={this.setVolume} min="-60" max="0" step="1" />
                                     </label>
                                 </div>
                             </div>
