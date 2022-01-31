@@ -2,30 +2,29 @@ import React from 'react';
 import '../../assets/stylesheets/synthstrument.scss'
 
 class Sample extends React.Component {
-    constructor(props) {
-      super(props);
-      this.audio = ''
-      this.state = {
-        file: '',
-        url: '',
-        clip: '',
-        sampleName: '',
-        recording: false,
-        updating: false,
-        isPlaying: false
-      };
-
-      this.startRecording = this.startRecording.bind(this);
-      this.stopRecording = this.stopRecording.bind(this);
-      this.updateSampleName = this.updateSampleName.bind(this);
-      this.handleSave = this.handleSave.bind(this);
-      this.handleSubstring = this.handleSubstring.bind(this);
-      this.loadSample = this.loadSample.bind(this);
-      this.b64toBlob = this.b64toBlob.bind(this);
-      this.handleUpdate = this.handleUpdate.bind(this);
-      this.handleDelete = this.handleDelete.bind(this);
-      this.playPause = this.playPause.bind(this);
-    }
+  constructor(props) {
+    super(props);
+    this.audio = ''
+    this.state = {
+      file: '',
+      url: '',
+      clip: '',
+      sampleName: '',
+      recording: false,
+      updating: false,
+      isPlaying: false
+    };
+    this.startRecording = this.startRecording.bind(this);
+    this.stopRecording = this.stopRecording.bind(this);
+    this.updateSampleName = this.updateSampleName.bind(this);
+    this.handleSave = this.handleSave.bind(this);
+    this.handleSubstring = this.handleSubstring.bind(this);
+    this.loadSample = this.loadSample.bind(this);
+    this.b64toBlob = this.b64toBlob.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.playPause = this.playPause.bind(this);
+  }
 
   startRecording() {
     const spools = Array.from(document.querySelectorAll('.spool'));

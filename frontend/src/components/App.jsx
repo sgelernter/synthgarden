@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from './modal/modal';
 import Splash from './splash/splash';
-import { Route, Switch } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import NavbarContainer from './navbar/navbar_container';
 import Footer from './footer/footer';
 import { ProtectedRoute } from '../util/route_utils';
