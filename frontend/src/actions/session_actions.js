@@ -32,11 +32,15 @@ export const removeSessionErrors = () => ({
     type: REMOVE_SESSION_ERRORS
 })
 
+export const clearErrors = () => dispatch => {
+    return dispatch(removeSessionErrors())
+}
+
 export const signup = user => dispatch => (
     APIUtil.signup(user).then(() => (
         dispatch(login(user))
     ), err => (
-        dispatch(receiveErrors(err.response.data))
+        dispatch(receiveErrors(err.responseJSON))
     ))
 );
 
@@ -51,7 +55,7 @@ export const login = user => dispatch => {
             dispatch(receiveCurrentUser(decoded))
         })
         .catch(err => {
-            dispatch(receiveErrors(err.response.data))
+            dispatch(receiveErrors(err.responseJSON))
         })
     )
 };
