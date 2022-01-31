@@ -17,28 +17,28 @@ module.exports = function validateRegisterInput(data) {
     }
 
     if (Validator.isEmpty(data.username)) {
-        errors.username = 'Username is required';
-    }
-
-    if (Validator.isEmpty(data.email)) {
-        errors.email = 'Email is required';
+        errors.username = 'Username cannot be blank';
     }
 
     if (!Validator.isEmail(data.email)) {
         errors.email = 'Invalid email';
     }
 
+    if (Validator.isEmpty(data.email)) {
+        errors.email = 'Email cannot be blank';
+    }
+
     if (Validator.isEmpty(data.password)) {
-        errors.password = 'Password is required';
+        errors.password = 'Password cannot be blank';
     }
 
-    if (Validator.isEmpty(data.confirmPassword)) {
-        errors.confirmPassword = 'Confirm password is required';
-    }
+    // if (Validator.isEmpty(data.confirmPassword)) {
+    //     errors.confirmPassword = 'Confirm password is required';
+    // }
 
-    if (!Validator.equals(data.password, data.confirmPassword)) {
-        errors.confirmPassword = 'Passwords must match';
-    }
+    // if (!Validator.equals(data.password, data.confirmPassword)) {
+    //     errors.confirmPassword = 'Passwords must match';
+    // }
 
     return {
         errors, 
