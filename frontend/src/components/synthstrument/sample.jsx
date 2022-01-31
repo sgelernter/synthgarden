@@ -6,12 +6,13 @@ class Sample extends React.Component {
       super(props);
       this.audio = ''
       this.state = {
-          recording: false,
-          file: '',
-          updating: false,
-          sampleName: '',
-          url: '',
-          isPlaying: false
+        file: '',
+        url: '',
+        clip: '',
+        sampleName: '',
+        recording: false,
+        updating: false,
+        isPlaying: false
       };
 
       this.startRecording = this.startRecording.bind(this);
@@ -38,11 +39,12 @@ class Sample extends React.Component {
     });
   }
 
-  handleSubstring(base64String, clipUrl) {
+  handleSubstring(base64String, clipUrl, clip) {
     this.setState({
         file: base64String,
         recording: false,
         url: clipUrl,
+        clip
         // audio: new Audio(clipUrl)
       })
     this.audio = new Audio(clipUrl);
@@ -57,10 +59,10 @@ class Sample extends React.Component {
       clipUrl = URL.createObjectURL(clip)
       var reader = new FileReader();
       reader.readAsDataURL(clip);
-      debugger
+      // debugger
       reader.onloadend = () => {
         base64String = reader.result;   
-        this.handleSubstring(base64String, clipUrl)
+        this.handleSubstring(base64String, clipUrl, clip)
       }
     }, 500);
   }
@@ -70,12 +72,17 @@ class Sample extends React.Component {
   }
 
   handleSave() {
-    let sampleData = {
-        name: this.state.sampleName,
-        user: this.props.currentUserId,
-        file: this.state.file
+    debugger
+    if (this.state.clip.size > 70000) {
+        alert('This sample is too large, please record a new tune.')
+    } else {
+      let sampleData = {
+          name: this.state.sampleName,
+          user: this.props.currentUserId,
+          file: this.state.file
+      }
+      this.props.saveSample(sampleData)
     }
-    this.props.saveSample(sampleData)
   }
 
   handleUpdate() {
