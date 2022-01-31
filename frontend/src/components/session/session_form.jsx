@@ -68,11 +68,6 @@ class SessionForm extends React.Component {
   }
   
   render() {
-    // if (Object.values(this.props.errors).length > 0) {
-    //   this.errors = Object.values(this.props.errors).map((err, idx) => (
-    //       <p key={idx}>{err}</p>
-    //   ))
-    // }
 
     let demoUserButton;
     if (this.props.formType === 'login') {
@@ -112,7 +107,6 @@ class SessionForm extends React.Component {
               />
             </div>
             {this.renderErrors()}
-            {/* <div className="errors">{this.renderErrors()}</div> */}
             <br/>
             <input className="session-submit" type="submit" value={this.props.formType} />
             <br/>
