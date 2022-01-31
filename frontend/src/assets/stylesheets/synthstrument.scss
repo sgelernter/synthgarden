@@ -226,6 +226,7 @@
         .volume{
             display: flex;
             flex-direction: column;
+            justify-content: center;
             font-size: 10px;
             input{
                 -webkit-appearance: slider-vertical;
