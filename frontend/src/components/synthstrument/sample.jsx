@@ -128,6 +128,7 @@ class Sample extends React.Component {
       url,
       name: this.props.currentSample.name,
     });
+    this.audio = new Audio(url);
   }
 
   playPause() {
