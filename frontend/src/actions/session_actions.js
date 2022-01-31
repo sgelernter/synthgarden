@@ -40,7 +40,7 @@ export const signup = user => dispatch => (
     APIUtil.signup(user).then(() => (
         dispatch(login(user))
     ), err => (
-        dispatch(receiveErrors(err.responseJSON))
+        dispatch(receiveErrors(err.response.data))
     ))
 );
 
@@ -55,7 +55,7 @@ export const login = user => dispatch => {
             dispatch(receiveCurrentUser(decoded))
         })
         .catch(err => {
-            dispatch(receiveErrors(err.responseJSON))
+            dispatch(receiveErrors(err.response.data))
         })
     )
 };

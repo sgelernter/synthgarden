@@ -10,16 +10,18 @@ module.exports = function validateLoginInput(data) {
     data.password = validText(data.password) ? data.password : '';
 
     if (!Validator.isEmail(data.email)) {
-        errors.email = 'Invalid email';
+        errors.email = 'Email cannot be blank';
     }
 
     if (Validator.isEmpty(data.password)) {
         errors.password = 'You must enter a password';
     }
 
-    if (Validator.isEmpty(data.email) && Validator.isEmpty(data.username)) {
-        errors.login = 'You must enter a username or email';
-    }
+
+    // if (Validator.isEmpty(data.email) && Validator.isEmpty(data.username)) {
+    //     errors.login = 'You must enter a username or email';
+    // }
+
 
     return {
         errors,

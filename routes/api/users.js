@@ -3,17 +3,24 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
-const Validator = require('validator');
+// const Validator = require('validator');
 const User = require('../../models/User');
-const Patch = require('../../models/Patch');
-const Sample = require('../../models/Sample');
+// const Patch = require('../../models/Patch');
+// const Sample = require('../../models/Sample');
 const passport = require('passport');
+const validateRegisterInput = require('../../validation/register');
+const validateLoginInput = require('../../validation/login');
 
 router.get('/test', (req, res) => res.json({ msg: 'USERS ROUTE TEST SUCCESS'}));
 
 
 // REGISTER NEW USER
 router.post('/register', (req, res) => {
+    const {errors, isValid} = validateRegisterInput(req.body);
+
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
 
     User.findOne({ email: req.body.email })
         .then(user => {
@@ -82,6 +89,11 @@ const checkPassword = (password, passwordInput, user, res) => {
 
 // LOGIN USER
 router.post('/login', (req, res) => {
+    const { errors, isValid } = validateLoginInput(req.body);
+
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
 
     // NOT SURE WHAT THIS WILL BE CALLED ON THE WAY IN FROM THE FRONT-END FORM
     // console.log(res)
@@ -92,14 +104,15 @@ router.post('/login', (req, res) => {
     User.findOne({email: idString})
         .then(user => {
             if (!user) {
-                User.findOne({username: idString})
-                    .then(user => {
-                        if (!user) {
-                            return res.status(404).json({id: 'Invalid email/username'})
-                        } else {
-                            checkPassword(password, user.password, user, res);
-                        }
-                    });
+                return res.status(404).json({email: 'This user does not exist'});
+                // User.findOne({username: idString})
+                //     .then(user => {
+                //         if (!user) {
+                //             return res.status(404).json({id: 'Invalid email/username'})
+                //         } else {
+                //             checkPassword(password, user.password, user, res);
+                //         }
+                //     });
             } else {
                 checkPassword(password, user.password, user, res);
             }

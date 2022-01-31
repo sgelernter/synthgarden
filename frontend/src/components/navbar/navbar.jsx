@@ -11,7 +11,7 @@ const Navbar = ({ loggedIn, logout, openModal }) => {
     <div className="logged-in-nav">
       <Link to="/" className="home-link">SynthGarden</Link>
       <div className="session-buttons">
-        <button onClick={() => openModal('instructions')} className="instructions-btn">?</button>
+        <button onClick={() => openModal('instructions')} className="instructions-btn">About</button>
         <button onClick={() => logout()} className="session-btn">logout</button> 
       </div>
     </div>
