@@ -56,7 +56,6 @@ class SessionForm extends React.Component {
   }
 
   renderErrors() {
-    // debugger
     return(
         <ul className="errors">
           {Object.values(this.props.errors).map((error, i) => (
@@ -66,7 +65,7 @@ class SessionForm extends React.Component {
           ))}
         </ul>
       );
-  } 
+  }
   
   render() {
     // if (Object.values(this.props.errors).length > 0) {
