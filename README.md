@@ -6,7 +6,7 @@ Play with an in-browser synth instrument! You can save your own patch settings, 
 ## Functionalities
 - User authentication for account creation.
 - Play with an in-browser synth instrument.
-- Create, listen, update, and delete patch settings.
+- Create, read, update, and delete patch settings.
 - Create, listen, update, and delete recorded samples.
 - Download recordings.
 
