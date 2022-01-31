@@ -1,6 +1,8 @@
 ## <a href="https://synthgarden.herokuapp.com" target="_blank">SynthGarden</a>
 Play with an in-browser synth instrument! You can save your own patch settings, and record samples to download.
 
+// Screenshot here
+
 ## Functionalities
 - User authentication for account creation.
 - Play with an in-browser synth instrument.
@@ -15,4 +17,4 @@ Play with an in-browser synth instrument! You can save your own patch settings, 
 - MediaRecorder API for recording samples.
 
 ## Code snippets
-// here
+// code here
