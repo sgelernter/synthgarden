@@ -44,7 +44,7 @@ class Mods extends React.Component {
                         <input type="range" value={this.state.chorus.frequency.value} 
                             min="0" 
                             max="1" 
-                            step=".1" 
+                            step=".05" 
                             onChange={this.props.updatePatch('chorus')} 
                             className="LFO" />
                     </label>
@@ -53,7 +53,7 @@ class Mods extends React.Component {
                         <input type="range" value={this.state.chorus.delayTime.value} 
                             min="0" 
                             max="20" 
-                            step="2" 
+                            step="1" 
                             onChange={this.props.updatePatch('chorus')} 
                             className="delay" />
                     </label>
@@ -62,7 +62,7 @@ class Mods extends React.Component {
                         <input type="range" value={this.state.chorus.depth.value} 
                             min="0" 
                             max="1" 
-                            step=".1" 
+                            step=".05" 
                             onChange={this.props.updatePatch('chorus')} 
                             className="chorus-depth" />
                     </label>

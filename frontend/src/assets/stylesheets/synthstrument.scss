@@ -86,13 +86,14 @@
         .post-FX{
             width: 100%;
             height: 75%;
-            border: 1px solid yellow;
+            // border: 1px solid yellow;
             display: flex;
             font-size: small;
+            padding: 10px;
             .eq3{
                 display: flex;
                 justify-content: space-evenly;
-                border: 1px solid red;
+                // border: 1px solid red;
                 width: 20%;
                 height: 100%;
                 label{
@@ -107,25 +108,44 @@
                 }
             }
             .fx-bank{
-                border: 1px solid rgb(255, 49, 238);
-                width: 70%;
+                // border: 1px solid rgb(255, 49, 238);
                 display: flex;
                 font-size: 10px;
+                input{
+                    margin-left: 10px;
+                }
+                label input{
+                    position: relative;
+                    width: 175px;
+                    top: 5px;
+                }
+                .module-label{
+                    margin-bottom: 25px;
+                }
                 .invisible{
                     display: none;
                 }
                 .mods{
                     display: flex;
                     flex-direction: column;
-                    border: 1px solid rgb(122, 208, 255);
+                    // border: 1px solid rgb(122, 208, 255);
                     width: 33.3%;
+                    padding-bottom: 10px;
+                    h4{
+                        margin-bottom: 0px;
+                    }
                     .chorus{
-                        border: 1px solid rgba(142, 142, 142, 0.149);
+                        // border: 1px solid rgba(142, 142, 142, 0.149);
                         border-bottom: none;
+                        display: flex;
+                        flex-direction: column;
                         height: 50%;
                     }
                     .tremolo{
-                        border: 1px solid rgba(164, 164, 164, 0.299);
+                        // border: 1px solid rgba(164, 164, 164, 0.299);
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-evenly;
                     }
                     .switch{
                         appearance: none;
@@ -137,6 +157,7 @@
                         position: relative;
                         top: 6px;
                         margin-left: 10px;
+                        cursor: pointer;
                         &.off{
                             background-image: radial-gradient(rgb(221, 127, 3), rgb(197, 113, 2), rgb(142, 81, 1));
                         }
@@ -144,8 +165,17 @@
                 }
                 .harmonics{
                     display: flex;
-                    border: 1px solid rgb(122, 208, 255);
+                    flex-direction: column;
+                    // border: 1px solid rgb(122, 208, 255);
                     width: 33.3%;
+                    select{
+                        font-size: 10px;
+                        margin-left: 20px;
+                    }
+                    .crush.visible{
+                        display: flex;
+                        flex-direction: column;
+                    }
                     .switch{
                         appearance: none;
                         box-shadow: inset 1px -1px 1px rgba(0, 20, 56, 0.578);
@@ -154,8 +184,9 @@
                         height: 20px;
                         margin: auto;
                         position: relative;
-                        top: 3px;
+                        top: 6px;
                         margin-left: 10px;
+                        cursor: pointer;
                         &.off{
                             background-image: radial-gradient(rgb(62, 110, 206), rgb(44, 96, 199), rgb(28, 73, 162));
                         }
@@ -163,8 +194,30 @@
                 }
                 .delays{
                     display: flex;
-                    border: 1px solid rgb(122, 208, 255);
+                    flex-direction: column;
+                    // border: 1px solid rgb(122, 208, 255);
                     width: 33.3%;
+                    select{
+                        font-size: 10px;
+                        margin-left: 25px;
+                    }
+                    .delay-controls{
+                        display: flex;
+                        flex-direction: column;
+                        // border: 1px solid blue;
+                        height: 100%;
+                        label{
+                            display: flex;
+                            padding-left: 10px;
+                            padding-right: 5px;
+                            justify-content: space-between;
+                            align-content: center;
+                            input[type="range"]{
+                                position: relative;
+                                top: -2px;
+                            }
+                        }
+                    }
                     .switch{
                         appearance: none;
                         box-shadow: inset 1px -1px 1px rgb(122, 11, 11);
@@ -173,9 +226,10 @@
                         height: 20px;
                         margin: auto;
                         position: relative;
-                        top: 3px;
+                        top: 6px;
                         left: 15px;
-                        margin-left: 10px;
+                        margin-left: 0px;
+                        cursor: pointer;
                         &.off{
                             background-image: radial-gradient(rgb(204, 68, 68), rgb(186, 63, 63), rgb(148, 21, 21));
                         }
@@ -212,6 +266,7 @@
                 display: flex;
                 flex-direction: column;
                 flex-wrap: wrap;
+                cursor: pointer;
                 p{
                     font-size: 12px;
                     position: relative;
@@ -409,4 +464,10 @@
         border: 1px solid rgb(111, 111, 111);
         background-color: rgba(69, 69, 69, 0.7);
     }
+}
+
+input[type="range"]::-webkit-slider-thumb{
+    // display: none;
+    border: 1px solid white;
+    cursor: pointer;
 }
