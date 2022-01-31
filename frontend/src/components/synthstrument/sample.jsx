@@ -2,29 +2,29 @@ import React from 'react';
 import '../../assets/stylesheets/synthstrument.scss'
 
 class Sample extends React.Component {
-    constructor(props) {
-      super(props);
-      this.audio = ''
-      this.state = {
-          recording: false,
-          file: '',
-          updating: false,
-          sampleName: '',
-          url: '',
-          isPlaying: false
-      };
-
-      this.startRecording = this.startRecording.bind(this);
-      this.stopRecording = this.stopRecording.bind(this);
-      this.updateSampleName = this.updateSampleName.bind(this);
-      this.handleSave = this.handleSave.bind(this);
-      this.handleSubstring = this.handleSubstring.bind(this);
-      this.loadSample = this.loadSample.bind(this);
-      this.b64toBlob = this.b64toBlob.bind(this);
-      this.handleUpdate = this.handleUpdate.bind(this);
-      this.handleDelete = this.handleDelete.bind(this);
-      this.playPause = this.playPause.bind(this);
-    }
+  constructor(props) {
+    super(props);
+    this.audio = ''
+    this.state = {
+      file: '',
+      url: '',
+      clip: '',
+      sampleName: '',
+      recording: false,
+      updating: false,
+      isPlaying: false
+    };
+    this.startRecording = this.startRecording.bind(this);
+    this.stopRecording = this.stopRecording.bind(this);
+    this.updateSampleName = this.updateSampleName.bind(this);
+    this.handleSave = this.handleSave.bind(this);
+    this.handleSubstring = this.handleSubstring.bind(this);
+    this.loadSample = this.loadSample.bind(this);
+    this.b64toBlob = this.b64toBlob.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.playPause = this.playPause.bind(this);
+  }
 
   startRecording() {
     const spools = Array.from(document.querySelectorAll('.spool'));
@@ -38,11 +38,12 @@ class Sample extends React.Component {
     });
   }
 
-  handleSubstring(base64String, clipUrl) {
+  handleSubstring(base64String, clipUrl, clip) {
     this.setState({
         file: base64String,
         recording: false,
         url: clipUrl,
+        clip
         // audio: new Audio(clipUrl)
       })
     this.audio = new Audio(clipUrl);
@@ -53,14 +54,14 @@ class Sample extends React.Component {
     const spools = Array.from(document.querySelectorAll('.spool'));
     spools.forEach(spool => spool.classList.remove('playing'));
     setTimeout(async () => {
-      debugger
       clip = await this.props.recorder.stop();  // BLOB
       clipUrl = URL.createObjectURL(clip)
       var reader = new FileReader();
       reader.readAsDataURL(clip);
+      // debugger
       reader.onloadend = () => {
         base64String = reader.result;   
-        this.handleSubstring(base64String, clipUrl)
+        this.handleSubstring(base64String, clipUrl, clip)
       }
     }, 500);
   }
@@ -70,12 +71,17 @@ class Sample extends React.Component {
   }
 
   handleSave() {
-    let sampleData = {
-        name: this.state.sampleName,
-        user: this.props.currentUserId,
-        file: this.state.file
+    debugger
+    if (this.state.clip.size > 70000) {
+        alert('This sample is too large, please record a new tune.')
+    } else {
+      let sampleData = {
+          name: this.state.sampleName,
+          user: this.props.currentUserId,
+          file: this.state.file
+      }
+      this.props.saveSample(sampleData)
     }
-    this.props.saveSample(sampleData)
   }
 
   handleUpdate() {

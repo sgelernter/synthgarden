@@ -461,6 +461,7 @@
     height: 150px;
     justify-content: center;
     align-items: center;
+    font-size: 12px;
     &.off {
         filter: grayscale(100%);
         transition: filter .7s;
