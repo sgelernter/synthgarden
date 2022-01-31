@@ -58,20 +58,21 @@ class Harmonics extends React.Component {
     render() {
         return (
             <div className="harmonics off" id="distortion">
-                <label>
+                <label className="module-label">
                     DISTORTION
                     <input type="checkbox" className="switch off" onChange={this.toggleFX} id="harmonics-controller"/>
                     <select name="distortType" onChange={this.updateHarmonics} defaultValue='distortion' id="harmonics-selector">
                             <option value='distortion'>Distortion</option>
                             <option value='bitcrush'>Bit Crusher</option>
-                        </select>
+                    </select>
+                </label>
                     <div className="distortion visible" id="distortion-controls">
                         <label>
                             Amount
                             <input type="range" value={this.state.distortion.distortion} 
                                 min="0" 
                                 max="1" 
-                                step=".1" 
+                                step=".05" 
                                 onChange={this.props.updatePatch('distortion')} 
                                 className="distortion" />
                         </label>
@@ -82,21 +83,20 @@ class Harmonics extends React.Component {
                             <input type="range" value={this.state.bitCrush.wet.value} 
                                 min="0" 
                                 max="1" 
-                                step=".1" 
+                                step=".05" 
                                 onChange={this.props.updatePatch('bitcrush')} 
                                 className="crusher-wet" />
                         </label>
                         <label>
-                            Crusher Depth
+                            Crush
                             <input type="range" value={this.state.bitCrush.bits.value} 
                                 min="4" 
                                 max="16" 
-                                step=".25" 
+                                step=".20" 
                                 onChange={this.props.updatePatch('bitcrush')} 
                                 className="bit-depth" />
                         </label>
                     </div>
-                </label>
             </div>
         )
     }

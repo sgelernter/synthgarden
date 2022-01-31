@@ -222,7 +222,7 @@ class Sample extends React.Component {
       )
 
     return (
-      <div className="sample">
+      <div className="sample off" id="recorder">
         {recordingButton}
         {download}
         {saveSample}
