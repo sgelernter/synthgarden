@@ -53,11 +53,11 @@ class Sample extends React.Component {
     const spools = Array.from(document.querySelectorAll('.spool'));
     spools.forEach(spool => spool.classList.remove('playing'));
     setTimeout(async () => {
-      debugger
       clip = await this.props.recorder.stop();  // BLOB
       clipUrl = URL.createObjectURL(clip)
       var reader = new FileReader();
       reader.readAsDataURL(clip);
+      debugger
       reader.onloadend = () => {
         base64String = reader.result;   
         this.handleSubstring(base64String, clipUrl)
