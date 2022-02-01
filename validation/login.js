@@ -17,16 +17,8 @@ module.exports = function validateLoginInput(data) {
         errors.password = 'You must enter a password';
     }
 
-
-    // if (Validator.isEmpty(data.email) && Validator.isEmpty(data.username)) {
-    //     errors.login = 'You must enter a username or email';
-    // }
-
-
     return {
         errors,
         isValid: Object.keys(errors).length === 0
     }
 }
-
-// LOGIN NEEDS TO BE FACTORED TO ACCOUNT FOR VARIABLE INPUT
