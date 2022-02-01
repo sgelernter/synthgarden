@@ -1,3 +1,18 @@
 .instructions {
     line-height: 25px;
+    .intro{
+        text-align: left;
+    }
+    .explanations{
+        text-align: left;
+        font-size: 12px;
+        line-height: 17px;
+        span{
+            font-weight: bold;
+            &.explanations-explanation{
+                font-weight: normal;
+                font-style: italic;
+            }
+        }
+    }
 }
