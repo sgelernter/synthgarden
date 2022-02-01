@@ -2,6 +2,7 @@ import React from "react";
 import Mods from "./mods";
 import Harmonics from "./harmonics";
 import Delays from "./delays";
+// import Sample from './sample';
 
 const FXBank = props => {
         return (

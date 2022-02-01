@@ -34,6 +34,7 @@ router.patch('/:id',
     })
 )
 
+//showing all the samples
 router.get('/', (req, res) => {
     Sample.find()
           .then(samples => res.json(samples))
@@ -41,6 +42,7 @@ router.get('/', (req, res) => {
     }
 );
 
+//showing all the samples under a specific user
 router.get('/user/:userId', (req, res) => {
     Sample.find({user: req.params.userId})
         .then(samples => res.json(samples))
@@ -48,6 +50,7 @@ router.get('/user/:userId', (req, res) => {
     );
 });
 
+//showing a specific sample
 router.get('/:id', (req, res) => {
     Sample.findById(req.params.id)
         .then(sample => res.json(sample))
@@ -55,6 +58,7 @@ router.get('/:id', (req, res) => {
     );
 });
 
+//delete specific patch
 router.delete('/:id',
     passport.authenticate("jwt", { session: false}),
     (req, res) => {

@@ -1,4 +1,5 @@
 import React from "react";
+import * as Tone from 'tone';
 
 class Harmonics extends React.Component {
     constructor(props) {

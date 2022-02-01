@@ -1,5 +1,5 @@
 import React from "react";
-import { Oscilloscope } from "webaudio-oscilloscope";
+import { Oscilloscope, getUserMedia } from "webaudio-oscilloscope";
 import * as Tone from "tone";
 
 class Scope extends React.Component{
@@ -36,6 +36,7 @@ class Scope extends React.Component{
         )
     }
 }
+
 
 export default Scope;
 

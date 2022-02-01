@@ -20,6 +20,12 @@ class Record extends React.Component {
   }
 
   startRecording() {
+    // TEST
+    this.state.synth.triggerAttackRelease("C3", 0.5);
+    this.state.synth.triggerAttackRelease("C4", 0.5, "+1");
+    this.state.synth.triggerAttackRelease("C5", 0.5, "+2");
+    // DELETE ABOVE
+
     this.state.recorder.start();
     this.setState({
       recording: true
@@ -33,6 +39,7 @@ class Record extends React.Component {
       var reader = new FileReader();
       let blobToBase64 = reader.readAsDataURL(clip);
       this.setState({
+        // url: clipUrl,
         url: reader.readAsDataURL(clip),
         recording: false
       })
@@ -62,7 +69,10 @@ class Record extends React.Component {
       let download;
       this.state.url ?
       (
-        download = <Link to={`/${this.state.url}`} className="download-link" target="_blank">Download</Link>        
+        download = <Link to={`/${this.state.url}`} className="download-link" target="_blank">Download</Link>
+        // blob:http://localhost:3000/0ac0faca-0700-4267-bf8a-8b8cc5c70d61
+        // test on heroku / fix to instant download link
+        
       ) : (
         download = null
       )

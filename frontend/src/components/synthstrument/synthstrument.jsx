@@ -1,5 +1,9 @@
+/*
+♡ BROWSER SYNTH INSTRUMENT ♡
+*/
 import * as Tone from 'tone';
 import Oscillator1 from './osc_1';
+// import Oscillator2 from './osc_2';
 import React from 'react'
 import '../../assets/stylesheets/synthstrument.scss';
 import FXBank from './fx_bank';
@@ -67,6 +71,7 @@ class Synthstrument extends React.Component{
         this.loadPatch = this.loadPatch.bind(this);
     }
 
+    // UPDATE SELECTED PATCH
     componentDidUpdate(prevProps){
         if (this.props.currentPatch !== prevProps.currentPatch) {
             this.loadPatch();
@@ -117,6 +122,7 @@ class Synthstrument extends React.Component{
         }
     }
 
+    //  KEY CONTROLLER HANDLERS
     pressKey(e){
         if (e.type === 'keydown' && !(e.key in this.state.pitches)) return null;
         let pitch; 
@@ -152,6 +158,7 @@ class Synthstrument extends React.Component{
         document.addEventListener('keyup', this.releaseKey);
     }
 
+    // PATCH CONTROLS
     updatePatchName(e){
         this.setState({
             patchName: e.target.value,
@@ -228,7 +235,7 @@ class Synthstrument extends React.Component{
             this.props.saveUpdatedPatch(patchData);
         }
     }
-
+    // ASSIGN NEW NODE SETTINGS AND SET STATE
     loadPatch(){
         const currentState = this.state;
         const currentPatch = this.props.currentPatch;
@@ -327,6 +334,7 @@ class Synthstrument extends React.Component{
         }
     }
 
+    // SYNTH SETTINGS CHANGE TREE
     updatePatch(type){
         return e => {
             switch (type) {
@@ -456,6 +464,7 @@ class Synthstrument extends React.Component{
         }
     }
 
+    // CONNECT AND DISCONNECT EFFECTS NODES
     connectFX(effectNode){
         const destination = Tone.getDestination();
         let prevLastNode;
