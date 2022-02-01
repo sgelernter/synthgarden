@@ -149,13 +149,11 @@ class Synthstrument extends React.Component{
     }
 
     disableKeys(){
-        console.log('keyboard disabled');
         document.removeEventListener('keydown', this.pressKey);
         document.removeEventListener('keyup', this.releaseKey);
     }
 
     enableKeys(){
-        console.log('keyboard enabled');
         document.addEventListener('keydown', this.pressKey);
         document.addEventListener('keyup', this.releaseKey);
     }
@@ -400,7 +398,6 @@ class Synthstrument extends React.Component{
                     })
                     break;
                 case 'bitcrush':
-                    // debugger
                     if (e.target.className === 'crusher-wet') {
                         this.state.bitCrush.wet.value = e.target.value;
                     } else {

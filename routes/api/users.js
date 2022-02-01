@@ -65,20 +65,15 @@ router.post('/register', (req, res) => {
 
 // CHECK LOGIN CREDENTIALS w/BCRYPT
 const checkPassword = (password, passwordInput, user, res) => {
-    // console.log('password checking')
     bcrypt.compare(password, passwordInput)
         .then(isMatch => {
             if (isMatch) {
                 const payload = {id: user.id, email: user.email, username: user.username};
-                // console.log(payload)
-                // debugger
                 jwt.sign(payload, keys.secretOrKey, {expiresIn: 3600}, (err, token) => {
-                    // debugger
                     res.json({
                         success: true,
                         token: 'Bearer ' + token
                     });
-                    // console.log(token)
                 });
                 
             } else {
@@ -96,10 +91,8 @@ router.post('/login', (req, res) => {
     }
 
     // NOT SURE WHAT THIS WILL BE CALLED ON THE WAY IN FROM THE FRONT-END FORM
-    // console.log(res)
     const idString = req.body.email;
     const password = req.body.password;
-    // console.log(idString)
 
     User.findOne({email: idString})
         .then(user => {
