@@ -1,7 +1,6 @@
 import { RECEIVE_PATCH, RECEIVE_ALL_PATCHES, REMOVE_PATCH, LOAD_PATCH } from "../actions/patch_actions";
 
 
-
 const patchesReducer = (state = {}, action) => {
 
     Object.freeze(state);
