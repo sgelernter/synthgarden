@@ -28,7 +28,6 @@
 //             this.state.waveType = e.target.value;
 //         }
 //         this.state.oscillator.type = this.state.oscType + this.state.waveType;
-//         console.log(this.state.oscillator.type);
 //     }
 
 //     render(){

@@ -71,7 +71,6 @@ class Sample extends React.Component {
   }
 
   handleSave() {
-    debugger
     if (this.state.clip.size > 70000) {
         alert('This sample is too large, please record a new tune.')
     } else {
