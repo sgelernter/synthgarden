@@ -411,6 +411,9 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            // position: relative;
+            // top: -40px;
+            // z-index: 0;
             font-size: 10px;
             label{
                 &.omni input{
