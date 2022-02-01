@@ -540,6 +540,13 @@
         background: radial-gradient(rgba(255, 210, 247, 0.562), rgb(255, 0, 208));
         // box-shadow: inset -1px -1px 3px rgb(144, 143, 143);
         transition: background-color .1s;
+        text-align: center;
+        .rec {
+            color: rgb(0, 195, 255);
+            font-size: 17px;
+            font-weight: bold;
+            background: none;
+        }
     }
     .stop-record-btn {
         animation: glow 2s ease-in-out infinite alternate;
@@ -557,7 +564,7 @@
             width: 23px;
             height: 23px;
             margin: 7px;
-            background-color: rgba(0, 162, 255, 0.541);
+            background-color: rgba(0, 195, 255, 0.75);
             // margin: 10px;
             z-index: 1000;
         }
