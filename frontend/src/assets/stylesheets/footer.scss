@@ -1,11 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
 
 .footer-box {
-    // position: relative;
     position: absolute;
     display: flex;
     justify-content: space-between;
-    // border: 2px solid orange;
     width: 98%;
     height: 10vh;
     bottom: -5px;
@@ -14,46 +12,32 @@
 .peeps {
     display: flex;
     justify-content: space-between;
-    // border: solid 2px yellow;
-    // padding: 0 1px;
-    // width: 700px;
-    // filter: brightness(70%);
     p {
-        // border: solid 2px fuchsia;
         font-family: 'Sacramento', cursive;
         font-size: 34px;
-//         font-size: 30px;
         display: flex;
         align-items: center;
         margin-right: 15px;
         text-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 10px #ff18d8, 0 0 15px #ff18d8, 0 0 20px #ff18d8, 0 0 25px #ff18d8, 0 0 45px #49ff18;
     }
     a {
-        // border: solid 2px blue;
         text-decoration: none;
         font-family: 'Sacramento', cursive;
         width: 150px;
         font-size: 28px;
-//       SAM LAYOUT CHANGES
-//         width: 100px;
-//         font-size: 25px;
-
         display: flex;
         justify-content: center;
         align-items: center;
         text-shadow: 0 0 2px rgb(208, 208, 208), 0 0 5px rgb(198, 198, 198), 0 0 5px rgb(159, 159, 159), 0 0 10px #49ff18, 0 0 10px #49FF18, 0 0 20px #49FF18, 0 0 35px #49FF18, 0 0 45px #49ff18;
         &:hover{
             filter: brightness(115%);
-            // transition: brightness .5s;
         }
     }
 }
 
 .repo-link {
-    // border: solid 2px white;
     display: flex;
     align-items: center;
     font-size: 40px;
-    // height: 20px;
     margin-right: 50px;
 }
