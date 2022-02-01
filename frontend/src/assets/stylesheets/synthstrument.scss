@@ -550,6 +550,9 @@
     audio {
         max-width: 175px;
     }
+    input{
+        margin: 5px;
+    }
     .edit-btns {
         display: flex;
         button {
@@ -573,6 +576,7 @@
         // box-shadow: inset -1px -1px 3px rgb(144, 143, 143);
         transition: background-color .1s;
         text-align: center;
+        margin: 5px;
         .rec {
             // color: rgb(0, 195, 255);
             color: white;
