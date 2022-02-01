@@ -45,7 +45,7 @@ class Sidebar extends React.Component{
         return (
             <div className="sidebar">
                 <h3>Your Patches:</h3>
-                <ul className="patches-list">
+                <ul className="list">
                     {Object.values(this.props.patches).map((fullPatch, idx) => (
                         <li key={idx} className="sidebar-list-item" onClick={() => this.props.loadPatch(fullPatch)} id="sidebar-list">
                             {fullPatch.name}
@@ -53,7 +53,7 @@ class Sidebar extends React.Component{
                     ))}
                 </ul>
                 <h3>Your Samples:</h3>
-                <ul>
+                <ul className="list">
                     {Object.values(this.props.samples).map((sample, idx) => (
                         <li key={idx} className="sidebar-list-item" onClick={() => this.props.loadSample(sample)} >
                             {sample.name}
