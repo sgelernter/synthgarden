@@ -16,8 +16,12 @@
     text-align: center; 
     z-index: 1;
     padding-bottom: 20px;
-    max-width: 70vw;
+    margin-top: 10px;
+    margin: auto;
+    background: transparent;
     height: 70vh;
+    padding-left: 70px;
+
     .synth-toolbar {
         display: flex;
         justify-content: space-between;
@@ -29,6 +33,8 @@
         padding: 7px;
         margin: 5px;
         height: 35px;
+        max-width: 75vw;
+        margin-top: 15px;
         // align-content: baseline;
         .patch-interface{
             display: flex;
@@ -98,7 +104,7 @@
         padding: 5px;
         padding-right: 10px;
         width: 100%;
-        height: 90%;
+        max-width: 75vw;
         display: flex;
         flex-direction: column;
         .osc-box{
@@ -150,6 +156,7 @@
                 &.off {
                     filter: grayscale(100%);
                     transition: filter .7s;
+                    pointer-events: none;
                 }
             }
             .octave-shift {
@@ -167,18 +174,21 @@
                     &.off{
                         color: rgba(231, 231, 231, 0.952);
                         background-image: radial-gradient(rgb(56, 106, 206), rgb(38, 89, 191), rgb(28, 73, 162));
+                        pointer-events: none;
                     }
                 }
             }
         }
         .post-FX{
             width: 100%;
-            height: 75%;
-            // border: 1px solid yellow;
+            // border: 1px solid white;
+            height: 23vh;
             display: flex;
             font-size: small;
             padding: 10px;
             padding-right: 0px;
+            // border: 1px solid salmon;
+            padding-bottom: 5px;
             .eq3{
                 display: flex;
                 justify-content: space-evenly;
@@ -209,11 +219,15 @@
                 &.off {
                     filter: grayscale(100%);
                     transition: filter .7s;
+                    pointer-events: none;
                 }
                 // border: 1px solid white;
             }
             .fx-bank{
-                // border: 1px solid rgb(255, 49, 238);
+                padding: 0px;
+                // border: 1px solid white;
+                margin-top: -7px;
+                height: 100%;
                 display: flex;
                 font-size: 10px;
                 input{
@@ -233,19 +247,17 @@
                 .mods{
                     display: flex;
                     flex-direction: column;
-                    // border: 1px solid rgb(122, 208, 255);
                     width: 33.3%;
-                    padding-bottom: 10px;
+                    padding-bottom: 0px;
                     z-index: 10;
                     h4{
                         margin-bottom: 0px;
                     }
                     .chorus{
-                        // border: 1px solid rgba(142, 142, 142, 0.149);
-                        border-bottom: none;
                         display: flex;
                         flex-direction: column;
                         height: 50%;
+                        padding-bottom: 7px;
                         label{
                             margin-top: 5px;
                             display: flex;
@@ -261,6 +273,7 @@
                         display: flex;
                         flex-direction: column;
                         justify-content: space-evenly;
+                        background-color: transparent;
                         label{
                             display: flex;
                             justify-content: space-between;
@@ -283,6 +296,7 @@
                         cursor: pointer;
                         &.off{
                             background-image: radial-gradient(rgb(221, 127, 3), rgb(189, 108, 2), rgb(142, 81, 1));
+                            pointer-events: none;
                         }
                     }
                     input[type="range"]{
@@ -324,6 +338,7 @@
                         cursor: pointer;
                         &.off{
                             background-image: radial-gradient(rgb(56, 106, 206), rgb(38, 89, 191), rgb(28, 73, 162));
+                            pointer-events: none;
                         }
                     }
                     input[type="range"]{
@@ -378,7 +393,8 @@
                         margin-left: 0px;
                         cursor: pointer;
                         &.off{
-                            background-image: radial-gradient(rgb(204, 68, 68), rgb(186, 63, 63), rgb(148, 21, 21));
+                            background-image: radial-gradient(rgb(204, 68, 68), rgb(186, 63, 63), rgb(148, 21, 21));;
+                            pointer-events: none;
                         }
                     }
                 }
@@ -387,6 +403,7 @@
                     .delay-time, .feedback, .wet-dry, .distortion, .crusher-wet, .bit-depth{
                         filter: grayscale(100%);
                         transition: filter .7s;
+                        pointer-events: none;
                     }
                 }
                 input[type="range"]{
@@ -404,8 +421,7 @@
     }
     .keys-bar{
         width: 100%;
-        display: flex;      
-        // background-color: rgba(165, 165, 165, 0.122);  
+        display: flex;       
         ol{
             border-radius: 3px;
             margin-left: 15px;
@@ -468,8 +484,9 @@
             flex-direction: column;
             justify-content: center;
             position: relative;
-            top: -45px;
-            left: -20px;
+            top: -5.5vh;
+            left: -2.5vw;
+            width: 12vw;
             background-color: transparent;
             font-size: 10px;
             label{
@@ -501,14 +518,17 @@
                     border: 1px solid rgb(157, 157, 157);
                     box-shadow: inset 1px 1px 0 rgb(142, 142, 142);
                     position: relative;
-                    top: 45px;
-                    left: 14px;
-                    max-width: 100px;
+                    margin-left: auto;
+                    margin-right: auto;
+                    top: 5vh;
+                    left: 0vw;
+                    max-width: 10vh;
                 }
             }
             &.off {
                 filter: grayscale(100%);
                 transition: filter .7s;
+                pointer-events: none;
             }
         }
     }
@@ -525,6 +545,7 @@
     &.off {
         filter: grayscale(100%);
         transition: filter .7s;
+        pointer-events: none;
     }
     audio {
         max-width: 175px;
@@ -548,6 +569,16 @@
         background-image: url(../images/start-rec.png);
         background-size: 50px 50px;
         cursor: pointer;
+        background: radial-gradient(rgba(255, 210, 247, 0.562), rgb(255, 0, 208));
+        // box-shadow: inset -1px -1px 3px rgb(144, 143, 143);
+        transition: background-color .1s;
+        text-align: center;
+        .rec {
+            color: rgb(0, 195, 255);
+            font-size: 17px;
+            font-weight: bold;
+            background: none;
+        }
     }
     .stop-record-btn {
         animation: glow 2s ease-in-out infinite alternate;
@@ -558,6 +589,18 @@
         background-image: url(../images/stop-rec.png);
         background-size: 50px 50px;
         cursor: pointer;
+        // background: radial-gradient(rgba(255, 210, 247, 0.082), rgba(255, 0, 208, 0.062));
+        background: radial-gradient(rgba(255, 210, 247, 0.562), rgb(255, 0, 208));
+        text-align: center;
+        .square {
+            position: relative;
+            width: 23px;
+            height: 23px;
+            margin: 7px;
+            background-color: rgba(0, 195, 255, 0.75);
+            // margin: 10px;
+            z-index: 1000;
+        }
     }
     .save-download {
         display: flex;
@@ -585,6 +628,7 @@
 
 .main-synth-box {
     // border: 10px solid blue;
+    background: transparent;
     display: flex;
     flex-direction: column;
     // justify-content: center;
@@ -744,8 +788,7 @@ input[type="range"]{
     border-radius: 50%;
     border: 2px solid rgb(72, 72, 72);
     position: relative;
-    left: 40px;
-    top: 110px;
+    left: 4vw;
+    top: 9vh;
     z-index: 10;
-    // display: inline-block;
 }

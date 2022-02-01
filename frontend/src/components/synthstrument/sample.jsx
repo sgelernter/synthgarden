@@ -156,12 +156,16 @@ class Sample extends React.Component {
         recordingButton = <button
                             className="stop-record-btn"
                             onClick={this.stopRecording}
-                          />
+                          >
+                            <div className="square"></div>
+                          </button>
       ) : (
         recordingButton = <button
                             className="start-record-btn"
                             onClick={this.startRecording}
-                          />
+                          >
+                            <div className="rec">REC.</div>
+                          </button>
       )
 
     let saveSample;
