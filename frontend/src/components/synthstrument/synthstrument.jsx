@@ -10,7 +10,9 @@ import FXBank from './fx_bank';
 import Sample from './sample';
 import PatchControlsContainer from './patch_controls_container';
 import Tape from './tape';
-import PatchedRecorder from './recording.js'
+import PatchedRecorder from './recording.js';
+import Scope from "./oscilloscope";
+
 
 class Synthstrument extends React.Component{
 
@@ -51,7 +53,8 @@ class Synthstrument extends React.Component{
             pongDelay,
             patchName: '',
             currentName: 'no patch selected',
-            recorder
+            recorder,
+            lastLink: eq3
         }
         this.instantiateAudioContext = this.instantiateAudioContext.bind(this);
         this.updatePatchName = this.updatePatchName.bind(this);
@@ -477,6 +480,7 @@ class Synthstrument extends React.Component{
         } else {
             prevLastNode.connect(effectNode);
         }
+        this.setState({lastLink: effectNode});
     }
 
     disconnectFX(effectNode){
@@ -485,13 +489,14 @@ class Synthstrument extends React.Component{
             effectNode.disconnect(destination);
             this.signalChain = [];
             this.state.eq3.connect(destination);
-
+            this.setState({lastLink: this.state.eq3});
         } else {
             this.signalChain.forEach (node => node.disconnect());
             const idx = this.signalChain.indexOf(effectNode);
             const newChain = this.signalChain.slice(0, idx).concat(this.signalChain.slice(idx + 1));
             this.state.eq3.chain(...newChain, destination);
             this.signalChain = newChain;
+            this.setState({lastLink: newChain.slice(-1)[0]});
         }
     }
 
@@ -590,6 +595,7 @@ class Synthstrument extends React.Component{
                                             feedDelayNode={this.state.feedDelay}
                                             pongDelayNode={this.state.pongDelay}
                                         />
+                                        < Scope contextStarted={this.state.contextStarted} lastLink={this.state.lastLink}/>
                                 </div>
                             </div>
                             <div className="keys-bar">
