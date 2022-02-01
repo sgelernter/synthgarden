@@ -47,14 +47,17 @@
                 &#new-patch-toggle{
                     background-image: radial-gradient(rgb(151, 241, 99), rgb(95, 206, 31), rgb(65, 145, 18));
                     color: white;
+                    cursor: pointer;
                 }
                 &#save-patch, &#update-patch{
                     background-image: radial-gradient(rgb(176, 218, 255), rgb(130, 161, 255), rgb(38, 90, 194));
                     color: white;
+                    cursor: pointer;
                 }
                 &#delete-patch{
                     background-image: radial-gradient(rgb(250, 182, 182), rgb(255, 130, 130), rgb(201, 52, 52));
                     color:white;
+                    cursor: pointer;
                 }
             }
             #current-patch-display {
@@ -80,6 +83,7 @@
             font-size: 20px;
             width: 100px;
             border-radius: 3px;
+            cursor: pointer;
         }
         .power-button.off {
             background-image: radial-gradient(rgb(138, 194, 105), rgb(95, 191, 40), rgb(67, 152, 17));
@@ -87,6 +91,7 @@
             font-size: 20px;
             width: 100px;
             border-radius: 3px;
+            cursor: pointer;
         }
     }
     .main-controls{
@@ -115,6 +120,9 @@
                 flex-direction: column;
                 height: 100%;
                 margin: 5px;
+                select {
+                    cursor: pointer;
+                }
                 label{
                     font-size: 14px;
                     margin: 5px;
@@ -157,6 +165,7 @@
                 justify-content: center;
                 height: 100%;
                 button{
+                    cursor: pointer;
                     margin: 5px;
                     font-size: 14px;
                     width: 100px;
@@ -310,6 +319,7 @@
                     select{
                         font-size: 10px;
                         margin-left: 10px;
+                        cursor: pointer;
                     }
                     .crush.visible{
                         display: flex;
@@ -350,6 +360,7 @@
                     select{
                         font-size: 10px;
                         margin-left: 25px;
+                        cursor: pointer;
                     }
                     .delay-controls{
                         display: flex;
@@ -541,7 +552,15 @@
     }
     .edit-btns {
         display: flex;
+        button {
+            cursor: pointer;
+        }
     }
+
+    .play-btn {
+        cursor: pointer;
+    }
+
     .start-record-btn {
         border: none;
         border-radius: 100px;
@@ -549,6 +568,7 @@
         height: 50px;
         background-image: url(../images/start-rec.png);
         background-size: 50px 50px;
+        cursor: pointer;
         background: radial-gradient(rgba(255, 210, 247, 0.562), rgb(255, 0, 208));
         // box-shadow: inset -1px -1px 3px rgb(144, 143, 143);
         transition: background-color .1s;
@@ -568,6 +588,7 @@
         height: 50px;
         background-image: url(../images/stop-rec.png);
         background-size: 50px 50px;
+        cursor: pointer;
         // background: radial-gradient(rgba(255, 210, 247, 0.082), rgba(255, 0, 208, 0.062));
         background: radial-gradient(rgba(255, 210, 247, 0.562), rgb(255, 0, 208));
         text-align: center;
@@ -589,6 +610,7 @@
 
     .save-btn {
         margin-right: 5px;
+        cursor: pointer;
     }
 
     @keyframes glow {
