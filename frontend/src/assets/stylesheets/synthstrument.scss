@@ -8,9 +8,7 @@
     // border: 2px solid orange;
 }
 
-.synthstrument {
-    // border: solid 2px fuchsia;
-    
+.synthstrument { 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,29 +18,67 @@
     padding-bottom: 20px;
     max-width: 70vw;
     height: 70vh;
-    .main-controls{
+    .synth-toolbar {
         display: flex;
-    }
-    .patch-interface{
-        display: flex;
-        flex-direction: column;
-        width: 150px;
-        // border: 1px solid fuchsia;
-        .hidden{
-            display: none;
+        justify-content: space-between;
+        width: 100%;
+        border: 1px solid rgb(177, 177, 177);
+        border-radius: 5px;
+        padding: 5px;
+        margin: 5px;
+        height: 35px;
+        // align-content: baseline;
+        .patch-interface{
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            width: 60%;
+            button {
+                font-size: 12px;
+                margin: 5px;
+                &#new-patch-toggle{
+                    background-image: radial-gradient(rgb(151, 241, 99), rgb(95, 206, 31), rgb(65, 145, 18));
+                    color: white;
+                }
+                &#save-patch, &#update-patch{
+                    background-image: radial-gradient(rgb(176, 218, 255), rgb(130, 161, 255), rgb(38, 90, 194));
+                    color: white;
+                }
+                &#delete-patch{
+                    background-image: radial-gradient(rgb(250, 182, 182), rgb(255, 130, 130), rgb(201, 52, 52));
+                    color:white;
+                }
+            }
+            #current-patch-display {
+                display: flex;
+                flex-direction: column;
+                font-size: 12px;
+                height: 100%;
+                text-align: left;
+                width: 25%;
+                #current-patch-title{
+                    align-self: flex-start;
+                }
+            }
+            .hidden{
+                display: none;
+            }
+        }
+        .power-button.on {
+            font-weight: bold;
+            background-image: radial-gradient(rgb(177, 245, 138), rgb(107, 233, 34), rgb(88, 186, 31));
+            color: white;
+            text-shadow: 0px 0px 2px rgb(227, 251, 215);
+            font-size: 20px;
+        }
+        .power-button.off {
+            background-image: radial-gradient(rgb(138, 194, 105), rgb(95, 191, 40), rgb(67, 152, 17));
+            color: rgb(231, 231, 231);
+            font-size: 20px;
         }
     }
-    .power-button.on {
-        font-weight: bold;
-        background-image: radial-gradient(rgb(177, 245, 138), rgb(107, 233, 34), rgb(88, 186, 31));
-        color: white;
-        text-shadow: 0px 0px 2px rgb(227, 251, 215);
-        font-size: 20px;
-    }
-    .power-button.off {
-        background-image: radial-gradient(rgb(138, 194, 105), rgb(95, 191, 40), rgb(67, 152, 17));
-        color: rgb(231, 231, 231);
-        font-size: 20px;
+    .main-controls{
+        display: flex;
     }
     .oscillators-bar{
         border: 1px solid rgb(177, 177, 177);
@@ -674,12 +710,3 @@ input[type="range"]{
     z-index: 10;
     // display: inline-block;
 }
-
-// input[type="range"]{
-//     &::-webkit-slider-runnable-track{
-
-//     }
-//     &::-webkit-slider-thumb{
-
-//     }
-// }

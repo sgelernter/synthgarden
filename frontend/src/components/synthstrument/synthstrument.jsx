@@ -496,7 +496,6 @@ class Synthstrument extends React.Component{
             const newChain = this.signalChain.slice(0, idx).concat(this.signalChain.slice(idx + 1));
             this.state.eq3.chain(...newChain, destination);
             this.signalChain = newChain;
-            debugger
             this.setState({lastLink: newChain.slice(-1)[0]});
         }
     }
@@ -505,10 +504,10 @@ class Synthstrument extends React.Component{
         return (
             <div className="synthstrument-container">
                 <div className="synthstrument">
-                    <button className="power-button off" onClick={this.instantiateAudioContext}>
-                            POWER
-                    </button>
-                    <div className="main-controls box">
+                    <div className="synth-toolbar">
+                        <button className="power-button off" onClick={this.instantiateAudioContext}>
+                                POWER
+                        </button>
                         < PatchControlsContainer 
                             patchName={this.state.patchName} 
                             currentName={this.state.currentName}
@@ -517,6 +516,8 @@ class Synthstrument extends React.Component{
                             disableKeys={this.disableKeys}
                             enableKeys={this.enableKeys}
                         />
+                    </div>
+                    <div className="main-controls box">
                         <div className="main-synth-box">
                             <div className="oscillators-bar">
                                 <div className="osc-box">

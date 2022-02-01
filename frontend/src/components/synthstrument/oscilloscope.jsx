@@ -25,7 +25,7 @@ class Scope extends React.Component{
                 prev.lastLink.disconnect(this.gainNode);
                 this.props.lastLink.connect(this.gainNode);
             }
-        }
+        } 
     }
     
     render(){
