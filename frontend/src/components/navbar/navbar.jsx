@@ -1,7 +1,3 @@
-/*
-♡ NAVBAR - FLIPS ON LOGGED IN STATUS ♡
-*/
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../../assets/stylesheets/navbar.scss';
