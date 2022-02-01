@@ -15,6 +15,7 @@ class Oscillator1 extends React.Component{
     updateSettings(e){
         const keys = document.querySelector('.keyboard');
         const volume = document.querySelector('.volume-label');
+
         e.preventDefault();
         if (e.currentTarget.name === 'oscType') {
             const pwmOption = document.getElementById('pwm-option1');
@@ -22,13 +23,15 @@ class Oscillator1 extends React.Component{
                 pwmOption.setAttribute('disabled', true);
                 document.getElementById('sine-option1').selected = true;
                 if (this.state.waveType === 'pwm') this.state.waveType = 'sine';
+                keys.className = `keyboard ${e.target.value}`;
+                volume.className = `volume-label ${e.target.value}`;
             } else {
+                keys.className = 'keyboard omni';
+                volume.className = 'volume-label omni';
                 pwmOption.removeAttribute('disabled');
             } 
                 
             this.state.oscType = e.target.value;
-            keys.className = `keyboard ${e.target.value}`;
-            volume.className = `volume-label ${e.target.value}`;
         } else {
             this.state.waveType = e.target.value;
         }
