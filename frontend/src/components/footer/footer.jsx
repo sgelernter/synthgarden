@@ -12,9 +12,9 @@ const Footer = () => {
             <div className="footer-box">
                 <div className="peeps">
                     <p>Sync with us:</p>
-                    <p><a href="https://github.com/sgelernter" target="_blank">Sam</a></p>
-                    <p><a href="https://github.com/stellalc7" target="_blank">Stella</a></p>
-                    <p><a href="https://github.com/em-ng" target="_blank">Emily</a></p>
+                    <p><a href="https://github.com/sgelernter" target="_blank">Sam G.</a></p>
+                    <p><a href="https://github.com/stellalc7" target="_blank">Stella C.</a></p>
+                    <p><a href="https://github.com/em-ng" target="_blank">Emily N.</a></p>
                 </div>
 
                 <div className="repo-link">
