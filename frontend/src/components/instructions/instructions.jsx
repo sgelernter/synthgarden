@@ -20,29 +20,22 @@ class Instructions extends React.Component {
                             The best way to get to know the effects is to try them out, but here's 
                             a brief explanation for some selected effects settings to get you started:
                         </span>
-                        <br/>
-                        <br/>
+                        <span className="separator"/>
+                        <span className="separator"/>
                         <span>Type/Shape:</span> The oscillator is what's generating the starting tone for the instrument. Its type and shape determine what the initial sound wave looks like
-                        <br/>
-                        <br/>
+                        <span className="separator"/>
                         <span>Attack/Release:</span> How long a note takes to reach its full volume/how long it takes to return to silence
-                        <br/> 
-                        <br/> 
+                        <span className="separator"/> 
                         <span>Sustain:</span> How long a note lasts before repeating when the key is held down
-                        <br/>
-                        <br/>
+                        <span className="separator"/>
                         <span>LFO:</span> "Low Frequency Oscillator" - Determines the character of the chorusing effect 
-                        <br/>
-                        <br/>
+                        <span className="separator"/>
                         <span>Freq:</span> "Frequency" - Determines the speed of the tremolo effect 
-                        <br/>
-                        <br/>
+                        <span className="separator"/>
                         <span>Crush:</span> Determines how harsh the bits are crushed - lower settings = lower bitrate = a more distorted sound 
-                        <br/>
-                        <br/>
+                        <span className="separator"/>
                         <span>Amount:</span> Anything with an "amount" slider allows you to blend the raw and effect signals from 0% to 100% processed
-                        <br/>
-                        <br/>
+                        <span className="separator"/>
                         <span>Feedback:</span> How long the delay will keep repeating
                     </p>
                 </div>

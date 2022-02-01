@@ -1,18 +1,31 @@
 .instructions {
-    line-height: 25px;
+    line-height: 20px;
+    width: 31vw;
+    position: relative;
+    left: -5px;
+    h1{
+        font-size: 35px;
+    }
     .intro{
         text-align: left;
+        font-size: 14px;
     }
     .explanations{
         text-align: left;
-        font-size: 12px;
-        line-height: 17px;
+        font-size: 11px;
+        line-height: 16px;
         span{
             font-weight: bold;
+            font-size: 12px;
             &.explanations-explanation{
                 font-weight: normal;
                 font-style: italic;
+                font-size: 11px;
             }
+        }
+        span.separator{
+            display: block;
+            height: 3px;
         }
     }
 }
