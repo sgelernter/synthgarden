@@ -1,5 +1,4 @@
 import React from "react";
-import * as Tone from 'tone';
 
 class Delays extends React.Component {
     constructor(props) {
