@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
 .sidebar{
-    border: 1px solid rgb(2, 181, 2);
+    // border: 1px solid rgb(2, 181, 2);
     position: fixed;
     height: 70vh;
     display: flex;
@@ -7,9 +9,11 @@
     justify-content: center;
     // align-items: center;
     h3{
-        font-size: 16px;
+        font-size: 18px;
+        font-family: 'Pacifico', cursive;
         margin: 0;
-        border: 2px solid orange;
+        text-shadow: 2px 2px 0 #4074b5, 2px -2px 0 #4074b5, -2px 2px 0 #4074b5, -2px -2px 0 #4074b5, 2px 0px 0 #4074b5, 0px 2px 0 #4074b5, -2px 0px 0 #4074b5, 0px -2px 0 #4074b5;
+        // border: 2px solid orange;
     }
     ul{
         list-style: none;
@@ -27,6 +31,7 @@
             cursor: pointer;
             position : relative;
             line-height: 2rem;
+            font-size: 14px;
             // padding: 10px;
             // border: 2px solid blue;
             &::before {
