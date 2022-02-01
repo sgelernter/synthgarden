@@ -6,7 +6,6 @@ export const LOAD_PATCH = 'LOAD_PATCH';
 export const REMOVE_PATCH = 'REMOVE_PATCH';
 export const defaultPatch = {
         "name": "no patch selected",
-        // "user": "61e81e5a1b384c95de480b61",
         "oscillator": {
             "osctype": "pwm",
             "attack": 0.2,

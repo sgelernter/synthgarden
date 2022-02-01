@@ -5,7 +5,6 @@ const passport = require('passport');
 const Patch = require("../../models/Patch");
 const validatePatchInput = require("../../validation/patches");
 
-//create patch
 router.post('/',
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
@@ -105,7 +104,6 @@ router.patch('/:id',
     })
 )
 
-//showing all the patches
 router.get('/', (req, res) => { 
     Patch.find()
          .then(patches => res.json(patches))
@@ -113,7 +111,6 @@ router.get('/', (req, res) => {
     }
 );
 
-//showing all the patches under a specific user
 router.get('/user/:userId', (req, res) => {
     Patch.find({user: req.params.userId})
         .then(patches => res.json(patches))
@@ -121,7 +118,6 @@ router.get('/user/:userId', (req, res) => {
     );
 });
 
-//showing a specific patch
 router.get('/:id', (req, res) => {
     Patch.findById(req.params.id)
         .then(patch => res.json(patch))
@@ -129,13 +125,11 @@ router.get('/:id', (req, res) => {
     );
 });
 
-//delete specific patch
 router.delete('/:id',
     passport.authenticate("jwt", { session: false}),
     (req, res) => {
         Patch.findByIdAndDelete(req.params.id)
               .then(patch => res.json(patch))
-            //   .then(() => res.json({ msg: "This patch has been deleted" }))
               .catch(err => res.status(404).json(err))
     }
 );

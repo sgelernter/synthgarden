@@ -44,7 +44,6 @@ class Sample extends React.Component {
         recording: false,
         url: clipUrl,
         clip
-        // audio: new Audio(clipUrl)
       })
     this.audio = new Audio(clipUrl);
   }
@@ -54,11 +53,10 @@ class Sample extends React.Component {
     const spools = Array.from(document.querySelectorAll('.spool'));
     spools.forEach(spool => spool.classList.remove('playing'));
     setTimeout(async () => {
-      clip = await this.props.recorder.stop();  // BLOB
+      clip = await this.props.recorder.stop();
       clipUrl = URL.createObjectURL(clip)
       var reader = new FileReader();
       reader.readAsDataURL(clip);
-      // debugger
       reader.onloadend = () => {
         base64String = reader.result;   
         this.handleSubstring(base64String, clipUrl, clip)
@@ -124,9 +122,6 @@ class Sample extends React.Component {
 
   loadSample() {
     let b64str = this.props.currentSample.file.split(',')[1];
-    // let audio = b64str.split(',')[1]
-    // let contentType = 'audio/webm'
-    // const blob = new Blob(b64str, {type: 'audio/webm;codecs=opus'});
     let blob = this.b64toBlob(b64str)
     const url = URL.createObjectURL(blob);
     this.setState({
@@ -195,20 +190,17 @@ class Sample extends React.Component {
       (
         download = 
         <>
-          {/* <audio src={this.state.url} autoPlay hidden loop></audio> */}
           <button className="play-btn" onClick={this.playPause}>
             {this.state.isPlaying ? 
             "PAUSE" : 
             "PLAY"}
           </button>
-          {/* <a href={this.state.url} download>Download {this.state.name}</a> */}
         </>
       ) : (
         download = null
       )
 
     let edit;
-    // eslint-disable-next-line no-unused-expressions
     this.state.updating ?
       (
         edit = 

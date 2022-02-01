@@ -5,8 +5,6 @@ module.exports = function validateRegisterInput(data) {
     
     let errors = {};
 
-    // NEED TO CHECK VARIABLE NAMES FOR CONFIRM PASSWORD
-
     data.username = validText(data.username) ? data.username : '';
     data.email = validText(data.email) ? data.email : '';
     data.password = validText(data.password) ? data.password : '';
@@ -32,17 +30,8 @@ module.exports = function validateRegisterInput(data) {
         errors.password = 'Password cannot be blank';
     }
 
-    // if (Validator.isEmpty(data.confirmPassword)) {
-    //     errors.confirmPassword = 'Confirm password is required';
-    // }
-
-    // if (!Validator.equals(data.password, data.confirmPassword)) {
-    //     errors.confirmPassword = 'Passwords must match';
-    // }
-
     return {
         errors, 
         isValid: Object.keys(errors).length === 0
     };
-
 }

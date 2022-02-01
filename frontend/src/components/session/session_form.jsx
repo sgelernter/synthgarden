@@ -88,7 +88,6 @@ class SessionForm extends React.Component {
         <form onSubmit={this.handleSubmit} className="login-form-box">
           <h1>SynthGarden</h1>
           <br/>
-          {/* {this.props.formType} or {this.props.otherForm} */}
           <div onClick={this.props.closeModal} className="close-x">x</div>
           <div className="login-form">
             <div className="inputFields">

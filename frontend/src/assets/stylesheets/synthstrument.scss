@@ -4,8 +4,6 @@
     justify-content: center;
     height: 100%;
     padding: 10px;
-    // max-width: 1500px;
-    // border: 2px solid orange;
 }
 
 .synthstrument { 
@@ -35,7 +33,6 @@
         height: 35px;
         max-width: 75vw;
         margin-top: 50px;
-        // align-content: baseline;
         .patch-interface{
             display: flex;
             justify-content: space-between;
@@ -136,7 +133,6 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                // border: 1px solid hotpink;
                 margin: 5px;
                 height: 100%;
                 label{
@@ -182,20 +178,17 @@
         }
         .post-FX{
             width: 100%;
-            // border: 1px solid white;
             height: 23vh;
             display: flex;
             font-size: small;
             padding: 10px;
             padding-right: 0px;
-            // border: 1px solid salmon;
             padding-bottom: 5px;
             .eq3{
                 display: flex;
                 justify-content: space-evenly;
                 width: 20%;
                 height: 95%;
-                // border: 1px solid white;
                 margin-top: -4px;
                 background-color: transparent;
                 label{
@@ -229,11 +222,9 @@
                     transition: filter .7s;
                     pointer-events: none;
                 }
-                // border: 1px solid white;
             }
             .fx-bank{
                 padding: 0px;
-                // border: 1px solid white;
                 margin-top: -7px;
                 height: 100%;
                 display: flex;
@@ -280,7 +271,6 @@
                         }
                     }
                     .tremolo{
-                        // border: 1px solid rgba(164, 164, 164, 0.299);
                         display: flex;
                         flex-direction: column;
                         justify-content: space-evenly;
@@ -319,7 +309,6 @@
                             box-shadow: inset 1px 1px 0 rgb(142, 142, 142);
                         }
                         &::-webkit-slider-thumb{
-                            // background: rgb(251, 162, 46);
                             background-image: radial-gradient(rgb(251, 220, 178), rgb(241, 192, 127), rgb(186, 106, 3));
                         }
                     }
@@ -327,7 +316,6 @@
                 .harmonics{
                     display: flex;
                     flex-direction: column;
-                    // border: 1px solid rgb(122, 208, 255);
                     width: 250px;
                     select{
                         font-size: 10px;
@@ -368,7 +356,6 @@
                 .delays{
                     display: flex;
                     flex-direction: column;
-                    // border: 1px solid rgb(122, 208, 255);
                     width: 33.3%;
                     select{
                         font-size: 10px;
@@ -378,7 +365,6 @@
                     .delay-controls{
                         display: flex;
                         flex-direction: column;
-                        // border: 1px solid blue;
                         height: 100%;
                         label{
                             display: flex;
@@ -586,15 +572,12 @@
         background-size: 50px 50px;
         cursor: pointer;
         background: radial-gradient(rgba(255, 210, 247, 0.562), rgb(255, 0, 208));
-        // box-shadow: inset -1px -1px 3px rgb(144, 143, 143);
         transition: background-color .1s;
         text-align: center;
         margin: 5px;
         .rec {
-            // color: rgb(0, 195, 255);
             color: white;
             font-size: 15px;
-            // text-align: center;
             font-weight: bold;
             background: none;
         }
@@ -608,7 +591,6 @@
         background-image: url(../images/stop-rec.png);
         background-size: 50px 50px;
         cursor: pointer;
-        // background: radial-gradient(rgba(255, 210, 247, 0.082), rgba(255, 0, 208, 0.062));
         background: radial-gradient(rgba(255, 210, 247, 0.562), rgb(255, 0, 208));
         text-align: center;
         .square {
@@ -616,9 +598,7 @@
             width: 21px;
             height: 21px;
             margin: auto;
-            // background-color: rgba(0, 195, 255, 0.75);
             background-color: white;
-            // margin: 10px;
             z-index: 1000;
         }
     }
@@ -636,22 +616,17 @@
     @keyframes glow {
         0% {
             box-shadow: 0 0 rgba(#ff00b3, 0.75);
-            // border-radius: 100px;
         }
         100% {
             box-shadow: 0 1px 20px 30px transparent;
-            // border-width: 2px;
-            // border-radius: 100px;
         }
     }
 }
 
 .main-synth-box {
-    // border: 10px solid blue;
     background: transparent;
     display: flex;
     flex-direction: column;
-    // justify-content: center;
     align-items: center;
 }
 
@@ -670,7 +645,6 @@
     background-color: rgb(98, 97, 97);
     border-radius: 5px;
     .screws{
-        // border: 1px solid red;
         height: 15px;
         background-color: transparent;
         position: relative;
@@ -799,9 +773,6 @@ input[type="range"]{
         -webkit-appearance: none;
         margin-top: -4px;
     }
-    // &::-moz-range-track{
-
-    // }
 }
 
 .oscilloscope-container{
