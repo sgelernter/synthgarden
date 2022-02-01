@@ -5,11 +5,10 @@
     position: absolute;
     display: flex;
     justify-content: space-between;
-    width: 98%;
     // border: 2px solid orange;
+    width: 98%;
     height: 10vh;
     bottom: 0;
-    // margin-bottom: 0;
 }
 
 .peeps {
@@ -17,12 +16,14 @@
     justify-content: space-between;
     // border: solid 2px yellow;
     // padding: 0 1px;
-    width: 500px;
+    // width: 700px;
     // filter: brightness(70%);
     p {
         // border: solid 2px fuchsia;
         font-family: 'Sacramento', cursive;
-        font-size: 38px;
+        // padding: 2px;
+        // width: 100%;
+        font-size: 34px;
         display: flex;
         align-items: center;
         text-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 10px #ff18d8, 0 0 15px #ff18d8, 0 0 20px #ff18d8, 0 0 25px #ff18d8, 0 0 45px #49ff18;
@@ -31,8 +32,8 @@
         // border: solid 2px blue;
         text-decoration: none;
         font-family: 'Sacramento', cursive;
-        width: 100px;
-        font-size: 30px;
+        width: 150px;
+        font-size: 28px;
         display: flex;
         justify-content: center;
         align-items: center;
