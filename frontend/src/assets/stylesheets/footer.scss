@@ -1,10 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
 
 .footer-box {
-    position: relative;
+    // position: relative;
+    position: absolute;
     display: flex;
     justify-content: space-between;
     width: 100%;
+    border: 2px solid orange;
+    height: 10vh;
+    bottom: 0;
+    // top: 0;
+    // margin-bottom: 0;
+    // margin: 100;
 }
 
 .peeps {

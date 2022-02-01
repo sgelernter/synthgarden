@@ -1,16 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-
 .sidebar{
-    // border: 1px solid rgb(2, 181, 2);
+    border: 1px solid rgb(2, 181, 2);
     position: fixed;
-    height: 70vh;
+    // height: 70vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     // align-items: center;
+    // position: relative;
     h3{
         font-size: 18px;
-        font-family: 'Pacifico', cursive;
+        // font-family: 'Pacifico', cursive;
         margin: 0;
         text-shadow: 2px 2px 0 #4074b5, 2px -2px 0 #4074b5, -2px 2px 0 #4074b5, -2px -2px 0 #4074b5, 2px 0px 0 #4074b5, 0px 2px 0 #4074b5, -2px 0px 0 #4074b5, 0px -2px 0 #4074b5;
         // border: 2px solid orange;
@@ -48,9 +47,11 @@
             }
             &:hover{
                 // text-shadow: 2px 0px 2px orange;
-                text-shadow: 5px 7px 7px #49ff18;
+                // text-shadow: 5px 7px 7px #49ff18;
+                text-shadow: 5px 7px 7px rgb(0, 225, 255);
                 background-size: 100%;
-                color: orange;
+                color: #8fca7f;
+                // color: rgb(247, 0, 255);
                 &::before {
                     left: calc(100% + 1rem);
                 }
