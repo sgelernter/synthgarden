@@ -574,8 +574,10 @@
         transition: background-color .1s;
         text-align: center;
         .rec {
-            color: rgb(0, 195, 255);
-            font-size: 17px;
+            // color: rgb(0, 195, 255);
+            color: white;
+            font-size: 15px;
+            // text-align: center;
             font-weight: bold;
             background: none;
         }
@@ -594,10 +596,11 @@
         text-align: center;
         .square {
             position: relative;
-            width: 23px;
-            height: 23px;
-            margin: 7px;
-            background-color: rgba(0, 195, 255, 0.75);
+            width: 21px;
+            height: 21px;
+            margin: auto;
+            // background-color: rgba(0, 195, 255, 0.75);
+            background-color: white;
             // margin: 10px;
             z-index: 1000;
         }
