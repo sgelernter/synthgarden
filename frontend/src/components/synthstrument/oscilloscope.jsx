@@ -21,10 +21,10 @@ class Scope extends React.Component{
             canvasContext.shadowColor = '#229e15';
             canvasContext.globalAlpha = 1.5;
             this.osc.start();
-        }
-        if (this.props.lastLink !== prev.lastLink) {
-            prev.lastLink.disconnect(this.gainNode);
-            this.props.lastLink.connect(this.gainNode);
+            if (this.props.lastLink !== prev.lastLink) {
+                prev.lastLink.disconnect(this.gainNode);
+                this.props.lastLink.connect(this.gainNode);
+            }
         }
     }
     
