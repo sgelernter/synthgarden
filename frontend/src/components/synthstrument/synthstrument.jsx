@@ -555,6 +555,8 @@ class Synthstrument extends React.Component{
                                         updateSample={this.props.updateSample}
                                         deleteSample={this.props.deleteSample}
                                         recorder={this.state.recorder}
+                                        disableKeys={this.disableKeys}
+                                        enableKeys={this.enableKeys}
                                         className="sample"
                                     />
                                     < Tape /> 
