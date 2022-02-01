@@ -1,15 +1,15 @@
 .sidebar{
-    border: 1px solid rgb(2, 181, 2);
+    // border: 1px solid rgb(2, 181, 2);
     position: fixed;
     // height: 70vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-top: 40px;
     // align-items: center;
     // position: relative;
     h3{
         font-size: 18px;
-        // font-family: 'Pacifico', cursive;
         margin: 0;
         text-shadow: 2px 2px 0 #4074b5, 2px -2px 0 #4074b5, -2px 2px 0 #4074b5, -2px -2px 0 #4074b5, 2px 0px 0 #4074b5, 0px 2px 0 #4074b5, -2px 0px 0 #4074b5, 0px -2px 0 #4074b5;
         // border: 2px solid orange;
