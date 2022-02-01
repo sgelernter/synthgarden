@@ -176,7 +176,12 @@ class Sample extends React.Component {
                 onFocus={this.props.disableKeys} onBlur={this.props.enableKeys}
                 placeholder="sample name"
             />
-            <button onClick={this.handleSave}>Save</button>
+            <div className="save-download">
+              <button onClick={this.handleSave} className="save-btn">Save</button>
+              <div>
+                <a href={this.state.url} download>Download {this.state.name}</a>
+              </div>
+            </div>
         </>
       ) : (
         saveSample = null
@@ -193,30 +198,32 @@ class Sample extends React.Component {
             "PAUSE" : 
             "PLAY"}
           </button>
-          
-          <a href={this.state.url} download>Download {this.state.name}</a>
+          {/* <a href={this.state.url} download>Download {this.state.name}</a> */}
         </>
       ) : (
         download = null
       )
 
     let edit;
+    // eslint-disable-next-line no-unused-expressions
     this.state.updating ?
       (
         edit = 
-        <>
-          <input
-            type="text"
-            value={this.state.sampleName}
-            onChange={this.updateSampleName}
-            onFocus={this.props.disableKeys} onBlur={this.props.enableKeys}
-            placeholder="sample name"
-          />
-          <div className="edit-btns">
-          <button onClick={this.handleUpdate}>Update</button>
-          <button onClick={this.handleDelete}>Delete</button>
-          </div>
-        </>
+          <>
+            <input
+              type="text"
+              value={this.state.sampleName}
+              onChange={this.updateSampleName}
+              onFocus={this.props.disableKeys} onBlur={this.props.enableKeys}
+              placeholder="sample name"
+            />
+            <div className="edit-btns">
+            <button onClick={this.handleUpdate}>Update</button>
+            <button onClick={this.handleDelete}>Delete</button>
+            </div>
+          </>,
+          saveSample = <></>
+
       ) : (
         edit = null
       )
