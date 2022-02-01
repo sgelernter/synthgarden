@@ -193,7 +193,7 @@ class Sample extends React.Component {
         download = 
         <>
           {/* <audio src={this.state.url} autoPlay hidden loop></audio> */}
-          <button onClick={this.playPause}>
+          <button className="play-btn" onClick={this.playPause}>
             {this.state.isPlaying ? 
             "PAUSE" : 
             "PLAY"}
@@ -218,8 +218,8 @@ class Sample extends React.Component {
               placeholder="sample name"
             />
             <div className="edit-btns">
-            <button onClick={this.handleUpdate}>Update</button>
-            <button onClick={this.handleDelete}>Delete</button>
+              <button onClick={this.handleUpdate}>Update</button>
+              <button onClick={this.handleDelete}>Delete</button>
             </div>
           </>,
           saveSample = <></>

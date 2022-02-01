@@ -1,7 +1,8 @@
 .sidebar{
-    // border: 1px solid rgb(2, 181, 2);
+    border: 1px solid rgb(2, 181, 2);
     position: fixed;
     // height: 70vh;
+    max-width: 30vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -9,7 +10,7 @@
     // align-items: center;
     // position: relative;
     h3{
-        font-size: 18px;
+        font-size: 16px;
         margin: 0;
         text-shadow: 2px 2px 0 #4074b5, 2px -2px 0 #4074b5, -2px 2px 0 #4074b5, -2px -2px 0 #4074b5, 2px 0px 0 #4074b5, 0px 2px 0 #4074b5, -2px 0px 0 #4074b5, 0px -2px 0 #4074b5;
         // border: 2px solid orange;
@@ -19,7 +20,7 @@
         // border: 2px solid fuchsia;
         margin-left: 0;
         padding: 3px;
-        font-size: 12px;
+        // font-size: 12px;
         display: flex;
         flex-direction: column;
         // &.list{
@@ -29,8 +30,8 @@
         li{
             cursor: pointer;
             position : relative;
-            line-height: 2rem;
-            font-size: 14px;
+            line-height: 1.5rem;
+            font-size: 12px;
             // padding: 10px;
             // border: 2px solid blue;
             &::before {
