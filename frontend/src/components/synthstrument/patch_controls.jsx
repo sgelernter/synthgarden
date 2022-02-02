@@ -5,6 +5,7 @@ import React from 'react';
 class PatchControls extends React.Component {
     constructor(props){
         super(props);
+        this.savePatch = this.savePatch.bind(this);
     }
 
     toggleNewPatchUI(){
@@ -13,12 +14,20 @@ class PatchControls extends React.Component {
         document.getElementById('new-patch-toggle').className = "hidden"; 
     }
 
+    savePatch(){
+        if (this.props.loggedIn) {
+            this.props.savePatch('new');
+        } else {
+            this.props.openLogin();
+        }
+    }
+
     render(){
         return (
             <div className="patch-interface" onFocus={this.props.disableKeys} onBlur={this.props.enableKeys}>
                 <div className="visible" id="new-patch-CRUD">
                     <input type="text" value={this.props.patchName} placeholder="enter patch name" onChange={this.props.updatePatchName} className="default-text" />
-                    <button onClick={() => this.props.savePatch('new')} id="save-patch">
+                    <button onClick={this.savePatch} id="save-patch">
                         save to patch library
                     </button>
                 </div>
