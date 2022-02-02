@@ -24,7 +24,7 @@ Frontend:
 // code here
 
 - Samples Recordings, and Download
-`A recorder is monkey-patched to change the audio mimeType to mp3 using the MediaRecorder API, and an mpegEncoder.`
+A recorder is monkey-patched to change the audio mimeType to mp3 using the `MediaRecorder API`, and an `mpegEncoder`.
 ```js
 class PatchedRecorder extends Tone.Recorder {
     constructor(props) {
@@ -38,11 +38,11 @@ class PatchedRecorder extends Tone.Recorder {
     }
 }
 ```
-`The recorder node is hooked into the main Synth instrument component via a bespoke connect function.`
+The recorder node is hooked into the main Synth instrument component via a bespoke `connectFx`.
 ```js
 this.props.connectFX(this.props.recorder);
 ```
-`Samples are recorded as blobs, and converted into Base64 strings before sending them to the backend for storage. This method allowed us to circumvent AWS or other external cloud technologies.`
+Samples are recorded as `blob`s, and converted into `Base64` strings before sending them to the backend for storage. This method allowed us to circumvent AWS or other external cloud technologies.
 ```js
 stopRecording() {
     let clip, clipUrl, base64String;
@@ -58,12 +58,12 @@ stopRecording() {
     }, 500);
 }
 ```
-`Storage limit was manually increased to allow users to save longer samples, while considering the hosting platform's, Heroku, limit.`
+Storage limit was manually increased to allow users to save longer samples, while considering the hosting platform's, `Heroku`, limit.
 ```js
 app.use(bodyParser.urlencoded({ extended: false, limit: '10mb'}));
 app.use(bodyParser.json({ limit: '10mb'}));
 ```
-`When a sample recording is retrieved from the backend, the Base64 string is converted into a blob with a function b64toBlob which takes in the b64str that was saved in our backend. This blob is then fed into an audio element, users can listen, update, or delete their recordings.`
+When a sample recording is retrieved from the backend, the Base64 string is converted into a blob with a function `b64toBlob` which takes in the `b64str` that was saved in our backend. This blob is then fed into an audio element, users can listen, update, or delete their recordings.
 ```js
 loadSample() {
     let b64str = this.props.currentSample.file.split(',')[1];
