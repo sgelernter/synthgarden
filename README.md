@@ -17,22 +17,22 @@ Frontend:
 - MediaRecorder API
 
 ## Functionalities
-- Backend
+### Backend
 ```js
 code here
 ```
 
-- In-browser synth instrument
+### In-browser synth instrument
 ```js
 code here
 ```
 
-- Patches
+### Patches
 ```js
 code here
 ```
 
-- Samples Recordings, and Download
+### Samples Recordings, and Download
 A recorder is monkey-patched to change the audio mimeType to mp3 (from the webm) default using the `MediaRecorder API`, and an `mpegEncoder`. Users can download recordings as mp3s.
 ```js
 class PatchedRecorder extends Tone.Recorder {
