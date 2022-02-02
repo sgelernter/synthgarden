@@ -34,7 +34,7 @@ code here
 ```
 
 ### Samples Recordings, and Download
-A recorder is monkey-patched to change the audio mimeType to mp3 from the webm default using the `MediaRecorder API`, and an `mpegEncoder`. Users can download recordings as mp3s.
+A recorder is monkey-patched to modify the audio `mimeType` to mp3 from the webm default using the `MediaRecorder API`, and an `mpegEncoder`. Users can download recordings as mp3s.
 ```js
 class PatchedRecorder extends Tone.Recorder {
     constructor(props) {
@@ -68,7 +68,7 @@ stopRecording() {
     }, 500);
 }
 ```
-Storage limit was manually increased to allow users to save longer samples, while considering the hosting platform's, `Heroku`, limit.
+Storage limit is manually increased so users can save longer samples, while considering our hosting platform's, `Heroku`, limit.
 ```js
 app.use(bodyParser.urlencoded({ extended: false, limit: '10mb'}));
 app.use(bodyParser.json({ limit: '10mb'}));
