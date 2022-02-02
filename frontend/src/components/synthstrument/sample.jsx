@@ -145,7 +145,7 @@ class Sample extends React.Component {
     const url = URL.createObjectURL(blob);
     this.setState({
       url,
-      name: this.props.currentSample.name,
+      sampleName: this.props.currentSample.name,
     });
     this.audio = new Audio(url);
     // console.log(this.state.name)
@@ -189,7 +189,7 @@ class Sample extends React.Component {
         <>
             <input
                 type="text"
-                value={this.state.name}
+                value={this.state.sampleName}
                 onChange={this.updateSampleName}
                 onFocus={this.props.disableKeys} onBlur={this.props.enableKeys}
                 placeholder="sample name"
@@ -197,7 +197,7 @@ class Sample extends React.Component {
             <div className="save-download">
               <button onClick={this.handleSave} className="save-btn">Save</button>
               <div>
-                <a href={this.state.url} download>Download {this.state.name}</a>
+                <a href={this.state.url} download>Download</a>
               </div>
             </div>
         </>
@@ -230,7 +230,7 @@ class Sample extends React.Component {
           <>
             <input
               type="text"
-              value={this.props.sampleName}
+              value={this.state.sampleName}
               onChange={this.updateSampleName}
               onFocus={this.props.disableKeys} onBlur={this.props.enableKeys}
               placeholder="sample name"
