@@ -17,6 +17,11 @@ Frontend:
 - MediaRecorder API
 
 ## Functionalities
+- Backend
+```js
+code here
+```
+
 - In-browser synth instrument
 ```js
 code here
@@ -42,7 +47,7 @@ class PatchedRecorder extends Tone.Recorder {
     }
 }
 ```
-The recorder node is hooked into the main Synth instrument component via a bespoke `connectFx`.
+The recorder node is hooked into the main Synth instrument component via a bespoke `connectFX`.
 ```js
 this.props.connectFX(this.props.recorder);
 ```
