@@ -189,7 +189,7 @@ class Sample extends React.Component {
         <>
             <input
                 type="text"
-                value={this.state.sampleName}
+                // value={this.state.sampleName}
                 onChange={this.updateSampleName}
                 onFocus={this.props.disableKeys} onBlur={this.props.enableKeys}
                 placeholder="sample name"
