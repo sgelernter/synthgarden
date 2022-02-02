@@ -1,5 +1,7 @@
+<img width="500" alt="logo" src="https://user-images.githubusercontent.com/17345270/152244000-65425c10-d429-4dfb-b67d-200ab6cc27ea.png">
+
 ## Overview
-Welcome to <img width="300" alt="logo" src="https://user-images.githubusercontent.com/17345270/152244000-65425c10-d429-4dfb-b67d-200ab6cc27ea.png">. Make music with an in-browser synth instrument! Explore synth settings, and create your own patches. You can even record short performance samples, and download them for later!
+Welcome to SynthGarden. Make music with an in-browser synth instrument! Explore synth settings, and create your own patches. You can even record short performance samples, and download them for later!
 
 ### Please visit the live site <a href="https://synthgarden.herokuapp.com" target="_blank">here</a>!
 
