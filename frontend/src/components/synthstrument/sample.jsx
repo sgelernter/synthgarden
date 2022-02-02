@@ -76,8 +76,9 @@ class Sample extends React.Component {
       this.audio.pause();
       this.setState({ isPlaying: false })
     }
-
-    if (this.state.clip.size > 50000) {
+    
+    // https://stackoverflow.com/questions/28307789/is-there-any-limitation-on-javascript-max-blob-size
+    if (this.state.clip.size > 50000) { //
         alert('This sample is too large, please record a new tune.')
     } else {
       let sampleData = {
