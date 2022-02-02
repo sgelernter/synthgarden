@@ -1,8 +1,8 @@
 <p align="center"><img width="500" alt="logo" src="https://user-images.githubusercontent.com/17345270/152244000-65425c10-d429-4dfb-b67d-200ab6cc27ea.png"></p>
 Welcome to SynthGarden! Make music with an in-browser synth instrument. Explore synth settings, and create your own patches. You can even record short performance samples, and download them for later.
 
-<p align="center" style="color: pink">
-    Please visit the live site <a href="https://synthgarden.herokuapp.com" target="_blank">here</a>!
+### Please visit the live site <a href="https://synthgarden.herokuapp.com" target="_blank">here</a>!
+<p align="center">
     <img src="https://user-images.githubusercontent.com/17345270/152242659-c8ca5834-867c-42e5-a28c-0ac51736daa4.gif" width="800">
 </p>
 
