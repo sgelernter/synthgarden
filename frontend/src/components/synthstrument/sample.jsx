@@ -77,7 +77,7 @@ class Sample extends React.Component {
       this.setState({ isPlaying: false })
     }
 
-    if (this.state.clip.size > 70000) {
+    if (this.state.clip.size > 50000) {
         alert('This sample is too large, please record a new tune.')
     } else {
       let sampleData = {
@@ -110,7 +110,9 @@ class Sample extends React.Component {
 
   componentDidUpdate(prevProps){
     if (this.props.currentSample !== prevProps.currentSample) {
+      // console.log(this.state.name)
       this.loadSample();
+      // console.log(this.state.name)
       this.setState({ updating: true })
     }
   }
@@ -145,7 +147,7 @@ class Sample extends React.Component {
       name: this.props.currentSample.name,
     });
     this.audio = new Audio(url);
-    console.log(this.state.name)
+    // console.log(this.state.name)
   }
 
   playPause() {
