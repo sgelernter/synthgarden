@@ -137,6 +137,12 @@ class Sample extends React.Component {
   }
 
   loadSample() {
+    let isPlaying = this.state.isPlaying;
+    if (isPlaying) {
+      this.audio.pause();
+      this.setState({ isPlaying: false })
+    }
+    
     let b64str = this.props.currentSample.file.split(',')[1];
     // let audio = b64str.split(',')[1]
     // let contentType = 'audio/webm'
