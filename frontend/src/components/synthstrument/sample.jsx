@@ -33,6 +33,7 @@ class Sample extends React.Component {
     this.props.recorder.start();
     this.setState({
       recording: true,
+      updating: false,
       url: '',
       file: ''
     });
@@ -142,7 +143,7 @@ class Sample extends React.Component {
       this.audio.pause();
       this.setState({ isPlaying: false })
     }
-    
+
     let b64str = this.props.currentSample.file.split(',')[1];
     // let audio = b64str.split(',')[1]
     // let contentType = 'audio/webm'
