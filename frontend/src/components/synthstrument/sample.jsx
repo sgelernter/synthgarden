@@ -27,17 +27,21 @@ class Sample extends React.Component {
   }
 
   startRecording() {
-    const spools = Array.from(document.querySelectorAll('.spool'));
-    spools.forEach(spool => spool.classList.add('playing'));
-    this.props.connectFX(this.props.recorder);
-    this.props.recorder.start();
-    this.setState({
-      recording: true,
-      updating: false,
-      sampleName: '',
-      url: '',
-      file: ''
-    });
+    if (this.props.loggedIn) {
+      const spools = Array.from(document.querySelectorAll('.spool'));
+      spools.forEach(spool => spool.classList.add('playing'));
+      this.props.connectFX(this.props.recorder);
+      this.props.recorder.start();
+      this.setState({
+        recording: true,
+        updating: false,
+        sampleName: '',
+        url: '',
+        file: ''
+      });
+    } else {
+      this.props.openLogin();
+    }
   }
 
   handleSubstring(base64String, clipUrl, clip) {

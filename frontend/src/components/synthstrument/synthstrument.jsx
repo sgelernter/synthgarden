@@ -555,6 +555,8 @@ class Synthstrument extends React.Component{
                                         disableKeys={this.disableKeys}
                                         enableKeys={this.enableKeys}
                                         className="sample"
+                                        loggedIn={this.props.loggedIn}
+                                        openLogin={this.props.openLogin}
                                     />
                                     < Tape /> 
                                 </div>
