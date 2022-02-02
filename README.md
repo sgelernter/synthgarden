@@ -73,7 +73,7 @@ Storage limit is manually increased so users can save longer samples, while cons
 app.use(bodyParser.urlencoded({ extended: false, limit: '10mb'}));
 app.use(bodyParser.json({ limit: '10mb'}));
 ```
-When a sample recording is retrieved from the backend, the Base64 string is converted into a blob with a function `b64toBlob` which takes in the `b64str` that was saved in our backend. This blob is then fed into an audio element, users can listen, update, or delete their recordings.
+When a sample recording is retrieved from the backend, the Base64 string is converted into a blob with a function `b64toBlob(b64str)`. This blob is fed into an audio element, so users can listen, update, or delete their recordings.
 ```js
 loadSample() {
     let b64str = this.props.currentSample.file.split(',')[1];
