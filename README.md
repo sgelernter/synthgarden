@@ -1,5 +1,5 @@
 ## Overview
-Make music with an in-browser synth instrument! Explore synth settings, and create your own patches. You can record short performance samples, and download them for later!
+Welcome to SynthGarden. Make music with an in-browser synth instrument! Explore synth settings, and create your own patches. You can even record short performance samples, and download them for later!
 
 ### Please visit the live site <a href="https://synthgarden.herokuapp.com" target="_blank">here</a>!
 
@@ -22,7 +22,7 @@ Frontend:
 code here
 ```
 
-### In-browser synth instrument
+### Synth Instrument
 ```js
 code here
 ```
@@ -61,8 +61,8 @@ stopRecording() {
         var reader = new FileReader();
         reader.readAsDataURL(clip);
         reader.onloadend = () => {
-        base64String = reader.result;   
-        this.handleSubstring(base64String, clipUrl, clip)
+            base64String = reader.result;   
+            this.handleSubstring(base64String, clipUrl, clip) // save b64str to backend
         }
     }, 500);
 }
