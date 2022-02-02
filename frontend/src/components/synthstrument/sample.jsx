@@ -34,6 +34,7 @@ class Sample extends React.Component {
     this.setState({
       recording: true,
       updating: false,
+      sampleName: '',
       url: '',
       file: ''
     });
@@ -79,7 +80,7 @@ class Sample extends React.Component {
     }
     
     // https://stackoverflow.com/questions/28307789/is-there-any-limitation-on-javascript-max-blob-size
-    if (this.state.clip.size > 50000) { //
+    if (this.state.clip.size > 70000) { //
         alert('This sample is too large, please record a new tune.')
     } else {
       let sampleData = {
@@ -107,6 +108,10 @@ class Sample extends React.Component {
       this.audio.pause();
       this.setState({ isPlaying: false })
     }
+    this.setState({
+      updating: false,
+      sampleName: '',
+    })
     this.props.deleteSample(this.props.currentSample._id)
   }
 
@@ -196,7 +201,7 @@ class Sample extends React.Component {
         <>
             <input
                 type="text"
-                // value={this.state.sampleName}
+                value={this.state.sampleName}
                 onChange={this.updateSampleName}
                 onFocus={this.props.disableKeys} onBlur={this.props.enableKeys}
                 placeholder="sample name"
