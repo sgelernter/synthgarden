@@ -71,6 +71,12 @@ class Sample extends React.Component {
   }
 
   handleSave() {
+    let isPlaying = this.state.isPlaying;
+    if (isPlaying) {
+      this.audio.pause();
+      this.setState({ isPlaying: false })
+    }
+
     if (this.state.clip.size > 70000) {
         alert('This sample is too large, please record a new tune.')
     } else {
@@ -94,6 +100,11 @@ class Sample extends React.Component {
   }
 
   handleDelete() {
+    let isPlaying = this.state.isPlaying;
+    if (isPlaying) {
+      this.audio.pause();
+      this.setState({ isPlaying: false })
+    }
     this.props.deleteSample(this.props.currentSample._id)
   }
 
@@ -134,6 +145,7 @@ class Sample extends React.Component {
       name: this.props.currentSample.name,
     });
     this.audio = new Audio(url);
+    console.log(this.state.name)
   }
 
   playPause() {
@@ -174,7 +186,7 @@ class Sample extends React.Component {
         <>
             <input
                 type="text"
-                value={this.state.sampleName}
+                value={this.state.name}
                 onChange={this.updateSampleName}
                 onFocus={this.props.disableKeys} onBlur={this.props.enableKeys}
                 placeholder="sample name"
@@ -215,7 +227,7 @@ class Sample extends React.Component {
           <>
             <input
               type="text"
-              value={this.state.sampleName}
+              value={this.props.sampleName}
               onChange={this.updateSampleName}
               onFocus={this.props.disableKeys} onBlur={this.props.enableKeys}
               placeholder="sample name"
