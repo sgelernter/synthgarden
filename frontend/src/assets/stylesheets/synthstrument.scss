@@ -157,7 +157,7 @@
                 &.off {
                     filter: grayscale(100%);
                     transition: filter .7s;
-                    pointer-events: none;
+                    // pointer-events: none;
                 }
             }
             .octave-shift {
@@ -175,7 +175,7 @@
                     &.off{
                         color: rgba(231, 231, 231, 0.952);
                         background-image: radial-gradient(rgb(56, 106, 206), rgb(38, 89, 191), rgb(28, 73, 162));
-                        pointer-events: none;
+                        // pointer-events: none;
                     }
                 }
             }
@@ -227,7 +227,7 @@
                 &.off {
                     filter: grayscale(100%);
                     transition: filter .7s;
-                    pointer-events: none;
+                    // pointer-events: none;
                 }
                 // border: 1px solid white;
             }
@@ -309,7 +309,7 @@
                         cursor: pointer;
                         &.off{
                             background-image: radial-gradient(rgb(221, 127, 3), rgb(189, 108, 2), rgb(142, 81, 1));
-                            pointer-events: none;
+                            // pointer-events: none;
                         }
                     }
                     input[type="range"]{
@@ -351,7 +351,7 @@
                         cursor: pointer;
                         &.off{
                             background-image: radial-gradient(rgb(56, 106, 206), rgb(38, 89, 191), rgb(28, 73, 162));
-                            pointer-events: none;
+                            // pointer-events: none;
                         }
                     }
                     input[type="range"]{
@@ -407,7 +407,7 @@
                         cursor: pointer;
                         &.off{
                             background-image: radial-gradient(rgb(204, 68, 68), rgb(186, 63, 63), rgb(148, 21, 21));;
-                            pointer-events: none;
+                            // pointer-events: none;
                         }
                     }
                 }
@@ -416,7 +416,7 @@
                     .delay-time, .feedback, .wet-dry, .distortion, .crusher-wet, .bit-depth{
                         filter: grayscale(100%);
                         transition: filter .7s;
-                        pointer-events: none;
+                        // pointer-events: none;
                     }
                 }
                 input[type="range"]{
@@ -541,7 +541,7 @@
             &.off {
                 filter: grayscale(100%);
                 transition: filter .7s;
-                pointer-events: none;
+                // pointer-events: none;
             }
         }
     }
@@ -558,7 +558,7 @@
     &.off {
         filter: grayscale(100%);
         transition: filter .7s;
-        pointer-events: none;
+        // pointer-events: none;
     }
     audio {
         max-width: 175px;

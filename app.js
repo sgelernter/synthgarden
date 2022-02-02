@@ -9,10 +9,12 @@ const users = require('./routes/api/users');
 const samples = require('./routes/api/samples');
 const patches = require('./routes/api/patches');
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false, limit: '10mb'}));
+app.use(bodyParser.json({ limit: '10mb'}));
 app.use(passport.initialize());
 require('./config/passport')(passport);
+
+// app.use(bodyParser({limit: '10mb'}));
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('frontend/build'));
