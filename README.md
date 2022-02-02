@@ -3,7 +3,7 @@ Make music with an in-browser synth instrument! Explore various synth settings a
 
 ### Please visit the live site is available <a href="https://synthgarden.herokuapp.com" target="_blank">here</a>!
 
-<img src="https://user-images.githubusercontent.com/17345270/152236325-f94ea966-f5cb-4a10-8913-9c4404f37785.gif" width="600">
+<img src="https://user-images.githubusercontent.com/17345270/152236325-f94ea966-f5cb-4a10-8913-9c4404f37785.gif" width="700">
 
 ## Technologies
 Backend:
