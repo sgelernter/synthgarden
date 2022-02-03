@@ -3,10 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
-// const Validator = require('validator');
 const User = require('../../models/User');
-// const Patch = require('../../models/Patch');
-// const Sample = require('../../models/Sample');
 const passport = require('passport');
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
@@ -98,14 +95,6 @@ router.post('/login', (req, res) => {
         .then(user => {
             if (!user) {
                 return res.status(404).json({email: 'This user does not exist'});
-                // User.findOne({username: idString})
-                //     .then(user => {
-                //         if (!user) {
-                //             return res.status(404).json({id: 'Invalid email/username'})
-                //         } else {
-                //             checkPassword(password, user.password, user, res);
-                //         }
-                //     });
             } else {
                 checkPassword(password, user.password, user, res);
             }
