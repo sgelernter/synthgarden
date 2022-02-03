@@ -25,7 +25,7 @@ code here
 ```
 
 ### Synth Instrument
-The synth instrument is constructed using the Tone.js library, a modular music-creation framework wrapped around the Web Audio API. The main synth component acts as the "single source of truth" for all of the musical elements of the app, and it's responsible for initializing not just the audio context but also each of the individual audio processing nodes that the user can adjust to customize the instrument's sound. Modern browsers don't allow apps to generate audio without user input (and thank goodness for that!), so we use a simulated power button in the UI to first start up the tone generator ("oscillator") if this is the first time powering the instrument on that session, before then setting up event listeners to allow users to play the instrument with their keyboard:
+The synth instrument is constructed using the `Tone.js` library, a modular music-creation framework wrapped around the `Web Audio API`. The main synth component acts as the "single source of truth" for all of the musical elements of the app, and it's responsible for initializing not just the audio context but also each of the individual audio processing nodes that the user can adjust to customize the instrument's sound. Modern browsers don't allow apps to generate audio without user input (and thank goodness for that!), so we use a simulated power button in the UI to first start up the tone generator ("oscillator") if this is the first time powering the instrument on that session, before then setting up event listeners to allow users to play the instrument with their keyboard:
 
 ```js
         if (this.state.contextStarted === 'false') {
@@ -77,7 +77,7 @@ Once the instrument is "powered on", we wanted a way to allow users to swap diff
 ```
 
 ### Patches
-A synth "patch" is essentially a recipe for creating a custom sound, except instead of a teaspoon of salt and two eggs you might be working with 20% distortion, a mid-scooped EQ curve, and a long-tail stereo delay. Because the synth component is responsible for tracking the settings of each effect node in real-time, allowing users to store patches in the backend is as simple as passing the database a "patchData" object that contains the current settings for each effect in the synth, along with the current order of those effects and flags that track whether any given effect is on or off: 
+A synth "patch" is essentially a recipe for creating a custom sound, except instead of a teaspoon of salt and two eggs you might be working with 20% distortion, a mid-scooped EQ curve, and a long-tail stereo delay. Because the synth component is responsible for tracking the settings of each effect node in real-time, allowing users to store patches in the backend is as simple as passing the database a `patchData` object that contains the current settings for each effect in the synth, along with the current order of those effects and flags that track whether any given effect is on or off: 
 ```js
         const modsOn = document.getElementById('mods').className === 'mods on';
         const harmonicsOn = document.getElementById('distortion').className === 'harmonics on';
