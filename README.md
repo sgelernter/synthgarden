@@ -22,7 +22,7 @@ Frontend:
 
 ## Functionalities
 ### Backend
-The backend employs Mongoose as an Object Data Modeling (ODM) Library for MongoDB's document-based NoSQL database to make storage more flexible. Controllers and routes were created using mongoose to fetch data from the frontend via user interactions.
+The backend employs Mongoose as an Object Data Modeling (ODM) Library for MongoDB's document-based NoSQL database to make storage more flexible. Models and validations were created using Mongoose and HTTP requests were handled by Express to retrieve information for the frontend.
 ```js
     router.post('/',
     passport.authenticate("jwt", { session: false }),
