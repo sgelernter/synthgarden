@@ -138,7 +138,7 @@ A synth "patch" is essentially a recipe for creating a custom sound, except inst
         }
 ```
 
-### Samples Recordings, and Download
+### Sample Recordings, and Download
 A recorder is monkey-patched to modify the audio `mimeType` to mp3 from the webm default using the `MediaRecorder API`, and an `mpegEncoder`. Users can download recordings as mp3s.
 ```js
 class PatchedRecorder extends Tone.Recorder {
@@ -157,7 +157,7 @@ The recorder node is hooked into the main Synth instrument component via a bespo
 ```js
 this.props.connectFX(this.props.recorder);
 ```
-Samples are recorded as `blob`s, and converted into `Base64` strings before sending them to the backend for storage. This method allowed us to circumvent external cloud technologies, e.g. AWS.
+Samples are recorded as `blob`s, and converted into `Base64` strings before sending them to the backend for storage. Through this, we circumvent external cloud technologies, e.g. AWS.
 ```js
 stopRecording() {
     let clip, clipUrl, base64String;
