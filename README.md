@@ -1,5 +1,5 @@
 <p align="center"><img width="500" alt="logo" src="https://user-images.githubusercontent.com/17345270/152244000-65425c10-d429-4dfb-b67d-200ab6cc27ea.png"></p>
-Welcome to SynthGarden! Make music with an in-browser synth instrument. Explore synth settings, and create your own patches. You can even record short performance samples, and download them for later.
+Welcome to SynthGarden! A place where users can make music with an in-browser synth instrument, explore synth settings, and create your own patches! Users can also record short performance samples and download them for later.
 
 ### Try it <a href="https://synthgarden.herokuapp.com" target="_blank">here</a>!
 <p align="center">
@@ -7,21 +7,51 @@ Welcome to SynthGarden! Make music with an in-browser synth instrument. Explore 
 </p>
 
 ## Technologies
+SynthGarden is a MERN stack web application that utilizes Web Audio API for handling audio operations in an audio setting.
+
 Backend:
 - MongoDB
-- ExpressJS
+- Express
 
 Frontend:
 - React / Redux
-- NodeJS
-- ToneJS
+- Node.js
+- Tone.js
 - MediaRecorder API
 - Web-Audio-Oscilloscope
 
 ## Functionalities
 ### Backend
+The backend employs Mongoose as an Object Data Modeling (ODM) Library for MongoDB's document-based NoSQL database to make storage more flexible. Controllers and routes were created using mongoose to fetch data from the frontend via user interactions.
 ```js
-code here
+    router.post('/',
+    passport.authenticate("jwt", { session: false }),
+    (req, res) => {
+        const { isValid, errors } = validateSampleInput(req.body);
+        if(!isValid) return res.status(400).json(errors);
+
+        const newSample = new Sample({
+            user: req.body.user,
+            name: req.body.name,
+            file: req.body.file
+        })
+
+        newSample
+            .save()
+            .then(sample => res.json(sample))
+    }
+)
+
+    router.patch('/:id',
+        passport.authenticate("jwt", { session: false }),
+        (async (req, res) => {
+            Sample.findById(req.params.id)
+                .then(sample => {
+                    sample.name = req.body.name;
+                    sample.save().then(() => res.json(sample))
+                });
+        })
+    )
 ```
 
 ### Synth Instrument
@@ -191,3 +221,7 @@ loadSample() {
     this.audio = new Audio(url);
   }
 ```
+
+## Future Implementations
+- Allow users to layer samples together
+- Create 'rooms' to group associated patches and samples
