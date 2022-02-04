@@ -187,7 +187,7 @@ The recorder node is hooked into the main Synth instrument component via a bespo
 ```js
 this.props.connectFX(this.props.recorder);
 ```
-Samples are recorded as `blob`s, and converted into `Base64` strings before sending them to the backend for storage. Through this, we circumvent external cloud technologies, e.g. AWS.
+Samples are recorded as `blob`s, and converted into `Base64` strings before they are sent to the backend for storage - allowing us to circumvent external cloud technologies, e.g. AWS.
 ```js
 stopRecording() {
     let clip, clipUrl, base64String;
